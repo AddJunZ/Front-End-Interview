@@ -5,7 +5,7 @@
 class LinkNode{
   constructor(node,next = null){
     this.node = node;
-    this.next = next;    
+    this.next = next;
   }
 }
 let str = 'ABCD';
