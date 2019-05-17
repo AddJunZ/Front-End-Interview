@@ -13,8 +13,10 @@ fn.author  //undefined
 ### 函数作为构造器
 ```js
 function fn(){
-  this.
+  this.author = 'AddJunZ';
 }
+let boke = new fn();
+boke.author;  //"AddJunZ"
 ```
 
 ### 箭头函数
