@@ -42,26 +42,26 @@ let a = new subFn('AddJunZ',18,'HuiHui');
 ts中的类定义与继承
 ```ts
 class superFn{
-    //实例属性，默认省略public关键字
-    name:string;
-    age:number;
-    //静态属性
-    static author:'AddJunZ';
-    //构造函数
-    constructor(name:string,age:number){
-      this.name = name;
-      this.age = age;
-    }
-    introduce():void{
-      console.log('我是' + this.name);
-    }
+  //实例属性，默认省略public关键字
+  name:string;
+  age:number;
+  //静态属性
+  static author:'AddJunZ';
+  //构造函数
+  constructor(name:string,age:number){
+    this.name = name;
+    this.age = age;
   }
+  introduce():void{
+    console.log('我是' + this.name);
+  }
+}
 
 class subFn extends superFn {
-    constructor(name: string, age: number) {
-        //super这里只是执行调用参数，并没有对参数的类型做出限制
-        super(name, age);
-    }
+  constructor(name: string, age: number) {
+    //super这里只是执行调用参数，并没有对参数的类型做出限制
+    super(name, age);
+  }
 }
 
 var a = new superFn('AddJunZ', 21);
