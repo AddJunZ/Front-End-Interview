@@ -86,10 +86,34 @@ var obj = {
 
 ```
 
-## 探究异步迭代
+### 探究异步迭代实际应用
 通过迭代实现异步操作
 ```js
+//让异步操作的回调函数中实现迭代器的next操作
+function getData(url){
+  ajax(url,function(res){
+    iterator.next(res);
+  })
+}
+
+//迭代函数
 function *main(){
-  
+  let data = yield getData('xxx');
+  let information = yield getData(`yyy?id=${data}`);
+}
+//迭代器
+var iterator = main();
+iterator.next();
+```
+
+### Promise改进
+```js
+function getData(url){
+  return new Promise(resolve,reject){
+    ajax(url,function(err,data){
+      if(err)reject(err);
+      else resolve(data);
+    })
+  }
 }
 ```

@@ -1,0 +1,28 @@
+<!-- DocumentFragment.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" id="a">
+    <span id="b">123</span>
+  </div>
+  <script>
+    var dom = nodeToFragment(document.getElementById('app'));
+    function nodeToFragment(node){
+      var flag = document.createDocumentFragment();
+      var child;
+      //使用documentfragment的append之后，页面上对应的节点会消失，多次调用firstChild即可获得所有的子节点
+      while(child = node.firstChild){
+        flag.appendChild(child)
+      }
+      return flag;
+    }
+    //再次append进父节点
+    document.getElementById('app').appendChild(dom);
+  </script>
+</body>
+</html>
