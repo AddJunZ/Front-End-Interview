@@ -1,6 +1,6 @@
 <!-- Graph.md -->
 ## 图
-> 代码参考![link](https://github.com/AddJunZ/Front-End/blob/master/DataStructure/code/graph.js)
+> 代码参考[link](https://github.com/AddJunZ/Front-End/blob/master/DataStructure/code/graph.js)
 ### 一、图的基本概念
 
 1. 图是一组由边连接的顶点，任何二元关系都可以用图表示。一个图G=(V,E)，V是一组顶点，E是一组边，连接V中的顶点。
@@ -166,8 +166,7 @@ graph.dfs(0);
 // visiting 6
 ```
 
-### 使用
-##### 1. 广度优先搜索最短路径
+### 广度优先搜索最短路径
 确定路径，需要有一个数组保存一个顶点到下一个顶点的所有边
 ```js
 //改进后的bfs算法
@@ -198,4 +197,9 @@ path(v,w){
   //逆转数组并输出
   console.log('The path is ' + line.reverse().join(' -> '));
 }
+```
+
+### 拓扑算法
+```js
+
 ```
