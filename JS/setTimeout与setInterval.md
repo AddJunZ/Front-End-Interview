@@ -1,6 +1,10 @@
 <!-- setTimeout与setInterval.md -->
 ## setTimeout
 > setTimeout是隔一段时间把任务丢进队列里
+```js
+// 0ms是实现不到的，最低为4ms
+setTimeout(function() {},0)
+```
 
 ## setInterval
 > setInterval是每隔一段时间把任务丢进队列里，如果任务队列中有任务残留，则不会继续推进任务

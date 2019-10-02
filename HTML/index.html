@@ -1,0 +1,28 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="aa">aa</div>
+		<div class="bb">bb</div>
+	</div>
+	<script>
+		window.onload = function() {
+			var wrapper = document.getElementById('wrapper');
+			console.log(wrapper.childNodes);
+			// 0: text
+			// 1: div.aa
+			// 2: text
+			// 3: div.bb
+			// 4: text
+			console.log(wrapper.children);
+			// 0: div.aa
+			// 1: div.bb
+		}
+	</script>
+</body>
+</html>

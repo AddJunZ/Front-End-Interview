@@ -1,0 +1,62 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+</head>
+<body>
+  <script>
+    //---全局变量t
+    // var t = null;
+    // function test() {
+    //   // 冗余的判断
+    //   if(t){
+    //     return t;
+    //   }
+    //   t = new Date().getTime();
+    //   return t;
+    // }
+    // console.log(test());
+    // console.log(test());
+    // console.log(test());
+    // console.log(test());
+
+    // ----闭包封闭作用域(解决全局污染)
+    // var test = (function() {
+    //   //初始化
+    //   var t = null;
+    //   return function() {
+    //     if(t){
+    //       return t;
+    //     }
+    //     // test调用首次调用记录时间
+    //     return new Date().getTime();
+    //   }
+    // })();
+    // console.log(test());
+    // console.log(test());
+    // console.log(test());
+    // console.log(test());
+
+    // ---完美解决
+    // var test = function() {
+    //   var t = new Date().getTime();
+    //   // 内部重写函数
+    //   test = function() {
+    //     return t;
+    //   }
+    //   return test();
+    // }
+
+
+    // console.log(test());//第一次计算值
+    // console.log(test());
+    // console.log(test());
+
+    // ---应用
+    
+
+  </script>
+</body>
+</html>

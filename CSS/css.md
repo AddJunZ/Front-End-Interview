@@ -22,3 +22,62 @@
   5. 计算bfc的高度，浮动元素也参与计算
 
 
+### margin的负值
+> 参考![link](https://www.cnblogs.com/xiaohuochai/p/5314289.html)
+
+
+### 水平垂直居中
+> 公共部分样式
+```
+.wrapper{
+  width:800px;
+  height: 400px;
+  margin: 20px auto;
+  background-color: #eee;
+}
+.center{
+  width: 100px;
+  height: 100px;
+  background-color: pink;
+}
+```
+##### 一、固定宽高
+绝对定位，top和left为50%， margin的left和top为本身宽高的一半
+```
+.wrapper{
+  position: relative;
+}
+.center{
+  position: absolute;
+  top:50%;
+  left:50%;
+  margin-top:-50px;
+  margin-left:-50px;
+}
+```
+##### 二、不知道宽高
+1. 使用CSS3 的 transform将位置在中心点平移自身宽高一半
+```
+.wrapper{
+  position: relative;
+}
+.center{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+```
+2. 使用flex
+```
+.wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+```
+
+### 图片与文字同行是，图片下的空隙
+
+img作为行级元素准寻base基线规则，会与底部有一定的空隙，只要使用```vertical-align: bottom```就可以对其底部。或者使用```display: block```，这样图片虽然会换行，但是没有间隙了。
+

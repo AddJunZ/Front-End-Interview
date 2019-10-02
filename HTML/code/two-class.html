@@ -1,0 +1,35 @@
+<!-- two-class.html -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>two-class</title>
+</head>
+<body>
+	<div class="a"></div>
+	<div class="a"></div>
+	<div class="a"></div>
+	<div class="a"></div>
+	<div class="a"></div>
+	<div class="a"></div>
+	<div class="a"></div>
+	<div class="a b">123</div>
+	<div class="b"></div>
+	<div class="b"></div>
+	<div class="b"></div>
+	<div class="b"></div>
+	<div class="b"></div>
+	<div class="b"></div>
+	<div class="b"></div>
+	<script>
+		window.onload = function(){
+			var all = document.getElementsByClassName('a b');
+			console.log(all);
+			var a = document.getElementsByClassName('a');
+			console.log(a);
+			var b = document.getElementsByClassName('b');
+			console.log(b);
+		}
+	</script>
+</body>
+</html>
