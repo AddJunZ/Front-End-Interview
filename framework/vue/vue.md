@@ -55,7 +55,9 @@ function compile(node,vm){
   })
 </script>
 ```
-
-# 一些特定的方法
-### provide和inject
-实现父传子
+### 父传子的方法
+1. props
+2. provide和inject ：允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效
+3. Vue.observable
+4. bus
+5. vuex
