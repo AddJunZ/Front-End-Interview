@@ -1,5 +1,5 @@
 <!-- vue.md -->
-#vue的核心功能
+# vue的核心功能
 ## 一、 访问器属性
 读取或者设置访问器属性的值实际上是调用了对应的setter函数和getter函数
 ```js
@@ -55,3 +55,7 @@ function compile(node,vm){
   })
 </script>
 ```
+
+# 一些特定的方法
+### provide和inject
+实现父传子
