@@ -8,7 +8,7 @@ var ajax = (url) => {
   xhr.send();
   xhr.onreadystatechange = () => {
     if(xhr.readyState == 4 && xhr.status == 200){
-      return xhr.responseTEXT;
+      return xhr.responseText;
     }
   }
 }
@@ -21,7 +21,7 @@ xhr.open('get','/getData?id=123',true)
 xhr.send();
 xhr.onreadystatechange = () => {
   if(xhr.readyState == 4 && xhr.status == 200){
-    return xhr.responseTEXT;
+    return xhr.responseText;
   }
 }
 ```
@@ -34,7 +34,7 @@ xhr.open('post','/getData',true)
 xhr.send('id=123');
 xhr.onreadystatechange = () => {
   if(xhr.readyState == 4 && xhr.status == 200){
-    return xhr.responseTEXT;
+    return xhr.responseText;
   }
 }
 ```
@@ -48,7 +48,7 @@ var promiseAjax = (url) => {
     xhr.send();
     xhr.onreadystatechange = () => {
       if(xhr.readyState == 4 && xhr.status == 200){
-        resolve(xhr.responseTEXT);
+        resolve(xhr.responseText);
       }
     }
   })
