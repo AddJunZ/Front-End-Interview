@@ -17,3 +17,8 @@ Function.prototype.myApply = function(ctx,argsArr) {
   delete ctx.fn;
 }
 ```
+
+### bind
+```js
+
+```

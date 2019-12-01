@@ -59,5 +59,17 @@ function compile(node,vm){
 1. props
 2. provide和inject ：允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效
 3. Vue.observable
-4. bus
+4. bus(生命周期函数问题)
 5. vuex
+
+### vue的$set的原理
+
+### vuex的数据流动
+组件->(dispatch)->action->(commit)->mutations->(mutate)->state->(render)->组件
+
+### vue-router
+> this.$router 访问路由器，也可以通过 this.$route 访问当前路由
+1. hash模式与history的区别：前端引进路由目的是为了改变视图的时候不会向后端发送请求
+```js
+```
+
