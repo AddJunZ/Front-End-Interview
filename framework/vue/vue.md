@@ -61,6 +61,7 @@ function compile(node,vm){
 3. Vue.observable
 4. bus(生命周期函数问题)
 5. vuex
+6. .sync语法糖
 
 ### vue的$set的原理
 
