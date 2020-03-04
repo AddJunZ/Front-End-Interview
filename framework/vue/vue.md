@@ -73,3 +73,43 @@ function compile(node,vm){
 ```js
 ```
 
+
+### 观察者模式
+1. 在vue中，每当watcher中检测的数据发生变化，都会触发依赖于该数据的所有视图更新，这里就运用到了观察者模式。用到数据的模板或者watcher作为观察者，每当被观察者更新数据，都会遍历所有的观察者，从而重新渲染模板。
+```js
+class Subject{
+  constructor(name){
+    this.name = name
+    this.state = 'W'
+    // 观察者列表
+    this.attachList = [];
+  }
+  // 更新状态(相当于发布)
+  setState(state){
+    this.state = state
+    // 通知
+    this.attachList.forEach(x => x.update(this.state))
+  }
+
+  // 添加观察者(相当于添加订阅者)
+  attach(obj){
+    this.attachList.push(obj)
+  }
+}
+
+class Observer{
+  constructor(name){
+    this.name = name
+  }
+  update(newState){
+    console.log(`你监测的状态变了，变成${newState}`);
+  }
+}
+
+let ee = new Subject('baby')
+let er1 = new Observer('huihui');
+let er2 = new Observer('addjun');
+ee.attach(er1)
+ee.attach(er2)
+ee.setState('F');
+```

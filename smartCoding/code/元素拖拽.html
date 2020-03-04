@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>元素拖拽</title>
+  <style>
+    #elem {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+      text-align: center;
+      line-height: 100px;
+      background: pink;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="elem">元素</div>
+  <script>
+    function drag(dom) {
+      this.dom = dom;
+      this.x;
+      this.y;
+      this.lastX = 0;
+      this.lastY = 0;
+      this.isMoving = false;
+    }
+    drag.prototype._init = function () {
+      // 整个屏幕监听移动事件
+      document.addEventListener('mousemove', (e) => {
+        if (this.isMoving) {
+          this.dom.style.transform = `translate(${e.clientX - this.x + this.lastX}px, ${e.clientY - this.y  + this.lastY}px)`;
+        }
+      })
+      // 元素监听鼠标按下
+      this.dom.addEventListener('mousedown', (e) => {
+        this.x = e.clientX;
+        this.y = e.clientY;
+        this.isMoving = true;
+      })
+      // 元素监听鼠标抬起
+      this.dom.addEventListener('mouseup', (e) => {
+        this.isMoving = false;
+        this.lastX = e.clientX - this.x + this.lastX;
+        this.lastY = e.clientY - this.y + this.lastY;
+      })
+    }
+  </script>
+  <script>
+    var div = new drag(document.querySelector('#elem'));
+    div._init();
+  </script>
+</body>
+
+</html>
