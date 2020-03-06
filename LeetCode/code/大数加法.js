@@ -8,7 +8,7 @@ function add(a,b){
   var aim = '';
   var maxLen = Math.max(aLen, bLen);
   for(let i = 0; i < maxLen; i++){
-    let sum = +(a[i]) + +(b[i]) + jinWei;
+    let sum = +(a[i] || 0) + +(b[i] || 0) + jinWei;
     if(sum >= 10){
       aim += sum % 10;
       jinWei = 1;
@@ -23,3 +23,4 @@ function add(a,b){
   return aim.split('').reverse().join('');
 }
 console.log(add('143','857'));
+console.log(add('1','99'));

@@ -81,3 +81,4 @@
 
 img作为行级元素准寻base基线规则，会与底部有一定的空隙，只要使用```vertical-align: bottom```就可以对其底部。或者使用```display: block```，这样图片虽然会换行，但是没有间隙了。
 
+### requestAnimationFrame
