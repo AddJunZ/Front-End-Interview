@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>requestAnimationFrame</title>
+  <style>
+    #div{
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+    }
+    #stop{
+      /* height: 20px; */
+      margin-top: 100px;
+      background-color: red;
+      color: black;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div id="div"></div>
+  <div id="stop">stop</div>
+  <script>
+    var deg = 0;
+    var id;
+    var div = document.querySelector('#div');
+    div.addEventListener('click', function(){
+      var self = this;
+      requestAnimationFrame(function change(){
+        self.style.transform = `rotate(${deg++}deg)`;
+        id = requestAnimationFrame(change);
+      })
+    })
+    document.getElementById('stop').onclick = function(){
+      // 点了几次加速就要点几次取消
+      cancelAnimationFrame(id)
+    }
+  </script>
+</body>
+</html>

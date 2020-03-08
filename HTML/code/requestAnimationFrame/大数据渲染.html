@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大数据渲染</title>
+  <style>
+    ul{
+      width:100px;
+      border:1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <ul id="list"></ul>  
+  <script>
+    var total = 10000;
+    var size = 100;
+    var count = total / size;
+    var done = 0;
+    var ul = document.getElementById('list');
+
+    function addItems(){
+      var li = null;
+      var fg = document.createDocumentFragment();
+
+      // 一个帧需要渲染的内容
+      for(var i = 0; i < size; i++){
+        li = document.createElement('li');
+        li.innerText = 'item' + (done * size + i);
+        fg.appendChild(li);
+      }
+
+      ul.appendChild(fg);
+      done++;
+      
+      if(done < count){
+        requestAnimationFrame(addItems);
+      }
+    }
+    requestAnimationFrame(addItems);
+  </script>
+</body>
+</html>
