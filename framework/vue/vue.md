@@ -55,7 +55,7 @@ function compile(node,vm){
   })
 </script>
 ```
-### 父传子的方法
+### 2. 父传子的方法
 1. props
 2. provide和inject ：允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效
 3. Vue.observable
@@ -63,12 +63,12 @@ function compile(node,vm){
 5. vuex
 6. .sync语法糖
 
-### vue的$set的原理
+### 3. vue的$set的原理
 
-### vuex的数据流动
+### 4. vuex的数据流动
 组件->(dispatch)->action->(commit)->mutations->(mutate)->state->(render)->组件
 
-### vue-router
+### 5. vue-router
 > this.$router 访问路由器，也可以通过 this.$route 访问当前路由
 1. hash模式与history的区别：前端引进路由目的是为了改变视图的时候不会向后端发送请求
 ```js
@@ -115,7 +115,7 @@ ee.attach(er2)
 ee.setState('F');
 ```
 
-### vue的双向绑定原理
+### 6. vue的双向绑定原理
 vue.js是通过数据劫持结合发布订阅者的方式，通过Object.defineProperty()来劫持各个属性的setter和getter，在数据变动时发布消息给订阅者，触发响应的监听回调。
 
 1. 对需要观察的数据对象进行递归遍历，包括子属性对象的属性，使之都变成响应式。
@@ -126,14 +126,59 @@ vue.js是通过数据劫持结合发布订阅者的方式，通过Object.defineP
     3. 待属性变动 dep.notify()通知时，能调用自身的update()方法，并触发compile中绑定的回调
 4. 整合Observe、Compile和Watcher三者，通过 Observer 来监听自己的 model 数据变化，通过 Compile 来解析编译模板指令，最终利用 Watcher 搭起 Observer 和 Compile 之间的通信桥梁，达到数据变化 -> 视图更新；视图交互变化(input) -> 数据 model 变更的双向绑定效果。
 
-### 为什么data需要是一个函数而不能直接返回一个对象呢
+### 7. 为什么data需要是一个函数而不能直接返回一个对象呢
 组件复用时所有组件实例都会共享一个data，如果data是对象的话，就会造成一个组件修改data以后会影响到其它所有组件，所以需要将data写成函数，每次用到就调用一次函数获得新的数据。而new Vue的实例，是不会被复用的，因此不存在对象引用问题。
 
-### vue的diff算法
+### 8. vue的diff算法
 
 1. 首先最其实vue会根据dom结构生成对应的virtual dom，当virtual dom某个节点的数据改变后会生成一个新的vnode，然后新的Vnode和oldVnode作对比，发现有不一样的地方旧直接修改在真实的DOM上，然后使oldVnode的值为Vnode
 
 2. 在采取diff算法比较新旧节点的时候，比较只会在同层级进行, 不S会跨层级比较。
 
 
-### vue的生命周期
+### 9. vue的生命周期
+> var vm = new Vue({}) 开始创建vue实例对象
+> init Events & Lifecycle 初始化vue空的实例对象
+1. beforeCreate：组件实例被创建之初，组件的属性生效之前
+> 准备data和methods，可操作数据
+2. created：组件实例已经被完成创建，属性以及绑定，真实的dom还未生成，$el还不可用
+> vue开始编辑模板，在内存中生成编译好的模板字符串，渲染好为内存中dom，还未挂载
+3. beforeMount：在挂载开始之前被调用，相关的render函数首次被调用
+> 创建vm.$el并且替代当前的el节点，替换到真实的浏览器页面中
+4. mounted：el被新创建的vm.$el替换，并挂载到实例上
+> 组件脱离创建状态进入运行状态
+5. beforeUpdate：组件数据更新之前调用，发生在虚拟dom打补丁之前
+> data数据是最新的，但页面的数据时旧的
+> virtual dom的re-render和patch
+6. update：组件数据更新之后
+7. activited：keep-alive专属，组件被激活时调用
+8. deactivated：keep-alive专属，组件被销毁时调用
+9. beforeDestory：组件销毁前调用
+> 数据方法依然存在
+10. destoryed：组件销毁后调用
+> 所有数据方法都不可用了
+
+### 10. vue-router的原理机制
+1. hash模式，早期的前端路由实现就是基于```location.hash```实现的，通过修改地址url中的#后的内容实现跳转。
+
+实现原理：
+
+    1. url的hash值表示客户点的一种状态，向后端发生请求时不会带上该部分内容
+    2. hash值的改变会在浏览器的访问历史中增加一个记录，因此可以通过浏览器的前进后退按钮对hash切换
+    3. 通过a标签并设置href属性，用户点击标签url的hash值就会变化，活着手动对location.hash赋值，改变url的hash值
+    4. 对hashchange事件进行监听（window.onhashchange），监听hash的变化，从而对页面进行跳转或渲染。
+
+```js
+window.addEventListener('hashchange', function() {
+  console.log('The hash has changed!')
+  // location.hash
+}, false);
+```
+
+2. history模式，html5提供了history api来实现url的变化。最重要的两个是：新增历史的```history.pushState()```和替换当前历史的```history.replaceState()```
+
+```js
+window.addEventListener('popstate', (event) => {
+  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+});
+```
