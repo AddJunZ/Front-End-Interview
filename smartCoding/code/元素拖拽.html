@@ -35,30 +35,38 @@
       this.lastY = 0;
       this.isMoving = false;
     }
-    drag.prototype._init = function () {
+    drag.prototype.init = function () {
       // 整个屏幕监听移动事件
-      document.addEventListener('mousemove', (e) => {
-        if (this.isMoving) {
-          this.dom.style.transform = `translate(${e.clientX - this.x + this.lastX}px, ${e.clientY - this.y  + this.lastY}px)`;
-        }
-      })
+      document.addEventListener('mousemove', this._mouseMove.bind(this))
       // 元素监听鼠标按下
-      this.dom.addEventListener('mousedown', (e) => {
-        this.x = e.clientX;
-        this.y = e.clientY;
-        this.isMoving = true;
-      })
+      this.dom.addEventListener('mousedown', this._mouseUp.bind(this))
       // 元素监听鼠标抬起
-      this.dom.addEventListener('mouseup', (e) => {
-        this.isMoving = false;
-        this.lastX = e.clientX - this.x + this.lastX;
-        this.lastY = e.clientY - this.y + this.lastY;
-      })
+      this.dom.addEventListener('mouseup', this._mouseDown.bind(this))
+    }
+    drag.prototype.cancel = function(){
+      document.removeEventListener('mousemove', this._mouseMove.bind(this))
+      this.dom.removeEventListener('mousedown', this._mouseUp.bind(this))
+      this.dom.removeEventListener('mouseup', this._mouseDown.bind(this))
+    }
+    drag.prototype._mouseMove = function(e){
+      if (this.isMoving) {
+        this.dom.style.transform = `translate(${e.clientX - this.x + this.lastX}px, ${e.clientY - this.y  + this.lastY}px)`;
+      }
+    }
+    drag.prototype._mouseUp = function(e){
+      this.x = e.clientX;
+      this.y = e.clientY;
+      this.isMoving = true;
+    }
+    drag.prototype._mouseDown = function(e){
+      this.isMoving = false;
+      this.lastX = e.clientX - this.x + this.lastX;
+      this.lastY = e.clientY - this.y + this.lastY;
     }
   </script>
   <script>
     var div = new drag(document.querySelector('#elem'));
-    div._init();
+    div.init();
   </script>
 </body>
 
