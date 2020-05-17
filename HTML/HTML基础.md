@@ -43,3 +43,13 @@ function mySetInterval(callback) {
 
 ```
 6. 大数据渲染（将后台几万条数据插入表格）
+
+### 6. 位置字段的含义
+1. clientX、clientY：点击位置距离当前body可视区域的x，y坐标
+2. screenX、screenY：点击位置距离当前电脑屏幕的x，y位置
+3. offsetLeft、offsetTop：相对于最近的祖先定位元素
+4. clientLeft、clientTop：表示内容区域的左上角相对于整个元素左上角的位置（包括边框）
+5. clientWidth、clientHeight：内容区域的宽高，不包括边框宽度值
+6. scrollLeft、scrollTop：元素滚动的距离大小
+7. scrollWidth、scrollHeight：整个内容区域的宽度（包括需要拉动滚动条隐藏起来的那部分）
+8. pageX、pageY：对于整个页面来说，包括了被卷去的body部分的长度

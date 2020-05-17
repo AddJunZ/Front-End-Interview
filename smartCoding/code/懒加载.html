@@ -1,0 +1,77 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>index</title>
+  <style>
+    #wrapper{
+      height: 200px;
+      width: 320px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    .inner{
+      width: 300px;
+      height: 30px;
+      border:1px solid black;
+    }
+  </style>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+		<div class="inner">1</div>
+  </div>
+  <script>
+    // 核心代码
+    function lazyLoad(dom, cb){
+      // 传递两个参数，一个是外部的包裹节点，一个是到达底部的回调参数(一般为添加数组的函数)
+      this.dom = dom;
+      this.cb = cb;
+    }
+    lazyLoad.prototype.init = function(){
+      // 开始监听
+      this.dom.addEventListener('scroll', this._mouseScroll.bind(this))
+    }
+    lazyLoad.prototype.cancel = function(){
+      this.dom.removeEventListener('scroll', this._mouseScroll.bind(this))
+    }
+    // 便于后序取消监听
+    lazyLoad.prototype._mouseScroll = function(){
+      let sh = this.dom.scrollHeight;
+      let st = this.dom.scrollTop;
+      let ch = this.dom.clientHeight;
+      // 判断是否到达底部
+      if(st + ch >= sh){
+        // 到达
+        this.cb();
+      }
+    }
+  </script>
+	<script>
+    let wrapper = document.querySelector("#wrapper");
+    let callback = () => {
+      let template = new Array(10).fill(2);
+      // wrapper.innerHTML += template.reduce((acc,curr)=>)
+      wrapper.innerHTML += 'rrrrr';// 我睡了 这里就简易实现一下
+    }
+    let lazyWrapper = new lazyLoad(wrapper, callback);
+    lazyWrapper.init();
+	</script>
+</body>
+</html>
