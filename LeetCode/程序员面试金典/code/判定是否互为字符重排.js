@@ -4,11 +4,12 @@
  * @return {boolean}
  */
 
-// 简便1
+// 1: 将两个字符串按字母排序后 判断是否相等
 var CheckPermutation = function(s1, s2) {
   return s1.split('').sort().join() === s2.split('').sort().join();
 }
 
+// 2: 使用hash，一个用加 一个用减 最后的每一项都是0
 var CheckPermutation = function(s1, s2) {
   let map = {};
   let [len1, len2] = [s1, s2].map(s => s.length);
@@ -27,4 +28,9 @@ var CheckPermutation = function(s1, s2) {
     return true;
   }
   return false;
+}
+
+// 3: 位运算
+var CheckPermutation = function(s1, s2) {
+  
 }
