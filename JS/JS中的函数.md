@@ -20,9 +20,7 @@ boke.author;  //"AddJunZ"
 ```
 
 ### 构造函数中有return语句
-// 构造函数中有return
-// 如果return的是【值】类型，则不影响构造函数返回
-// 如果return的是【引用】类型，比如数组，对象，函数则会对实例进行替换
+构造函数中有retur时，如果return的是【值】类型，则不影响构造函数返回，如果return的是【引用】类型，比如数组，对象，函数则会对实例进行替换
 
 ```js
 function Animal(params){
