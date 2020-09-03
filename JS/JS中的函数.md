@@ -19,6 +19,29 @@ let boke = new fn();
 boke.author;  //"AddJunZ"
 ```
 
+### 构造函数中有return语句
+// 构造函数中有return
+// 如果return的是【值】类型，则不影响构造函数返回
+// 如果return的是【引用】类型，比如数组，对象，函数则会对实例进行替换
+
+```js
+function Animal(params){
+	this.hasTail = true
+	return params
+}
+let t = new Animal(1)
+console.log(t)
+// Animal {hasTail: true}
+
+function Animal(params){
+	this.hasTail = true
+	return params
+}
+let b = new Animal({k : 123})
+console.log(b)
+// {k: 123}
+```
+
 ### 箭头函数
 
 ### 箭头函数与普通函数的区别
@@ -31,3 +54,4 @@ boke.author;  //"AddJunZ"
 
 ### 什么时候用箭头函数
 1. 当你在对象原型上定义的方法，该方法内部的回调函数需要用到对象的属性时，将回调写成箭头函数能方便访问，参考元素拖拽。
+
