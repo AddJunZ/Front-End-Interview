@@ -29,8 +29,3 @@ var CheckPermutation = function(s1, s2) {
   }
   return false;
 }
-
-// 3: 位运算
-var CheckPermutation = function(s1, s2) {
-  
-}
