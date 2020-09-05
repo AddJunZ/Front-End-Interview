@@ -10,3 +10,4 @@
 面试题 01.06 | [字符串压缩](https://leetcode-cn.com/problems/compress-string-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/6.js)
 面试题 01.07 | [旋转矩阵](https://leetcode-cn.com/problems/rotate-matrix-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/7.js)
 面试题 01.08 | [零矩阵](https://leetcode-cn.com/problems/zero-matrix-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/8.js)
+面试题 01.09 | [字符串轮转](https://leetcode-cn.com/problems/string-rotation-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/9.js)
