@@ -31,10 +31,13 @@
       requestAnimationFrame(function change(){
         self.style.transform = `rotate(${deg++}deg)`;
         id = requestAnimationFrame(change);
+        console.log('new id ', id);
       })
     })
     document.getElementById('stop').onclick = function(){
       // 点了几次加速就要点几次取消
+      // 为什么还能获得上一次的id呢？？？
+      console.log('id', id)
       cancelAnimationFrame(id)
     }
   </script>
