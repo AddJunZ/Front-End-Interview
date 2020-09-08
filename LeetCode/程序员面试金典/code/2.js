@@ -1,3 +1,4 @@
+// 判定是否互为字符重排
 /**
  * @param {string} s1
  * @param {string} s2

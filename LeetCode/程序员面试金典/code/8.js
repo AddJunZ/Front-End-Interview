@@ -1,3 +1,4 @@
+// 零矩阵
 /**
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
@@ -24,3 +25,7 @@ var setZeroes = function(matrix) {
     }
   }
 };
+
+
+// 2. 不开辟新数组解法
+// 先用两个变量记录第一行第一列有没有0

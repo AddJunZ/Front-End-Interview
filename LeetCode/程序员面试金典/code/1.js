@@ -1,3 +1,4 @@
+// 判定字符是否唯一
 /**
  * @param {string} astr
  * @return {boolean}

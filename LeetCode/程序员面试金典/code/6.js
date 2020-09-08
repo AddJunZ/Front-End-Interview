@@ -1,3 +1,4 @@
+// 字符串压缩
 /**
  * @param {string} S
  * @return {string}
