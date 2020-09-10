@@ -53,3 +53,11 @@ function mySetInterval(callback) {
 6. scrollLeft、scrollTop：元素滚动的距离大小
 7. scrollWidth、scrollHeight：整个内容区域的宽度（包括需要拉动滚动条隐藏起来的那部分）
 8. pageX、pageY：对于整个页面来说，包括了被卷去的body部分的长度
+
+### 7. DOMContentLoaded与load的区别
+
+> load：当整个页面及所有依赖资源如样式表和图片都已完成加载时，将触发load事件。
+
+> domcontentloaded: 当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，而无需等待样式表、图像和子框架的完全加载。
+
+区别：
