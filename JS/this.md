@@ -87,5 +87,10 @@ obj.fn(); //AddJunZ
 
 ### 在监听事件中使不使用箭头函数，对this的影响
 ```js
-
+div.addEventListener('click', function() {
+  console.log('this', this) // dom节点
+})
+div.addEventListener('click', () => {
+  console.log('this', this) // window对象
+})
 ```

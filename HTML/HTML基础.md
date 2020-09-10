@@ -60,4 +60,17 @@ function mySetInterval(callback) {
 
 > domcontentloaded: 当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，而无需等待样式表、图像和子框架的完全加载。
 
+```js
 区别：
+window.addEventListener('DOMContentLoaded', function(){
+  start = window.performance.now();
+  console.log('domcontentloaded', start);
+})
+window.addEventListener('load', function(){
+  let cha = window.performance.now() - start;
+  console.log('load', cha);
+})
+
+// domcontentloaded 18.424999998387648
+// load 29.399999999441206
+```
