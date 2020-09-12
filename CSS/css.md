@@ -144,3 +144,10 @@ p:nth-child(2){
   color: red;
 }
 ```
+
+### link和@import的区别
+1. link属于HTML范畴——除了加载CSS，还能支持其他事务，且在HTML页面加载的同时加载
+2. @import属于CSS范畴——只能加载CSS，且需要页面网页全部载入以后加载
+3. link支持使用Javascript控制DOM去改变样式
+4. link是css2.1的，没有兼容问题
+5. link还可以引入其他类型比如图片等资源文件，import只能引用样式文件

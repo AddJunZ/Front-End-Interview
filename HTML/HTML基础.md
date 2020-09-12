@@ -74,3 +74,6 @@ window.addEventListener('load', function(){
 // domcontentloaded 18.424999998387648
 // load 29.399999999441206
 ```
+
+### 8. 手动写动画的最小时间间隔
+显示器默认频率60hz,既美妙刷新60次，所以时间是1/60秒，即16.7ms
