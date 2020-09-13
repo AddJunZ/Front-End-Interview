@@ -16,5 +16,6 @@
 面试题 02.03 | [删除中间节点](https://leetcode-cn.com/problems/delete-middle-node-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/12.js)
 面试题 02.04 | [分割链表](https://leetcode-cn.com/problems/partition-list-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/13.js)
 面试题 02.05 | [链表求和](https://leetcode-cn.com/problems/sum-lists-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/14.js)
+面试题 02.06 | [回文链表](https://leetcode-cn.com/problems/sum-lists-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/15.js)
 
 
