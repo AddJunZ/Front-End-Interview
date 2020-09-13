@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>双飞翼布局</title>
+  <style>
+    /*基本样式*/
+    .left,
+    .right,
+    .main {
+      min-height: 300px;
+    }
+    .left {
+      width: 200px;
+      background-color: thistle;
+    }
+    .main {
+      background-color: #999;
+    }
+    .right {
+      width: 300px;
+      background-color: violet;
+    }
+    /* 双飞翼布局关键代码 */
+    .left,
+    .right,
+    .main {
+      float: left;
+    }
+    .main {
+      width: 100%;
+    }
+    .main-inner {
+      margin-left: 200px;
+      margin-right: 300px;
+    }
+    .left{
+      margin-left: -100%;
+    }
+    .right {
+      margin-left: -300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main"><div class="main-inner">中心区</div></div>
+  <div class="left">left</div>
+  <div class="right">right</div>
+</body>
+</html>
