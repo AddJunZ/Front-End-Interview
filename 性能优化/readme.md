@@ -52,4 +52,59 @@ FMP算法负责且不精确，因此出现了**查看页面何时渲染最大元
 
 1. TTI(Time To Interactive)：何时可以自由相应用户交互
 
-#### 3. 
+**重新刷新页面的整个过程**
+
+![image](https://github.com/AddJunZ/Front-End/blob/master/img/performance-lifecycle.png)
+
+
+#### 3. 影响回流的操作
+1. 添加，删除元素
+2. 操作styles
+3. display:none
+4. offsetLeft, scrollTop, clientWidth
+5. 移动元素位置
+6. 修改浏览器大小，字体大小
+
+#### 4. layout thrashing 布局抖动
+
+> fastdom 
+
+1. 避免回流
+2. 读写分离
+
+#### 5. 常见的计算方法
+
+DNS 解析耗时: domainLookupEnd - domainLookupStart
+
+TCP 连接耗时: connectEnd - connectStart
+
+SSL 安全连接耗时: connectEnd - secureConnectionStart
+
+网络请求耗时 (TTFB): responseStart - requestStart
+
+数据传输耗时: responseEnd - responseStart
+
+DOM 解析耗时: domInteractive - responseEnd
+
+资源加载耗时: loadEventStart - domContentLoadedEventEnd
+
+First Byte时间: responseStart - domainLookupStart
+
+白屏时间: responseEnd - fetchStart
+
+首次可交互时间: domInteractive - fetchStart
+
+DOM Ready 时间: domContentLoadEventEnd - fetchStart
+
+页面完全加载时间: loadEventStart - fetchStart
+
+http 头部大小： transferSize - encodedBodySize
+
+重定向次数：performance.navigation.redirectCount
+
+重定向耗时: redirectEnd - redirectStart
+
+#### 6. 
+
+
+
