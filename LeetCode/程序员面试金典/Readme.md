@@ -19,5 +19,8 @@
 面试题 02.06 | [回文链表](https://leetcode-cn.com/problems/sum-lists-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/15.js)
 面试题 02.07 | [链表相交](https://leetcode-cn.com/problems/sum-lists-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/16.js)
 面试题 02.08 | [环路检测](https://leetcode-cn.com/problems/sum-lists-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/17.js)
+面试题 03.01 | [三合一](https://leetcode-cn.com/problems/sum-lists-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/18.js)
+面试题 03.02 | [栈的最小值](https://leetcode-cn.com/problems/sum-lists-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/19.js)
+面试题 03.03 | [堆盘子](https://leetcode-cn.com/problems/sum-lists-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/20.js)
 
 
