@@ -25,6 +25,7 @@
 面试题 03.04 | [化栈为队](https://leetcode-cn.com/problems/implement-queue-using-stacks-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/21.js)
 面试题 03.05 | [栈排序](https://leetcode-cn.com/problems/sort-of-stacks-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/22.js)
 面试题 03.06 | [动物收容所](https://leetcode-cn.com/problems/animal-shelter-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/23.js)
+面试题 04.01 | [节点间通路](https://leetcode-cn.com/problems/route-between-nodes-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/24.js)
 
 
 
