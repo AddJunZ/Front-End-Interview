@@ -26,6 +26,8 @@
 面试题 03.05 | [栈排序](https://leetcode-cn.com/problems/sort-of-stacks-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/22.js)
 面试题 03.06 | [动物收容所](https://leetcode-cn.com/problems/animal-shelter-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/23.js)
 面试题 04.01 | [节点间通路](https://leetcode-cn.com/problems/route-between-nodes-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/24.js)
-
+面试题 04.02 | [最小高度树](https://leetcode-cn.com/problems/minimum-height-tree-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/25.js)
+面试题 04.03 | [特定深度节点链表](https://leetcode-cn.com/problems/list-of-depth-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/26.js)
+面试题 04.04 | [检查平衡性](https://leetcode-cn.com/problems/check-balance-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/27.js)
 
 
