@@ -77,3 +77,23 @@ window.addEventListener('load', function(){
 
 ### 8. 手动写动画的最小时间间隔
 显示器默认频率60hz,既美妙刷新60次，所以时间是1/60秒，即16.7ms
+
+### 9. data-*
+```js
+<div id="user" data-id="1234567890" data-user="johndoe" data-date-of-birth>John Doe
+</div>
+
+var el = document.querySelector('#user');
+
+// el.id == 'user'
+// el.dataset.id === '1234567890'
+// el.dataset.user === 'johndoe'
+// el.dataset.dateOfBirth === ''
+
+el.dataset.dateOfBirth = '1960-10-03'; // set the DOB.
+
+// 'someDataAttr' in el.dataset === false
+
+el.dataset.someDataAttr = 'mydata';
+// 'someDataAttr' in el.dataset === true
+```

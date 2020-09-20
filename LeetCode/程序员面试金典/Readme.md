@@ -30,5 +30,6 @@
 面试题 04.03 | [特定深度节点链表](https://leetcode-cn.com/problems/list-of-depth-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/26.js)
 面试题 04.04 | [检查平衡性](https://leetcode-cn.com/problems/check-balance-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/27.js)
 面试题 04.05 | [合法二叉搜索树](https://leetcode-cn.com/problems/legal-binary-search-tree-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/28.js)
+面试题 04.06 | [后继者](https://leetcode-cn.com/problems/successor-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/29.js)
 
 

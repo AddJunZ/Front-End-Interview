@@ -68,6 +68,7 @@
         }
       },
       mounted() {
+        // 初始化所有数据
         this.list = new Array(10000).fill(false).map((item, index) => index)
         this.updateVisibleData();
       },
