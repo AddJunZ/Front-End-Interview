@@ -1,6 +1,6 @@
 <!-- Graph.md -->
 ## 图
-> 代码参考[link](https://github.com/AddJunZ/Front-End/blob/master/DataStructure/code/graph.js)
+> [代码参考](https://github.com/AddJunZ/Front-End/blob/master/DataStructure/code/graph.js)
 ### 一、图的基本概念
 
 1. 图是一组由边连接的顶点，任何二元关系都可以用图表示。一个图G=(V,E)，V是一组顶点，E是一组边，连接V中的顶点。

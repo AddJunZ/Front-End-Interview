@@ -56,10 +56,27 @@ function compile(node,vm){
 </script>
 ```
 ### 2. 父传子的方法
-1. props
+1. props, $emit
 2. provide和inject ：允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效
 3. Vue.observable
-4. bus(生命周期函数问题)
+4. bus(生命周期函数问题)：新建一个vue的实例，作为事件中心
+```js
+// utils
+import Vue from 'vue';
+export default new Vue({
+  name: 'EventBus'
+})
+
+// 组件1：触发
+import eventsBus from './utils.js';
+eventBus.$emit('xxx', data);
+
+// 组件2：监听
+import eventsBus from './utils.js';
+eventBus.$on('xxx', data => {
+  // code
+});
+```
 5. vuex
 6. .sync语法糖
 
@@ -118,6 +135,14 @@ ee.setState('F');
 ### 6. vue的双向绑定原理
 vue.js是通过数据劫持结合发布订阅者的方式，通过Object.defineProperty()来劫持各个属性的setter和getter，在数据变动时发布消息给订阅者，触发响应的监听回调。
 
+> Observer： 数据监听器，能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者，内部采用Object.defineProperty的getter和setter来实现。
+
+> Dep：消息订阅器，内部维护了一个数组，用来收集订阅者（Watcher），数据变动触发notify 函数，再调用订阅者的 update 方法。
+
+> Watcher：订阅者,作为连接Observer和Compile的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数。
+
+> Compile：指令解析器，它的作用对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数。
+
 1. 对需要观察的数据对象进行递归遍历，包括子属性对象的属性，使之都变成响应式。
 2. compile解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，就更新视图。
 3. watcher订阅者是observe和compile的通信桥梁
@@ -126,15 +151,18 @@ vue.js是通过数据劫持结合发布订阅者的方式，通过Object.defineP
     3. 待属性变动 dep.notify()通知时，能调用自身的update()方法，并触发compile中绑定的回调
 4. 整合Observe、Compile和Watcher三者，通过 Observer 来监听自己的 model 数据变化，通过 Compile 来解析编译模板指令，最终利用 Watcher 搭起 Observer 和 Compile 之间的通信桥梁，达到数据变化 -> 视图更新；视图交互变化(input) -> 数据 model 变更的双向绑定效果。
 
+![image](https://github.com/AddJunZ/Front-End/blob/master/img/vue-mvvm.jpg)
+
 ### 7. 为什么data需要是一个函数而不能直接返回一个对象呢
 组件复用时所有组件实例都会共享一个data，如果data是对象的话，就会造成一个组件修改data以后会影响到其它所有组件，所以需要将data写成函数，每次用到就调用一次函数获得新的数据。而new Vue的实例，是不会被复用的，因此不存在对象引用问题。
 
 ### 8. vue的diff算法
 
-1. 首先最其实vue会根据dom结构生成对应的virtual dom，当virtual dom某个节点的数据改变后会生成一个新的vnode，然后新的Vnode和oldVnode作对比，发现有不一样的地方旧直接修改在真实的DOM上，然后使oldVnode的值为Vnode
+1. 首先最其实vue会根据dom结构生成对应的virtual dom，当virtual dom某个节点的数据改变后会生成一个新的vnode，然后新的Vnode和oldVnode作对比，发现有不一样的地方就直接修改在真实的DOM上，然后使oldVnode的值为Vnode
 
 2. 在采取diff算法比较新旧节点的时候，比较只会在同层级进行, 不S会跨层级比较。
 
+> [vue的diff算法](https://www.cnblogs.com/dojo-lzz/p/8047742.html)
 
 ### 9. vue的生命周期
 > var vm = new Vue({}) 开始创建vue实例对象
@@ -150,7 +178,7 @@ vue.js是通过数据劫持结合发布订阅者的方式，通过Object.defineP
 5. beforeUpdate：组件数据更新之前调用，发生在虚拟dom打补丁之前
 > data数据是最新的，但页面的数据时旧的
 > virtual dom的re-render和patch
-6. update：组件数据更新之后
+6. updated：组件数据更新之后
 7. activited：keep-alive专属，组件被激活时调用
 8. deactivated：keep-alive专属，组件被销毁时调用
 9. beforeDestory：组件销毁前调用
@@ -182,3 +210,6 @@ window.addEventListener('popstate', (event) => {
   console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
 });
 ```
+
+### 11. vue的单向数据流
+> 是指数据只能从父组件流入子组件，子组件修改父组件的数据需要通过emit触发事件的方式更改
