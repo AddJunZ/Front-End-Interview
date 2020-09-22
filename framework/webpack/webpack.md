@@ -40,7 +40,7 @@ plugins: [
 ]
 ```
 3. happypack：实现多线程加速编译
-
+4. CommonsChunkPlugin：为每个页面间的应用程序共享代码创建 bundle
 
 
 ### Tree Shaking
