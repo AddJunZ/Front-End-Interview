@@ -82,7 +82,7 @@ eventBus.$on('xxx', data => {
 
 ### 3. vue的$set的原理
 
-### 4. vuex的数据流动
+### 4. vuex的数据流动  
 组件->(dispatch)->action->(commit)->mutations->(mutate)->state->(render)->组件
 
 ### 5. vue-router
