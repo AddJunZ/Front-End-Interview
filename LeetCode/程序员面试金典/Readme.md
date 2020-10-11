@@ -35,5 +35,6 @@
 面试题 04.09 | [二叉搜索树序列](https://leetcode-cn.com/problems/bst-sequences-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/31.js)
 面试题 04.10 | [检查子树](https://leetcode-cn.com/problems/check-subtree-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/32.js)
 面试题 04.12 | [求和路径](https://leetcode-cn.com/problems/paths-with-sum-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/33.js)
-
-
+面试题 05.01 | [插入](https://leetcode-cn.com/problems/insert-into-bits-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/34.js)
+面试题 05.02 | [二进制数转字符串](https://leetcode-cn.com/problems/bianry-number-to-string-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/35.js)
+面试题 05.03 | [翻转数位](https://leetcode-cn.com/problems/reverse-bits-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/36.js)
