@@ -22,12 +22,12 @@ function addEvent(dom,type,handler) {
   if(dom.addEventListener){
     dom.addEventListener(type,handler,false);
     addEvent = function(dom,type,handler) {
-        dom.addEventListener(type,handler,false);
+      dom.addEventListener(type,handler,false);
     }
   }else{
     dom.attachEvent('on' + type,handler);
     addEvent = function(dom,type,handler) {
-        dom.attachEvent('on' + type,handler,false);
+      dom.attachEvent('on' + type,handler,false);
     }
   }
 }
