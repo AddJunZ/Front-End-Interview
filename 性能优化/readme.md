@@ -104,7 +104,11 @@ http 头部大小： transferSize - encodedBodySize
 
 重定向耗时: redirectEnd - redirectStart
 
-#### 6. 
+#### 6. React时间调度实现
+> requestIdleCallback
 
+#### 7. v8的编译原理
 
+> js => parse it => abstract syntax tree => 字节码 => 机器码
 
+1. 懒解析：函数的解析是在用到的时候才会解析

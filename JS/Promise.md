@@ -1,3 +1,4 @@
+### 1. 手写promise
 ```js
 // 导出构造函数
 try {
@@ -166,5 +167,28 @@ Promise.deferred = Promise.defer = function () {
     dfd.reject = reject
   })
   return dfd
+}
+```
+### 2. promise.all
+```js
+function myPromiseAll(promises){
+  return new Promise((resolve, reject) => {
+    // 参数判断
+    if(!Array.isArray(promises)){
+      throw new TypeError('promises must be an array');
+    }
+    let result = [];
+    let count = 0;
+    promises.forEach((promise, index) => {
+      promise.then(res => {
+        result[index] = res;
+        count++;
+        // 当所有promise都完成时
+        count === promises.length && resolve(result);
+      }, err => {
+        reject(err);
+      })
+    })
+  })
 }
 ```
