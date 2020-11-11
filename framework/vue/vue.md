@@ -213,3 +213,38 @@ window.addEventListener('popstate', (event) => {
 
 ### 11. vue的单向数据流
 > 是指数据只能从父组件流入子组件，子组件修改父组件的数据需要通过emit触发事件的方式更改
+
+### 12. 监听对象的某个属性的变化
+```js
+// 1. 使用this.$set(对象, 对象属性名, 对象属性值)
+this.$set(person, name, 'AddJunZ');
+
+// 2. 针对对象的某个属性使用watch
+watch:{
+  "student.name": {
+    handler(newV, oldV){
+      console.log("name属性的监听");
+    }
+  }
+}
+
+// 3. 计算属性做中介
+computed: {
+  studentName(){
+    return this.student.name;
+  }
+}
+```
+
+### 13. watch属性的首次调用，只有值变化时才能执行，若要首次调用，就需要使用immediate属性
+> 具体应用场景可以是，组件定义了某一个外部传入的属性的类型，第一次传入值的时候，不会计算watch的时候就需要
+```js
+watch:{
+  name:{
+    immediate: true,// true首次加载执行，为false或者不添加此属性则不执行
+    handler(newV, oldV){
+      console.log("首次触发");
+    }
+  }
+}
+```
