@@ -289,5 +289,35 @@ flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其
 父元素的margin、border、padding，还有子元素的margin、border、padding都会暂用可用空间的计算，计算的时候要减去这些数值，再根据flex-grow进行计算。
 
 ### 15. box-sizing
-1. content-box: 
+1. content-box: 默认样式
+2. border-box: 边框和内边距的值是包含在width内的
 
+### 16. animation
+#### 1. animation-timing-function
+这个动画会将本来是线性变化的动画转变成关键帧的形式展现
+#### 2. animation-fill-mode
+目标将保留由执行期间遇到的最后一个关键帧计算值
+```css
+a:hover{
+  color: #fff;
+  background: #730bec url(pixel2.png);
+  background-size: 180px;
+  transition-delay: 0.8s;
+  animation: animate 0.8s steps(8) forwards;
+}
+@keyframes animate
+{
+  0%
+  {
+    background-position-y: 0px;
+  }
+  100%
+  {
+    background-position-y: -480px;
+  }
+}
+```
+
+### 17. text-transform: uppercase; 可以将字母变成大写的
+
+### 18. -webkit-box-reflect: below 1px linear-gradient(transparent,#0001);
