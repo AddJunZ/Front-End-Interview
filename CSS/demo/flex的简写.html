@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .outer{
+        width: 400px;
+        height: 200px;
+        display: flex;
+        padding: 10px;
+        outline: 1px solid rgb(129, 199, 89);
+      }
+      /* .outer > * {
+        box-sizing: border-box;
+        flex-basis: 100%;
+      } */
+      .inner1{
+        flex: 1 1;
+        padding: 20px;
+        background-color: #eee;
+        background-clip: content-box;
+      }
+      .inner2{
+        flex: 1 1;
+        padding: 50px;
+        background-color: pink;
+        background-clip: content-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner1"></div>
+      <div class="inner2"></div>
+    </div>
+  </body>
+</html>

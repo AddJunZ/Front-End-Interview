@@ -1,5 +1,5 @@
 <!-- css.md -->
-### bfc
+### 1. bfc
 > bfc Block Formatting Context 块格式化上下文 是Web页面的可视化CSS渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域
 
 1. 产生条件：
@@ -21,7 +21,7 @@
     4. bfc的区域不会与float box重叠
     5. 计算bfc的高度，浮动元素也参与计算
 
-### 三栏布局
+### 2. 三栏布局
 
 #### 1. 圣杯布局
 要求：三列布局，中间宽度自适应，两边内容定宽
@@ -43,11 +43,11 @@
 区别：双飞翼由于没有最外边的```container```，所以不需要position调整位置，反而是多了```main-inner```这一层。
 
 
-### margin的负值
+### 3. margin的负值
 > 参考[深入理解CSS中的margin负值](https://www.cnblogs.com/xiaohuochai/p/5314289.html)
 
 
-### 水平垂直居中
+### 4. 水平垂直居中
 > 公共部分样式
 ```
 .wrapper{
@@ -98,28 +98,28 @@
 }
 ```
 
-### 图片与文字同行时，图片下的空隙
+### 5. 图片与文字同行时，图片下的空隙
 
 img作为行级元素准寻base基线规则，会与底部有一定的空隙，只要使用```vertical-align: bottom```就可以对其底部。或者使用```display: block```，这样图片虽然会换行，但是没有间隙了。
 
-### 将css样式放在首部
+### 6. 将css样式放在首部
 把样式表放在文档底部的问题是它阻止了许多浏览器的逐步渲染，包括 IE。这些浏览器阻止渲染来避免在样式更改时需要重绘页面元素。所以用户会卡在白屏。
 
-### 把脚本放到底部
+### 7. 把脚本放到底部
 
-### 使用外部JS和CSS
+### 8. 使用外部JS和CSS
 1. 使用外部js和css可以被浏览器缓存，同样可以减少http请求，因为不需要再请求资源了。
 2. 使用内联js可以减少http请求，但增加了文本大小，每次都得下载。
 
 如果网站用户每个会话打开了多个页面，许多页面重复使用相同的 JS 和CSS，那么有很大可能用外部 JS 和 CSS 更好。
 
-### 压缩JS和CSS
+### 9. 压缩JS和CSS
 压缩就是删除代码中不必要的字符（如空格、换行、tab）。
 
-### 缓存访问过的元素的引用
+### 10. 缓存访问过的元素的引用
 用个变量存下来
 
-### 获得以下元素的第一个和最后一个
+### 11. 获得以下元素的第一个和最后一个
 
 #### :nth-of-type() 与:nth-child()
 > :nth-of-type() 是针对一组兄弟节点的第几个，倒序对应的还有```:nth-last-of-type()```
@@ -166,9 +166,128 @@ p:nth-child(2){
 }
 ```
 
-### link和@import的区别
+### 12. link和@import的区别
 1. link属于HTML范畴——除了加载CSS，还能支持其他事务，且在HTML页面加载的同时加载
 2. @import属于CSS范畴——只能加载CSS，且需要页面网页全部载入以后加载
 3. link支持使用Javascript控制DOM去改变样式
 4. link是css2.1的，没有兼容问题
 5. link还可以引入其他类型比如图片等资源文件，import只能引用样式文件
+
+### 13. background的简写含义
+#### 1. background的简写顺序分别是
+> background 中包含的属性简写的时候与顺序无关，可选择其中的0个或1个
+background: background-color || background-image || background-repeat || background-attachment || background-position
+```css
+{
+  background: url('./test.jpg') center / contain no-repeat;
+}
+```
+#### 2. 特殊的规则
+> 上面说到的属性，含有某些特殊的规则
+```css
+/* 1. background-size只能紧跟在background-position后面 比如 center / contain */
+{
+  background: center / contain;
+}
+/* 👇等价于 */
+{
+  background-size: contain;
+  background-position: center;
+}
+```
+
+### 14. flex以及简写含义
+> flex简写严格遵守顺序 flex-grow flex-shrink flex-basis
+
+#### 1. flex-wrap
+当使用flex的wrapper内的元素有宽度时候，如果需要弹性压缩，是否采用
+```css
+{
+  display: flex;
+  flex-wrap: no-wrap;/* 默认弹性布局不换行 */
+}
+```
+#### 2. flex-grow
+默认是flex简写的第一项
+```css
+{
+  flex: 1
+}
+/* 👇等价于 */
+{
+  flex-grow: 1;
+}
+```
+#### 3. flex-shrink
+1. items大小相同时
+
+
+flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值。flex-shrink实际上表示了压缩时，各个内部方块的压缩比例，数值越大，压缩越大，相对来说宽或者高会更小。
+```html
+<div class="wrapper">
+  <div class="inner1">1</div>
+  <div class="inner2">2</div>
+  <div class="inner2">3</div>
+</div>
+```
+```css
+/* wrapper */
+{
+  display: flex;
+  width: 600px;
+  height: 400px;
+}
+/* inner1 */
+{
+  width: 300px;
+  height: 300px;
+  flex-shrink: 2;
+}
+/* inner2 */
+{
+  width: 300px;
+  height: 300px;
+  flex-shrink: 1;
+}
+```
+两个inner本来刚好是wrapper的宽度，多了一个**3**方块后，整个容器需要多压缩300px，计算内部的flex-shrink，总共为（300 / 4）px，flex-shrink为多少则压缩这个值的多少倍。
+
+2. items大小不同时
+
+不能根据第一点简单除以4计算，而要根据items的具体宽度
+```css
+/* wrapper */
+{
+  display: flex;
+  width: 600px;
+  height: 400px;
+}
+/* inner1 */
+{
+  width: 400px;
+  height: 300px;
+  flex-shrink: 2;
+}
+/* inner2 */
+{
+  width: 200px;
+  height: 300px;
+  flex-shrink: 1;
+}
+```
+两个inner本来刚好是wrapper的宽度，多了一个**3**方块后，整个容器需要多压缩300px，计算内部的flex-shrink，**要同元素的具体宽度结合起来**，这个具体的宽度可以又简写的第三个参数**flex-basis**赋予
+```
+400 * 2 + 200 * 1 + 200 * 1 = 1200
+方块1：300 * （400 * 2 / 1200）≈ 132
+所以方块1最后的宽度是：400 - 132 = 264
+方块2：300 * （200 * 1/ 1200）≈ 33
+所以方块1最后的宽度是：200 - 33 = 167
+```
+#### 4. flex-basis(同上)
+
+#### 5. 关于使用flex的父元素的可用空间的理解
+父元素的margin、border、padding，还有子元素的margin、border、padding都会暂用可用空间的计算，计算的时候要减去这些数值，再根据flex-grow进行计算。
+
+### 15. box-sizing
+1. content-box: 
+
