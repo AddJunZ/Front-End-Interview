@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件绑定和通知</title>
+  </head>
+  <body>
+    <script>
+      class Event {
+        constructor() {
+          this.handlers = {};
+        }
+        on(eventName, fn) {
+          let Eventhandler = this._getHandler(eventName);
+          Eventhandler.push({ fn });
+        }
+        emit(eventName, ...args) {
+          let Eventhandler = this._getHandler(eventName);
+          Eventhandler.forEach(cb => {
+            cb.fn(...args);
+            if (cb && cb.once) {
+              Eventhandler = Eventhandler.filter(x => x != cb);
+            }
+          });
+        }
+        off(eventName) {
+          this.handlers[eventName] && delete this.handlers[eventName];
+        }
+        once(eventName, fn) {
+          let Eventhandler = this._getHandler(eventName);
+          let cb = { fn, once: true };
+          Eventhandler.push(cb);
+        }
+        _getHandler(eventName) {
+          if(this.handlers[eventName] === undefined){
+            this.handlers[eventName] = [];
+          }
+          return this.handlers[eventName];
+        }
+      }
+      const event = new Event();
+      console.log("注册listen事件");
+      event.on("listen", function (a, b) {
+        console.log("监听到listen事件：", a, b);
+      });
+      console.log(event)
+      console.log("触发listen事件");
+      event.emit("listen", 1, 2);
+      console.log("注销listen事件");
+      event.off("listen");
+      console.log("再次触发listen事件");
+      event.emit("listen", 1, 2);
+    </script>
+  </body>
+</html>
