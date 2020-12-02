@@ -20,7 +20,7 @@
           Eventhandler.forEach(cb => {
             cb.fn(...args);
             if (cb && cb.once) {
-              Eventhandler = Eventhandler.filter(x => x != cb);
+              this.handlers[eventName] = Eventhandler.filter(x => x.fn != cb.fn);
             }
           });
         }
@@ -39,18 +39,30 @@
           return this.handlers[eventName];
         }
       }
+      // 例1
       const event = new Event();
       console.log("注册listen事件");
       event.on("listen", function (a, b) {
         console.log("监听到listen事件：", a, b);
       });
-      console.log(event)
       console.log("触发listen事件");
       event.emit("listen", 1, 2);
       console.log("注销listen事件");
       event.off("listen");
       console.log("再次触发listen事件");
       event.emit("listen", 1, 2);
+
+      // 例2
+      // const event = new Event();
+      console.log("注册listen2事件");
+      event.once("listen2", function (a, b) {
+        console.log("监听到listen事件：", a, b);
+      });
+      console.log("触发listen事件");
+      event.emit("listen2", 1, 2);
+      console.log("注销listen2事件");
+      console.log("再次触发listen2事件");
+      event.emit("listen2", 1, 2);
     </script>
   </body>
 </html>
