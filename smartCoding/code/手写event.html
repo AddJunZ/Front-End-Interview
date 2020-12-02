@@ -20,7 +20,8 @@
           Eventhandler.forEach(cb => {
             cb.fn(...args);
             if (cb && cb.once) {
-              this.handlers[eventName] = Eventhandler.filter(x => x.fn != cb.fn);
+              this.handlers[eventName] = Eventhandler.filter(x => x != cb);
+              // this._getHandler(eventName) ==> Uncaught ReferenceError: Invalid left-hand side in assignment
             }
           });
         }
