@@ -15,3 +15,26 @@ git commit -m "project init"
 git remote add origin "yourgithubproject's link"
 git push -u origin master
 ``` 
+
+### 3. git stash
+1. 这个操作主要是对此时的代码进行保存，可能是为了去更改线上的代码而存在的操作。
+2. 当```git stash pop```代码吐出来之后发生冲突了，代码既会继续在stash里面也会出现在当前的代码里，但会展示出stash被pop出来的冲突情况。
+3. ```git stash list```，查看stash列表。
+
+### 4. git revert 回退单次commit
+1. 使用git revert <commit-hash>，便可以撤回单次commit操作
+
+### 5. 回退到特定的commit位置
+1. ```git reset --hard <commit-hash>```，将本地head切换到这个commit节点上
+2. ```git push -f -u origin master```，将本地代码强行覆盖远程代码，此次操作同时会删除最新的commit记录
+3. 试验过了，重置后，你本地的代码并不会回退，你撤回的代码在此时变成了未commit的代码变更记录，你可以选择使用vscode的源代码管理进行修改撤回。或者你直接新拉一个新仓库```git pull```。
+
+### 6. 在错误分支上进行开发
+1. 可以使用stash进行修改的迁移
+2. 如果已经产生commit记录了，则如下
+```
+git log --oneline 先获取本次commit的hash
+git cherry-pick <commit hash> 切到目标分支后将本次commit的修改merge到目标分支
+git reset <commit hash> 切回错误分支，回退到之前版本
+git checkout -- . 清空修改
+```
