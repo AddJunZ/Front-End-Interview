@@ -1,9 +1,9 @@
 class Singleton {
-  private static instance: Singleton
+  private static instance: Singleton = null;
   constructor() {
     console.log('懒汉单例');
   }
-  getInstance() {
+  public getInstance() {
     if(!Singleton.instance){
       Singleton.instance = new Singleton();
     }

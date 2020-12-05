@@ -3,7 +3,7 @@ class Singleton {
   constructor() {
     console.log('饿汉单例');
   }
-  public static getInstance() {
+  public getInstance() {
     return Singleton.instance;
   }
 }
