@@ -41,3 +41,6 @@ git checkout -- . 清空修改
 
 ### 7. git merge和git rebase的区别
 1. 比如你要把dev的代码合并到master上，假设你在dev上有commit1和commit2，当你用merge的时候，master是不会用commit1和commit2的历是记录的。但是使用rebase则在master上会有两个commit的记录。
+
+### 8. git默认不会提交空的文件夹
+一般约定是在空的文件夹下创建一个```.gitkeep```文件。它不像```.gitignore```一样，并没有git带来的而外功能。仅仅是一种约定。
