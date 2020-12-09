@@ -97,3 +97,13 @@ el.dataset.dateOfBirth = '1960-10-03'; // set the DOB.
 el.dataset.someDataAttr = 'mydata';
 // 'someDataAttr' in el.dataset === true
 ```
+
+### 10. 前端路由
+前端路由本质是检测url的变化，解析地址匹配路由规则。
+
+#### 1. hash mode
+同个在url后面的```#```，区分hash值。hash的变化不会导致轮流去发出请求，因此不会刷新页面。更新hash值会触发```hashChange```事件。这是最早期的路由实现，且不需要服务器支持。检测到hash变化，替换DOM来实现界面刷新。
+
+#### 2. history mode
+html5标准发布后，增加了```pushState```和```replaceState```两个API，同个这两个API可以改变url地址并且不发送请求。同时还有```onpopstate```事件。
+history路由是真实的地址路径，后端需要同步配置访问文件，如果没有则会出现404，在webpack配置的```historyApiFallback```，能够帮助我们把所有的路由地址访问重定向到根的index.html。
