@@ -321,3 +321,23 @@ a:hover{
 ### 17. text-transform: uppercase; 可以将字母变成大写的
 
 ### 18. -webkit-box-reflect: below 1px linear-gradient(transparent,#0001);
+
+
+### 19. 单行溢出和多行溢出打点
+```css
+/* 单行 */
+{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* 规定连续的空白符会被合并，但文本不进行换行👇 */
+  white-space: nowrap; 
+}
+/* 多行 */
+{
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+```
+

@@ -106,4 +106,8 @@ el.dataset.someDataAttr = 'mydata';
 
 #### 2. history mode
 html5标准发布后，增加了```pushState```和```replaceState```两个API，同个这两个API可以改变url地址并且不发送请求。同时还有```onpopstate```事件。
-history路由是真实的地址路径，后端需要同步配置访问文件，如果没有则会出现404，在webpack配置的```historyApiFallback```，能够帮助我们把所有的路由地址访问重定向到根的index.html。
+history路由是真实的地址路径，后端需要同步配置访问文件，如果没有则会出现404，在webpack配置的```devServer.historyApiFallback```为true时，能够帮助我们把所有的路由地址访问重定向到根的index.html。
+
+### 11. 同源与跨域
+协议 主机 端口都相同才是同源。一个页面的源可以通过```document.domain```修改的。
+
