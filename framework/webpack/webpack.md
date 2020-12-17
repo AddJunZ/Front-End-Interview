@@ -39,8 +39,48 @@ plugins: [
   new CleanWebpackPlugin(["dist"])
 ]
 ```
-3. happypack：实现多线程加速编译
+3. happypack、thread-loader：实现多线程加速编译
 4. CommonsChunkPlugin：为每个页面间的应用程序共享代码创建 bundle
+5. speed-measure-webpack-plugin：在控制台输出各个loader的打包耗时，可根据耗时进一步优化打包速度
+```js
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); //引入插件
+const smp = new SpeedMeasurePlugin(); //创建插件对象
+
+// 使用wrap包裹
+module.exports = smp.wrap({
+  entry: {
+    index: './src/index.js',
+    search: './src/search.js',
+  }, 
+  output: {
+    path: path.join(__dirname, 'dist'), //__dirname(当前模块的目录名) + dist
+    filename: '[name]_[chunkhash:8].js', //打包后输出的文件名,添加文件指纹 chunkhash
+  },
+  plugins: [],
+});
+```
+6. webpack-bundle-analyzer：打包完成后访问 http://127.0.0.1:8888/ 查看打包后的体积分析
+```js
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+plugins: [
+  new BundleAnalyzerPlugin()
+],
+```
+7. terser-webpack-plugin：代码压缩（压缩es6代码），在v5版本已经默认加入了
+```js
+const TerserPlugin = require('terser-webpack-plugin');
+optimization: {
+  minimize: true,
+  minimizer: [
+    new TerserPlugin({
+      //代码压缩插件
+      parallel: 4, //开启并行压缩
+    }),
+  ],
+},
+```
+8. filemanager-webpack-plugin：管理打包后的文件路径，一般做文件搬运，换目录的，允许您在构建之前和之后复制，存档（.zip / .tar / .tar.gz），移动，删除文件和目录
+9. copy-webpack-plugin：将单个文件或整个目录（已存在）复制到构建目录。相对于上面而言，**不是**等待构建完成再进行的操作，是构建中的转换
 
 
 ### 5. Tree Shaking
