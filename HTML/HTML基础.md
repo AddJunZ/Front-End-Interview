@@ -111,3 +111,27 @@ history路由是真实的地址路径，后端需要同步配置访问文件，�
 ### 11. 同源与跨域
 协议 主机 端口都相同才是同源。一个页面的源可以通过```document.domain```修改的。
 
+### 12. IntersectionObserver
+提供一种异步观察目标元素与其祖先元素或者顶级文档视窗（viewport）交叉状态的方法。祖先元素与视窗（viewport）称为根（root）
+
+```js
+const loadMore = function() {
+  console.log('loadMore');// fetch data, and reload view due to vm's data change.
+};
+const observer = new IntersectionObserver(function(entries) {
+  // intersectionRatio 为 0 表示不在视图窗口内
+  if (entries[0].intersectionRatio <= 0) return;
+  // 在窗口内
+  loadMore();
+});
+const bottom = document.querySelector('#bottom');
+observer.observe(bottom);
+
+// 常用接口
+/**
+ * 1. observer.observe(dom) 监听某个元素
+ * 2. observer.unobserve(dom) 取消某个元素的监听
+ * 3. observer.disconnect() observer停止监听工作
+*/
+
+```
