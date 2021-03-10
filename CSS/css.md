@@ -341,3 +341,21 @@ a:hover{
 }
 ```
 
+### 20. 纯css实现瀑布流
+优点是不需要使用js，缺点是排列方式是每一列从上往下排，不能做到从左往右排列
+```css
+/* 核心代码 */
+.waterfall_container {
+  /* 分成几列 */
+  column-count: 3;
+  /* 列间距 */
+  column-gap: 10px;
+}
+/* 不需要宽度 */
+.waterfall_item {
+  height: 100px;
+  background-color: pink;
+  margin-bottom: 10px;
+  break-inside: avoid;
+}
+```

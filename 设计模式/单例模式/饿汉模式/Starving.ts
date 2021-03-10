@@ -3,7 +3,8 @@ class Singleton {
   constructor() {
     console.log('饿汉单例');
   }
-  public getInstance() {
+  // 类方法又叫静态方法，实例方法又叫非静态方法
+  public static getInstance() {
     return Singleton.instance;
   }
 }

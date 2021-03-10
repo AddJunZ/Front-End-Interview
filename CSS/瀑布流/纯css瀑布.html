@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纯css瀑布流</title>
+  <style>
+    .waterfall_container {
+      /* 分成几列 */
+      column-count: 3;
+      /* 列间距 */
+      column-gap: 10px;
+    }
+    /* 不需要宽度 */
+    .waterfall_item {
+      height: 100px;
+      background-color: pink;
+      margin-bottom: 10px;
+      break-inside: avoid;
+    }
+    .big {
+      height: 300px;
+    }
+    .middle {
+      height: 220px;
+    }
+    .small {
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="waterfall_container">
+    <div class="waterfall_item big">1</div>
+    <div class="waterfall_item small">2</div>
+    <div class="waterfall_item middle">3</div>
+    <div class="waterfall_item middle">4</div>
+    <div class="waterfall_item middle">5</div>
+    <div class="waterfall_item big">6</div>
+    <div class="waterfall_item small">7</div>
+    <div class="waterfall_item big">8</div>
+  </div>
+</body>
+
+</html>
