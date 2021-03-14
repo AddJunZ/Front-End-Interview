@@ -34,7 +34,7 @@
 
 1. 最外面用```container```包裹，左右分别用```padding```流出左右块的宽度，三个块都使用```float: left```和```position: relative```，方便日后布局。
 2. ```main```放在最前面，100%宽度占满（并不会占到padding部分的空间）
-3. ```left```通过使用```margin-left: 100%```，就能够到达```main```的最左边并发生重叠，使用相对定位的```left: ${自己的宽度}```就可以实现在```main```的左边padding区域了。
+3. ```left```通过使用```margin-left: -100%```，就能够到达```main```的最左边并发生重叠，使用相对定位的```left: ${自己的宽度}```就可以实现在```main```的左边padding区域了。
 4. ```right```通过使用```margin-right: ${自己的宽度}```，就能够到达```main```的最右边并发生重叠，使用相对定位的```right: ${自己的宽度}```就可以实现在```main```的右边padding区域了。
 
 #### 2. 双飞翼布局
@@ -357,5 +357,24 @@ a:hover{
   background-color: pink;
   margin-bottom: 10px;
   break-inside: avoid;
+}
+```
+
+### 21. css变量
+带有```--*```的表示css变量，可以通过```var(--*)```在全文档复用，var还可以使用第二个参数，表示变量的默认值。全局的属性可以写在```:root```上。
+
+```css
+:root {
+  --Color: green;
+}
+
+#div {
+  /* 绿色 */
+  color: var(--Color);
+}
+
+#span {
+  /* 红色 */
+  color: var(--nothing, red);
 }
 ```

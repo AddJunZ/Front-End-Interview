@@ -26,6 +26,7 @@
     var deg = 0;
     var id;
     var div = document.querySelector('#div');
+    var stop = document.querySelector('#stop');
     div.addEventListener('click', function(){
       var self = this;
       requestAnimationFrame(function change(){
@@ -34,12 +35,12 @@
         console.log('new id ', id);
       })
     })
-    document.getElementById('stop').onclick = function(){
+    stop.addEventListener('click', function(){
       // 点了几次加速就要点几次取消
       // 为什么还能获得上一次的id呢？？？
       console.log('id', id)
       cancelAnimationFrame(id)
-    }
+    })
   </script>
 </body>
 </html>
