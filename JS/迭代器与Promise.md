@@ -18,9 +18,10 @@ var obj = {
     let i = 0;
     return {
       next(){
-        return{
-          value:arr[i++],
-          done:i == arr.length
+        return {
+          // 键
+          value: arr[i],
+          done: i++ == arr.length
         }
       }
     }
@@ -37,6 +38,7 @@ var obj = {
   b:2,
   [Symbol.iterator]:function*() {
     for(let key in this){
+      // 键值
       yield this[key]
     }
   }

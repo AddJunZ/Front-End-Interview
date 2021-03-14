@@ -36,25 +36,25 @@ console.log(test.myCall(obj,1,2));
 var obj = {a:123,b:456};
 
 function test(x, y){
- console.log(this.a,this.b);
- return x + y;
+  console.log(this.a,this.b);
+  return x + y;
 }
 console.log(test.apply(obj,[1,2]));
 
 // 如果一个函数是某个对象的属性，通过对象的点运算符，this绑定成该对象
 Function.prototype.myApply = function(ctx,args){
- if(typeof this !== 'function'){
-   throw new Error('It is not a function');
- }
+  if(typeof this !== 'function'){
+    throw new Error('It is not a function');
+  }
 
- // 要绑定上的对象
- ctx = ctx || window;
- // 将函数作为对象的属性
- ctx.fn = this;
- // 执行结果返回
- var result = ctx.fn(...args);
- delete ctx.fn;
- return result;
+  // 要绑定上的对象
+  ctx = ctx || window;
+  // 将函数作为对象的属性
+  ctx.fn = this;
+  // 执行结果返回
+  var result = ctx.fn(...args);
+  delete ctx.fn;
+  return result;
 }
 
 console.log(test.myApply(obj,[1,2]));
@@ -62,22 +62,23 @@ console.log(test.myApply(obj,[1,2]));
 ```
 
 ### bind
+使用bind返回的函数，如果使用了**new**操作符，则原来的**this**绑定会失效，此时的**this**会指向用new创建的实例化对象
 ```js
 // bind
 var obj = {a:123,b:456};
 Function.prototype.myBind = function(ctx,...args){
- if(typeof this !== 'function'){
-   throw new Error('It is not a function');
- }
- const that = this;
- return function fn(...args2){
-   // 如果被new创建实例，不会改变上下文
-   if(this instanceof fn){
-     // 多次输入参数列表
-     return new that(...args, ...args2);
-   }
-   return that.apply(ctx, args.concat(...args2));
- }
+  if(typeof this !== 'function'){
+    throw new Error('It is not a function');
+  }
+  const that = this;
+  return function fn(...args2){
+    // 如果被new创建实例，不会改变上下文
+    if(this instanceof fn){
+      // 多次输入参数列表
+      return new that(...args, ...args2);
+    }
+    return that.apply(ctx, args.concat(...args2));
+  }
 }
 function test(x, y) {
   console.log('x,y', x, y);
@@ -86,5 +87,5 @@ function test(x, y) {
 var test2 = test.myBind(obj,1);
 console.log(test2(2));
 // x,y 1 2
-579
+// 579
 ```

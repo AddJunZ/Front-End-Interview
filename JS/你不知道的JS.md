@@ -1,10 +1,16 @@
 <!-- 你不知道的JS.md -->
 ## 你不知道的JS
 
+### 浏览器进程
+> 标准一个tab对应一个进程。
+1. Browser进程：浏览器的主进程，主要负责浏览器的交互，打开关闭页面、前进后退，网站资源下载等。将渲染结果展示给用户
+2. 插件进程：每个浏览器插件对应一个进程
+3. GPU进程：用于3D绘制等，最多只有一个
+
 ### 浏览器线程
 > js引擎线程和GUI线程是互斥的，js运行UI冻结
 1. js引擎线程（解释执行js代码、用户输入、网络请求）
-2. GUI线程（绘制用户界面、于js主线程是互斥的）
+2. GUI线程（绘制用户界面、与js主线程是互斥的）
 3. http网络请求线程（处理用户的get、poet等请求，等返回结果后将回调函数推入任务队列）
 4. 定时触发器线程（setTimeout、setInterval等时间结束后，把执行函数推入任务队列中）
 5. 浏览器事件处理线程（将click、mouse等交互事件发生后将这些事件放入事件队列中）
@@ -51,30 +57,15 @@ function compose1() {
 function compose2() {
   let args = [].slice.call(arguments);
   return function(x) {
-    return args.reduce((acc,curr)=>curr(arr),x)
+    return args.reduce((acc,curr)=>curr(acc),x)
   }
 }
-let compose3 = (...args) => x => args.reduce((acc,curr)=>curr(arr),x);
-var fn = compose(reverse,split,toUpperCase);
+// 浓缩版
+const compose3 = (...args) => x => args.reduce((acc,curr)=>curr(acc),x);
+const reverse = x => x.split('').reverse().join('');
+const split = str => str.split('');
+const toUpperCase = x => x.toUpperCase();
+var fn = compose3(reverse, toUpperCase, split);
 console.log(fn('time'))
 //["E", "M", "I", "T"]
-```
-
-### 函数性能优化之函数记忆
-将一些需要重复计算的结果储存起来，方便之后取值而不需要执行函数（使用闭包保存私有变量）
-```js
-function memorize(fn) {
-  var cache = {};
-  return function(){
-    // 参数的唯一标识
-    var key = arguments.length + Array.prototype.join.call(arguments);
-    if(cache[key]){
-      return cache[key]
-    }else{
-      cache[key] = fn.apply(this,arguments);
-      return cache[key]
-    }
-  }
-}
-var newFn = memorize(factorial)
 ```
