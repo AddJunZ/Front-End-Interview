@@ -12,15 +12,15 @@
           this.handlers = {};
         }
         on(eventName, fn) {
-          let Eventhandler = this._getHandler(eventName);
-          Eventhandler.push({ fn });
+          let EventHandler = this._getHandler(eventName);
+          EventHandler.push({ fn });
         }
         emit(eventName, ...args) {
-          let Eventhandler = this._getHandler(eventName);
-          Eventhandler.forEach(cb => {
+          let EventHandler = this._getHandler(eventName);
+          EventHandler.forEach(cb => {
             cb.fn(...args);
             if (cb && cb.once) {
-              this.handlers[eventName] = Eventhandler.filter(x => x != cb);
+              this.handlers[eventName] = EventHandler.filter(x => x != cb);
               // this._getHandler(eventName) ==> Uncaught ReferenceError: Invalid left-hand side in assignment
             }
           });
@@ -29,9 +29,9 @@
           this.handlers[eventName] && delete this.handlers[eventName];
         }
         once(eventName, fn) {
-          let Eventhandler = this._getHandler(eventName);
+          let EventHandler = this._getHandler(eventName);
           let cb = { fn, once: true };
-          Eventhandler.push(cb);
+          EventHandler.push(cb);
         }
         _getHandler(eventName) {
           if(this.handlers[eventName] === undefined){
@@ -42,27 +42,28 @@
       }
       // 例1
       const event = new Event();
-      console.log("注册listen事件");
+      console.log("on: 注册listen事件");
       event.on("listen", function (a, b) {
         console.log("监听到listen事件：", a, b);
       });
       console.log("触发listen事件");
       event.emit("listen", 1, 2);
+      console.log("再次触发listen事件");
+      event.emit("listen", 1, 2);
       console.log("注销listen事件");
       event.off("listen");
-      console.log("再次触发listen事件");
+      console.log("再次触发listen事件，无效");
       event.emit("listen", 1, 2);
 
       // 例2
       // const event = new Event();
-      console.log("注册listen2事件");
+      console.log("once: 注册listen2事件");
       event.once("listen2", function (a, b) {
         console.log("监听到listen事件：", a, b);
       });
       console.log("触发listen事件");
       event.emit("listen2", 1, 2);
-      console.log("注销listen2事件");
-      console.log("再次触发listen2事件");
+      console.log("再次触发listen2事件，无效");
       event.emit("listen2", 1, 2);
     </script>
   </body>

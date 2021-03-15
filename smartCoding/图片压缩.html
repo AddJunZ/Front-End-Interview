@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas图片压缩</title>
+</head>
+<body>
+  <input id="file" type="file" onchange="uploadImage(event)">
+  <script>
+    // 根据图片文件获取图片的base64
+    const getImageBase64 = async (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+          const base64 = e.target.result;
+          console.log('image size: ', base64.length);
+          resolve(base64);
+          // 获得图片的base64
+        }
+      })
+    }
+
+    // 根据图片的base64，返回image对象
+    const getCanvasSize = async (base64) => {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.src = base64;
+        image.onload = (e) => {
+          const imageObj = e.target;
+          resolve(imageObj);
+        }
+      })
+    }
+
+    // 根据获取图片的【宽，高，base64】，利用canvas返回压缩后的base64
+    const compressByCanvas = async (image, type = 'image/jpeg', rate = 1) => {
+      return new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        // 获取image的宽高
+        const { width, height } = image;
+        ctx.width = width;
+        ctx.height = height;
+        // 清理一下
+        ctx.clearRect(0, 0, width, height);
+        // 绘制
+        ctx.drawImage(image, 0, 0, width, height);
+
+        // 默认转换的类型
+        const canvasBase64 = canvas.toDataURL(type, rate);
+        console.log('canvas size: ', canvasBase64.length);
+        resolve(canvasBase64);
+      })
+    }
+
+    // 扩展：利用base64还原成文件
+    const turnBase64ToFile = async (base64, name, type) => {
+      return new Promise((resolve, reject) => {
+        //data:image/jpeg;base64,/9j/4AAQ
+        const base64Info = base64.split(',')[1];
+        // atob() 函数能够解码通过base-64编码的字符串数据
+        let bstr = atob(base64Info);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while(n--){
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        const file = new File([u8arr], name, {type});
+        resolve(file);
+      })
+    }
+
+
+    const uploadImage = async (e) => {
+      const [file] = e.target.files;
+      const { name, type } = file;
+      console.log('initial file: ', file);
+      const imageBase64 = await getImageBase64(file);
+      const imageObject = await getCanvasSize(imageBase64);
+      const canvasBase64 = await compressByCanvas(imageObject, type, 0.8);
+      const compressedFile = await turnBase64ToFile(canvasBase64, name, type);
+      console.log('your aim compressed file: ', compressedFile);
+    }
+
+    // function changeImage(e){
+    //   let file = e.target.files[0];
+    //   console.log('未压缩的文件', file);
+    //   let name = file.name;
+    //   let reader = new FileReader();
+    //   // 转base64
+    //   reader.readAsDataURL(file);
+
+    //   // 新建image容器存放之后的base64
+    //   let image = new Image();
+
+    //   // base64读取完毕
+    //   reader.onload = function(e){
+    //     // base64的结果
+    //     let base64 = e.target.result;
+    //     console.log('base64',base64.length);
+    //     // 将base6放在img容器里
+    //     image.src = base64;
+    //   }
+
+    //   // 图片的base64格式加载完毕后，使用Image是为了获得宽高
+    //   image.onload = function(e){
+    //     // 使用canvas来存储图片
+    //     let canvas = document.createElement('canvas');
+    //     let context = canvas.getContext('2d');
+
+    //     const width = image.width;
+    //     const height = image.height;
+
+    //     // canvas绘制
+    //     canvas.width = width;
+    //     canvas.height = height;
+    //     context.clearRect(0, 0, width, height);
+    //     context.drawImage(image, 0, 0, width, height);
+
+    //     // 转换类型
+    //     let type = 'jpeg';
+    //     // canvas压缩绘制后的base64
+    //     let data = canvas.toDataURL(`image/${type}`, 0.5);
+    //     console.log('data',data.length);
+
+    //     console.log('压缩后的文件',dataURLtoFile(data, name, type));
+    //   }
+    // }
+    
+    // // 根据base64转图片file
+    // function dataURLtoFile(base64, name, type){
+    //   //data:image/jpeg;base64,/9j/4AAQ
+    //   let arr = base64.split(',');
+    //   // atob() 函数能够解码通过base-64编码的字符串数据
+    //   let bstr = atob(arr[1]);
+    //   let n = bstr.length;
+    //   const u8arr = new Uint8Array(n);
+    //   while(n--){
+    //     u8arr[n] = bstr.charCodeAt(n);
+    //   }
+    //   return new File([u8arr], name, {type});
+    // }
+
+  </script>
+</body>
+</html>
