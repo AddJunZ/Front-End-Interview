@@ -13,8 +13,8 @@ DOM事件流包含3个阶段，分别是捕获阶段、目标阶段和冒泡阶�
 
 ```html
 <div id="a">
-		<div id="b"></div>
-	</div>
+  <div id="b"></div>
+</div>
 ```
 
 ```css
@@ -43,7 +43,7 @@ div1.addEventListener('click', function(){
 div2.addEventListener('click', function(){
   console.log('small div')
 })
-// big div 这里由于对大div
+// big div 行为：点小div
 // small div
 ```
 

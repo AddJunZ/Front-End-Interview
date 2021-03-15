@@ -107,5 +107,5 @@ Person.prototype.getName = function() {
   console.log(this.name);
 }
 const p = new Person();
-p.getName();
+p.getName(); // AddJunZ
 ```
