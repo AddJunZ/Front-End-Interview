@@ -1,0 +1,363 @@
+## hooks
+
+[hooks](https://juejin.cn/post/6916317848386142216#heading-12)
+
+### 1. useState
+> 对应类组件的 ths.state.num this.setState({num: 345})
+
+函数组件的每次一次渲染都会生成新的state，因此不允许将useState写在任何具有可能性的if语句中。以保证useState的数量在每次渲染都保持一致。
+```js
+const [num, setNum] = useState(123);
+```
+
+### 2. useEffect
+> 对应类组件的：componentDidMount, componentDidUpdate
+1. 不接受第二个参数。在第一次渲染和每次更新渲染都会调用该回调函数。
+```js
+useEffect(() => {
+  console.log('init component');
+})
+```
+2. 接受空数组作为第二个参数，表示页面初始化时只执行一次，后面更新渲染也不会执行
+```js
+useEffect(() => {
+  console.log('init component');
+}, [])
+```
+3. 接受依赖项数组作为参数，只有依赖项数组中的值改变才会调用
+```js
+useEffect(() => {
+  console.log('init component');
+}, [x, y])
+```
+4. 清除副作用。有一些操作是要在组件销毁的时候执行，比如一些事件的监听。每次执行
+```js
+const = checkMouse = (e) => {
+  console.log(e.clientX, e.clientY);
+}
+useEffect(() => {
+  document.addEventListener('mousemove', checkMouse);
+  return () => {
+    // 在每次执行useEffect之前都会执行上一次return中内容
+    document.removeEventListener('mousemove', checkMouse);
+  }
+})
+```
+5. 每个effect函数都属于一次特定的渲染，每次重新渲染都会生成新的effect。每次渲染触发的```setTimeout```里面的count都是最新渲染出来的count。如果在3000ms内连续点击三次，就会输出```0,1,2,3```，0是首次渲染，点击按钮后count的值立刻变化，立刻重新渲染组件，因此重新触发```setTimeout```函数。因此在点击3s后依次输出```1,2,3```
+```js
+const [count, setCount] = useState(0);
+
+useEffect(() => {
+  setTimeout(() => {
+    console.log(`${count}`);
+  }, 3000);
+});
+
+return (
+  <div>
+    <p>你点击了{count}次</p>
+    <button onClick={() => setCount(count + 1)}>
+      点击我
+    </button>
+  </div>
+);
+```
+
+6. 与类组件相比：类组件中是共用一个state，因此会输出```3,3,3,3```
+
+### 3. useLayoutEffect
+> 对应类组件的：componentWillMount
+
+作用在DOM更新完成之后执行某个操作，执行时间：在**DOM更新之后**
+
+与```useEffect```的区别
+
+- 相同点
+  1. 接受一个函数作为第一参数
+  2. 接受依赖数组作为第二参数
+  3. 返回一个函数，都是**先执行返回函数，再执行参数函数**
+- 不同点
+  1. 执行时间不同，```useLayoutEffect```发生在DOM更新之后执行，```useEffect```在```render```结束之后执行。
+  2. ```useLayoutEffect```的函数永远在```useEffect```的函数之前执行，因为**DOM更新之后，才能渲染**
+```js
+const [num, setNum] = useState(0)
+//在类组件中用componentWillMount生命周期来实现
+useLayoutEffect(() => {
+  console.log('useLayoutEffect')
+  //	也可以在此进行事件绑定
+  return () => {
+    //	也可以在此进行事件绑定移除
+    console.log(1)
+  }
+}, [num])
+
+useEffect(() => {
+  console.log('useEffect')
+  return () => {
+    console.log(2);
+  }
+}, [num])
+
+return (
+  <div onClick={() => setNum(num => num + 1)}>
+    这是一个函数式组件————{num}
+  </div>
+)
+```
+### 4. useMemo
+可以传递一个函数和依赖项，创建函数会返回一个值，只有在依赖项发生改变时，才会调用此函数，返回一个新的值。作用是让组件中的函数跟随状态更新。
+
+- 使用
+  1. 接受一个函数作为参数
+  2. 同样接收第二个参数作为依赖列
+  3. 返回的是值，类型可以是任何类型，如函数，对象
+
+
+#### 1. 复杂计算的优化
+更新age，会重复触发getDoubleNum的计算（浪费)
+```js
+const [num, setNum] = useState(1)
+const [age, setAge] = useState(18)
+
+function getDoubleNum() {
+  console.log(`获取双倍Num${num}`)
+  return 2 * num  //	假设为复杂计算逻辑
+}
+
+return (
+  <div onClick={() => { setAge(age => age + 1) }}>
+    <br></br>
+    这是一个函数式组件————{  getDoubleNum() }
+    <br></br>
+    age的值为————{ age}
+    <br></br>
+  </div>
+)
+```
+使用useMemo，返回值是一个新的函数，**不需要调用**。效果：更新age重新计算getDouble函数了
+```js
+const [num, setNum] = useState(1)
+const [age, setAge] = useState(18)
+
+const getDoubleNum = useMemo(() => {
+  console.log(`获取双倍Num${num}`)
+  return 2 * num  //	假设为复杂计算逻辑
+}, [num])
+
+return (
+  <Fragment>
+  <div onClick={() => { setAge(age => age + 1) }}>
+    <br></br>
+    这是一个函数式组件————{  getDoubleNum }
+    <br></br>
+    age的值为————{ age}
+    <br></br>
+  </div>
+  <div onClick={() => {setNum(num => num + 1)}}>num + 1</div> 
+  </Fragment>
+)
+```
+
+#### 2. 父子组件重复渲染问题优化使用场景
+useMemo() 返回的是一个 memoized 值，只有当依赖项发生变化时，才会重新计算这个 memoized 值
+```js
+const Child = React.memo(() => {
+  console.log('我是子组件')
+  return <p>我是子组件</p>
+})
+
+function Parent() {
+  const [show, setShow] = useState(true)
+
+  // 这种会一直刷新子组件
+  // const info = {
+  //   name: 'Even',
+  //   age: 22
+  // }
+
+  // 这个不会
+  const info = useMemo(() => ({
+    name: 'Even',
+    age: 22
+  }), [])
+
+  return (
+    <div>
+      <Child info={info} />
+      <button onClick={() => setShow(!show)}>点击更新状态</button>
+    </div>
+  )
+}
+```
+
+### 5. useCallback
+
+1. 与```useMemo```的区别
+
+- 相同点
+  1. useMemo(() => fn, deps) 相当于useCallback(fn, deps);
+- 不同点
+  1. useCallback是对传过来对回调函数进行优化，返回的是一个函数；useMemo可以返回任何值
+
+2. useCallback是缓存的是一个函数，deps是空数组，就会复用这个函数。
+
+当useCallback依赖为空[]时，我们连续多次点击div区域，虽然useCallback中的内容会不断执行，但是我们可以看到打印出来的set的长度一直都是2，这就是因为它不断将同一个函数添加进set，所以set的长度不变
+而当useCallback的依赖为[num]时，我们连续多次点击div区域，可以看到打印出来的set在不断累加，1、2、3、4、5、6...。因为num在改变，所以每一次缓存的函数都是一个新的函数，所以添加进set的函数是不一样的，所以set的长度点一次加一次
+```js
+const set = new Set()
+export default function StateFunction () {
+  const [num, setNum] = useState(1)
+  const [age, setAge] = useState(18)
+
+  const getDoubleNum = useMemo( () => {
+    console.log(`获取双倍Num${num}`)
+    return 2 * num  //	①假设为复杂计算逻辑
+  },[] )
+
+  const getDoubleNum = useCallback( () => {
+    console.log(`获取双倍Num${num}`)
+    return 2 * num  //	②假设为复杂计算逻辑
+  },[] )
+
+  set.add(getDoubleNum())  //	③注意set打印的长度变化（设置Callback的依赖为[]、[num]进行对比）
+  console.log('set.size：',set.size)
+
+  return (
+    <div onClick={ () => { setNum( num => num+1 ) }  }>
+      <br></br>
+      这是一个函数式组件————num：{  getDoubleNum } //①useMemo情况下
+      这是一个函数式组件————num：{  getDoubleNum() } //②useCallback情况下
+      <br></br>
+      age的值为————{ age }
+      <br></br>
+    </div>
+  )
+}
+
+```
+
+3. 使用场景：
+
+- 在子组件不需要父组件的值和函数的情况下，只需要使用memo函数包裹子组件即可
+- 如果有函数传递给子组件，使用useCallback
+- 缓存一个组件内的复杂计算逻辑需要返回值时，使用useMemo
+- 如果有值传递给子组件，使用useMemo
+
+### 6. useRef
+useRef就是返回一个子元素索引，在整个生命周期保持不变，长久保存数据，之前在定时器用过。。。ref
+保存的对象发生改变，**不会主动通知，属性变更不会重新渲染**
+
+1. 未使用useRef
+```js
+const [num, setNum] = useState(0)
+
+let timer
+useEffect( () => {
+    timer = setInterval( () => {
+        setNum( num => num+1 )
+    },400 )
+},[] )
+
+useEffect( () => {
+  if(num > 10){
+    console.log('大于10了，清除定时器')
+    console.log('timer：',timer)
+    //  因为每一个timer都是独立render的，所以获取不到
+    clearTimeout(timer)
+  }
+},[num] )
+
+return (
+  <div>
+    这是一个函数式组件————num:{  num }
+  </div>
+)
+```
+2. 使用useRef
+```js
+const [num, setNum] = useState(0)
+
+const ref = useRef()
+useEffect( () => {
+  ref.current = setInterval( () => {
+    setNum( num => num+1 )
+  },400 )
+  // ref.current = '111'
+},[] )
+
+useEffect( () => {
+  if(num > 10){
+    console.log('大于10了，清除定时器')
+    console.log('ref.current',ref.current)
+    clearTimeout(ref.current)
+  }
+},[num] )
+
+return (
+  <div>
+    这是一个函数式组件————num:{  num }
+  </div>
+)
+```
+### 7. useContext
+让子组件之间共享父组件传入的状态，当我们有一组子组件都需要用到父组件的一些数据，区别于在每个子组件逐个通过props的方式传递，我们可以使用useContext
+
+- 需要引入useContext，createContext两个内容
+- 过createContext创建一个context句柄，这个句柄要写在组件外部，具体项目应该是要做抽离？
+- Context.Provider来确定数据共享范围
+- 通过value来分发内容
+- 在子组件中，通过useContext(Context句柄)来获取数据
+- 注意事项，上层数据发生改变，肯定会触发重新渲染（点击button按钮触发父组件更新传入的num值能看到子组件重新渲染）
+
+```js
+// 未使用：（虽然可以通过使用整体的props对象传)
+function Parent(){
+  const [num ,setNum] = useState(2);
+  return (
+    <Child1 num={num}></Child1>
+    <Child12 num={num}></Child12>
+  )
+}
+function Child1(props){
+  return <div>{props.num}</div>
+}
+// 使用后
+const Context = createContext(null);
+
+function Parent(){
+  const [num ,setNum] = useState(2);
+  return (
+    <Context.Provider value={num}>
+      <Child1 num={num}></Child1>
+      <Child12 num={num}></Child12>
+    </Context.Provider>
+  )
+}
+function Child1(props){
+  const num = useContext(Context)
+  return <div>{props.num}</div>
+}
+```
+
+### 8. useReducer
+作用是可以从状态管理的工具中获取到想要的状态。
+
+Redux必须要有的内容就是仓库```store```和管理者```reducer```。而```useReducer```也是一样的，需要创建数据仓库store和管理者reducer，即示例代码注释处。然后我们就可以通过①处的定义一个数组获取状态和改变状态的动作，触发动作的时候需要传入type类型判断要触发reducer哪个动作，然后进行数据的修改。需要注意的地方是，在reducer中return的对象中，**需要将state解构**，否则状态就剩下一个num值了
+```js
+const [state, dispatch] = useReducer(reducer, store)  //	①
+
+return (
+  <div>
+    <button onClick={() => {
+      dispatch({
+        type: 'add',
+        num: state.num
+      })
+    }}>
+      增加num的值+1
+    </button>
+    <br></br>
+    这是一个函数式组件——num:{  state.num }
+  </div>
+  )
+```
