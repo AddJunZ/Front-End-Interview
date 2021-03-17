@@ -11,7 +11,7 @@ const [num, setNum] = useState(123);
 ```
 
 ### 2. useEffect
-> 对应类组件的：componentDidMount, componentDidUpdate
+> 对应类组件的：componentDidMount, componentDidUpdate，componentWillUnmount
 1. 不接受第二个参数。在第一次渲染和每次更新渲染都会调用该回调函数。
 ```js
 useEffect(() => {
@@ -105,7 +105,7 @@ return (
 )
 ```
 ### 4. useMemo
-可以传递一个函数和依赖项，创建函数会返回一个值，只有在依赖项发生改变时，才会调用此函数，返回一个新的值。作用是让组件中的函数跟随状态更新。
+可以传递一个函数和依赖项，创建函数会返回一个值，只有在依赖项发生改变时，才会调用此函数，返回一个新的值。作用是让组件中的函数跟随状态更新，用于缓存传入的 props，避免依赖的组件每次都重新渲染。
 
 - 使用
   1. 接受一个函数作为参数
@@ -344,20 +344,46 @@ function Child1(props){
 
 Redux必须要有的内容就是仓库```store```和管理者```reducer```。而```useReducer```也是一样的，需要创建数据仓库store和管理者reducer，即示例代码注释处。然后我们就可以通过①处的定义一个数组获取状态和改变状态的动作，触发动作的时候需要传入type类型判断要触发reducer哪个动作，然后进行数据的修改。需要注意的地方是，在reducer中return的对象中，**需要将state解构**，否则状态就剩下一个num值了
 ```js
-const [state, dispatch] = useReducer(reducer, store)  //	①
+const initialState = {count: 0};
 
-return (
-  <div>
-    <button onClick={() => {
-      dispatch({
-        type: 'add',
-        num: state.num
-      })
-    }}>
-      增加num的值+1
-    </button>
-    <br></br>
-    这是一个函数式组件——num:{  state.num }
-  </div>
-  )
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+
+### 1-1. useState实现原理
+> [原理](https://juejin.cn/post/6891577820821061646)
+
+useState返回(变量, 函数)的一个元组，初始值由函数传入。本质是闭包，返回修改函数。useState实现的方式是类似于数组的方式。
+```js
+function render() {
+  ReactDOM.render(<App />, document.getElementById("root"));
+}
+let state;
+function useState(initialState) {
+  state = state || initialState;
+  function setState(newState) {
+    state = newState;
+    render();
+  }
+  return [state, setState];
+}
 ```
