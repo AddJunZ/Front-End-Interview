@@ -92,7 +92,7 @@ webpack4只需要配置mode为"production"，即可显式激活 UglifyjsWebpackP
 
 2. 第三方库
 
-比如在使用loadsh的时候，导入loash-es模块能减少打包体积。
+比如在使用lodash的时候，导入lodash-es模块能减少打包体积。
 ```js
 let webpackDeepScopePlugin = require('webpack-deep-scope-plugin').default
 
