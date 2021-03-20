@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 这个很重要 否则就没有滚动效果了 */
+    #log {
+      height: 800px;
+      overflow: scroll;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    演示使用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Background_Tasks_API">
+      协作调度幕后任务 </a> 使用 <code>requestIdleCallback()</code>
+    方法.
+  </p>
+
+  <div class="container">
+    <div class="label">解码量子丝极谱发射中...</div>
+    <progress id="progress" value="0"></progress>
+    <div class="button" id="startButton">
+      开始
+    </div>
+    <div class="label counter">
+      任务 <span id="currentTaskNumber">0</span> / <span id="totalTaskCount">0</span>
+    </div>
+  </div>
+
+  <div class="logBox">
+    <div class="logHeader">
+      记录
+    </div>
+    <div id="log">
+    </div>
+  </div>
+  <script>
+    let taskList = []; // 待运行的任务
+    let totalTaskCount = 0; // 已被添加到任务队列的任务数量计数器，只会增大，不会减小
+    let currentTaskNumber = 0; // 用于追踪到现在为止已处理了多少任务
+    let taskHandle = null; // 当前处理任务的引用
+
+    let totalTaskCountElem = document.getElementById("totalTaskCount");
+    let currentTaskNumberElem = document.getElementById("currentTaskNumber");
+    let progressBarElem = document.getElementById("progress");
+    let startButtonElem = document.getElementById("startButton");
+    let logElem = document.getElementById("log");
+
+    let logFragment = null;
+    let statusRefreshScheduled = false;
+
+    // 把任务排成队列
+    function enqueueTask(taskHandler, taskData) {
+      // 被调用来处理任务
+      // 被当作输入参数传递给taskHandler，以允许任务接收自定义数据
+      taskList.push({
+        handler: taskHandler,
+        data: taskData
+      });
+
+      totalTaskCount++;
+      // 如果当前没有处理任务
+      if (!taskHandle) {
+        taskHandle = requestIdleCallback(runTaskQueue, { timeout: 1000 });
+      }
+
+      scheduleStatusRefresh();
+    }
+
+    // 空闲回调处理方法 idleDeadline
+    // runTaskQueue 的核心是一个循环，只要有剩余时间，或者已经达到timeout期限
+    // 则任务列表中有任务就会一直持续
+    function runTaskQueue(deadline) {
+      while ((deadline.timeRemaining() > 0 || deadline.didTimeout) && taskList.length) {
+        let task = taskList.shift();
+        currentTaskNumber++;
+
+        task.handler(task.data);
+        scheduleStatusRefresh();
+      }
+
+      if (taskList.length) {
+        taskHandle = requestIdleCallback(runTaskQueue, { timeout: 1000 });
+      } else {
+        taskHandle = 0;
+      }
+    }
+
+    function scheduleStatusRefresh() {
+      if (!statusRefreshScheduled) {
+        requestAnimationFrame(updateDisplay);
+        statusRefreshScheduled = true;
+      }
+    }
+
+    // 更新DOM
+    function updateDisplay() {
+      // scrollHeight 整个内容的高度（包括需要拉动滚动条隐藏起来的那部分）
+      // clientHeight 内容区域的高度
+      // scrollTop 元素滚动的距离大小
+
+      // 滚到底部返回true
+      let scrolledToEnd = logElem.scrollHeight - logElem.clientHeight <= logElem.scrollTop + 1;
+
+      if (totalTaskCount) {
+        if (progressBarElem.max != totalTaskCount) {
+          totalTaskCountElem.textContent = totalTaskCount;
+          progressBarElem.max = totalTaskCount;
+        }
+
+        if (progressBarElem.value != currentTaskNumber) {
+          currentTaskNumberElem.textContent = currentTaskNumber;
+          progressBarElem.value = currentTaskNumber;
+        }
+      }
+
+      if (logFragment) {
+        logElem.appendChild(logFragment);
+        logFragment = null;
+      }
+
+      if (scrolledToEnd) {
+        logElem.scrollTop = logElem.scrollHeight - logElem.clientHeight;
+        console.log(logElem.scrollHeight, logElem.clientHeight);
+      }
+
+      statusRefreshScheduled = false;
+    }
+
+    function log(text) {
+      if (!logFragment) {
+        logFragment = document.createDocumentFragment();
+      }
+
+      let el = document.createElement("div");
+      el.innerHTML = text;
+      logFragment.appendChild(el);
+    }
+
+    function logTaskHandler(data) {
+      log("<strong>Running task #" + currentTaskNumber + "</strong>");
+
+      for (i = 0; i < data.count; i += 1) {
+        log((i + 1).toString() + ". " + data.text);
+      }
+    }
+
+    function decodeTechnoStuff() {
+      totalTaskCount = 0;
+      currentTaskNumber = 0;
+      updateDisplay();
+
+      let n = getRandomIntInclusive(100, 200);
+
+      for (i = 0; i < n; i++) {
+        let taskData = {
+          count: getRandomIntInclusive(75, 150),
+          text: "This text is from task number " + (i + 1).toString() + " of " + n
+        };
+        // 调用，将每个任务排入队列
+        enqueueTask(logTaskHandler, taskData);
+      }
+    }
+
+    // 得到一个两数之间的随机整数，包括两个数在内
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+    }
+
+    document.getElementById("startButton").addEventListener("click", decodeTechnoStuff, false);
+  </script>
+</body>
+
+</html>
