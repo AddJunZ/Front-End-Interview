@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>flex布局</title>
+  <style>
+    /*基本样式*/
+    .wrapper {
+      display: flex;
+    }
+    .left,
+    .right,
+    .main {
+      min-height: 300px;
+    }
+    .left {
+      width: 200px;
+      background-color: thistle;
+    }
+    .main {
+      background-color: #999;
+      flex: 1;
+    }
+    .right {
+      width: 300px;
+      background-color: violet;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="left"></div>
+    <div class="main"></div>
+    <div class="right"></div>
+  </div>
+</body>
+</html>

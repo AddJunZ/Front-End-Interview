@@ -54,6 +54,8 @@ function mySetInterval(callback) {
 7. scrollWidth、scrollHeight：整个内容区域的宽度（包括需要拉动滚动条隐藏起来的那部分）
 8. pageX、pageY：对于整个页面来说，包括了被卷去的body部分的长度
 
+> 判断是否到达底部：elem.scrollHeight >= elem.clientHeight + elem.scrollTop;
+
 ### 7. DOMContentLoaded与load的区别
 
 > load：当整个页面及所有依赖资源如样式表和图片都已完成加载时，将触发load事件。
