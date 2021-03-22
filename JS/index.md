@@ -171,16 +171,16 @@ console.log(a===1&&a===2&&a===3) // true
 ```
 
 ### 7. Map()巧用generator
-> 在看leetcode146答案的时候获得的启发
+> 在看leetcode146答案的时候获得的启发，从下面例子可以看到keys的generator是跟推进的顺序有关的！！直接可以实现LRU的核心逻辑
 ```js
 const map = new Map();
 map.set('1','1');
 map.set('2','2');
-console.log(map.keys().next());
+console.log(map.keys().next()); // { value: '1', done: false }
 map.delete('1');
 map.set('1','1');
-console.log(map.keys().next());
-console.log(map);
+console.log(map.keys().next()); // { value: '2', done: false }
+console.log(map);               // Map(2) { '2' => '2', '1' => '1'}
 ```
 
 ![image](https://github.com/AddJunZ/Front-End/blob/master/img/map-generator.jpg)
