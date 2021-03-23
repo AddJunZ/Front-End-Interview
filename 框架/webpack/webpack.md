@@ -9,12 +9,181 @@ webpack是一个模块打包工具，将根据文件间的历来关系对其进�
 loader：用于将非js模块解析成js，或者将图片转化成base64格式（css-loader）
 
 ### 3. 常见的loader
+> [常用webpack](https://juejin.cn/post/6942322281913778206)
+
 1. babel-loader：将es6转换为es5
-2. css-loader：将css转换成commonjs模块
-3. style-loader：将JS字符串生成style节点，通过dom操作去加载css
+- babel-loader 是使babel和webpack协同工作的模块
+- @babel/core 是babel编译器核心模块
+- @babel/preset-env 是babel官方推荐的预置器，可根据用户的环境自动添加所需的插件和补丁来编译es6代码
+```js
+// npm install babel-loader @babel/core @babel/preset-env -D
+
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: "defaults" }]
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
+```
+2. style-loader：将JS字符串生成style节点，通过dom操作去加载css，放在第一位
+3. css-loader：将css转换成commonjs模块
 4. image-loader：加载并压缩图片文件
-5. file-loader：把文件输出到一个文件夹中，在代码中通过相对url去引用输出的文件
+5. file-loader：把文件类型资源```.jpg .png```等图片输出到一个文件夹中，在代码中通过相对url```publicPath```去引用输出的文件
+```js
+// npm install file-loader -D
+
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|jpeg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name]_[hash:8].[ext]",
+              publicPath: "https://www.baidu.com"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+
+// index.js
+import img from "./pic.img"
+console.log(img) // https://www.baidu.com/pic_600eca23.png
+```
+
 6. url-loader：和file-loader类似，但是能把文件很小的情况以base64的方式把文件内容注入到代码中
+```js
+// npm install url-loader -D
+
+// index.js
+
+import img from "./pic.png"
+
+// webpack.config.js
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|jpeg)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              name: "[name]_[hash:8].[ext]",
+              limit: 10240, // 这里的单位为(b) 1024 => 1024b
+              // 这里如果小于10kb则转换为base64打包进js文件
+              // 如果大于10kb则打包到dist目录
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+7. sass-loader：css预处理器
+8. postcss-loader：用于补充css样式各种浏览器内核前缀
+```js
+// npm install postcss-loader autoprefixer -D
+
+// postcss.config.js
+module.exports = {
+  plugins: [
+    require("autoprefixer")({
+      overrideBrowserslist: ["> 1%", "last 3 versions", "ie 8"]
+    })
+  ]
+}
+
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+          "postcss-loader"
+        ],
+        include: /src/,
+      }
+    ]
+  }
+}
+```
+9. ts-loader：用于配置项目typescript
+```js
+// npm install ts-loader typescript -D
+
+// webpack.config.js
+module.exports = {
+  entry: "./src/index.ts",
+  output: {
+    path: __dirname + "/dist",
+    filename: "index.js",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader"
+      }
+    ]
+  }
+}
+
+// tsconfig.json
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true, // 开启map文件调试使用
+    "sourceMap": true,
+    "target": "es5", // 转换为es5语法
+  }
+}
+```
+10. html-loader：引入一个html页面代码片段赋值给DOM元素内容使用
+```js
+// npm install html-loader@0.5.5 -D
+
+// index.js
+import Content from "../template.html"
+document.body.innerHTML = Content
+
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        use: "html-loader"
+      }
+    ]
+  }
+}
+```
+
 
 ### 4. webpack的常用插件
 1. html-webpack-plugin：为html文件中引入的外部资源，可以生成创建html入口。根目录下的index.html会被html-webpack-plugin作为最终生成的 html 文件的模板
