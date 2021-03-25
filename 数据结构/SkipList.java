@@ -1,3 +1,4 @@
+// https://baijiahao.baidu.com/s?id=1675908267465133255&wfr=spider&for=pc
 public class SkipList{
   //结点“晋升”的概率
   private static final double PROMOTE_RATE = 0.5;

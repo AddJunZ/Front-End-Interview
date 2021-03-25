@@ -249,4 +249,25 @@ watch:{
 }
 ```
 
-### 13. 
+### 14. 路由懒加载原理
+1. 将路由对应的组件加载成一个个对应的js包
+2. 在路由被访问的时候才加载相应的组件
+```js
+// 写法1: 直接改component为一个函数
+routes: [
+  {
+    path: '/main',
+    name: 'main',
+    component: () => import('./main')
+  }
+]
+// 写法2: 路由声明替换成函数
+const main = () => import('./main');
+```
+3. 原理
+> [懒加载](https://juejin.cn/post/6844904180285456398#heading-2)
+
+- ```rel=preload```: 告诉浏览器这个资源要给我提前加载
+- ```rel=prefetch```: 告诉浏览器这个资源空闲的时候给我加载一下
+- ```as=script```: 告诉浏览器这个资源是script，提升加载的优先级
+
