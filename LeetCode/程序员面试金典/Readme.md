@@ -44,3 +44,5 @@
 面试题 05.08 | [绘制直线](https://leetcode-cn.com/problems/draw-line-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/40.js)
 面试题 08.01 | [三步问题](https://leetcode-cn.com/problems/three-steps-problem-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/41.js)
 面试题 08.02 | [迷路的机器人](https://leetcode-cn.com/problems/robot-in-a-grid-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/42.js)
+面试题 08.07 | [无重复字符串的排列组合](https://leetcode-cn.com/problems/permutation-i-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/47.js)
+面试题 08.08 | [有重复字符串的排列组合](https://leetcode-cn.com/problems/permutation-ii-lcci/) | [解答](https://github.com/AddJunZ/Front-End-Interview/blob/master/LeetCode/%E7%A8%8B%E5%BA%8F%E5%91%98%E9%9D%A2%E8%AF%95%E9%87%91%E5%85%B8/code/48.js)
