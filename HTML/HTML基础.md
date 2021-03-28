@@ -138,3 +138,14 @@ observer.observe(bottom);
 */
 
 ```
+
+### 13. 自定义标签
+> [custom elements](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_custom_elements)
+自定义的标签必须要使用```-```间隔开
+```js
+// 基于HTML原生input实现类似el-input的功能
+// 实现类似<el-input v-model="" placeholder=">
+```
+
+### 14. Element.attachShadow
+创建一个空的虚拟节点，效果相当于是React的Fragment，可以appendChild等。。

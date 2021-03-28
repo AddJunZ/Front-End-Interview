@@ -1,5 +1,7 @@
 
-
+// 避免快排退化成冒泡排序，一般常用的方法是
+// 对每一个数列都取一次中位数(O(n))
+// 这样总体的快排时间复杂度仍为O(nlogn)。
 
 // 一、递归快排（不好做console.time）
 const quickSort = (arr, left = 0, right = arr.length - 1) => {
