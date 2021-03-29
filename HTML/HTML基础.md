@@ -149,3 +149,21 @@ observer.observe(bottom);
 
 ### 14. Element.attachShadow
 创建一个空的虚拟节点，效果相当于是React的Fragment，可以appendChild等。。
+
+### 15. encodeURIComponent和encodeURI
+> [encodeURIComponent和encodeURI](https://juejin.cn/post/6914294180294426632)
+encodeURI 自身无法产生能适用于HTTP GET 或 POST 请求的URI，例如对于 XMLHTTPRequests, 因为 "&", "+", 和 "=" 不会被编码，然而在 GET 和 POST 请求中它们是特殊字符。然而```encodeURIComponent```这个方法会对这些字符编码。
+```js
+const uri = 'http://www.baidu.com';
+console.log(encodeURI(uri)); // http://www.baidu.com
+console.log(encodeURIComponent(uri)); // http%3A%2F%2Fwww.baidu.com
+```
+
+### 16. [Preload，Prefetch 和 Preconnect？](https://juejin.cn/post/6844903646996480007)
+
+- preload: 不会阻塞页面的onload，preload 指令允许预加载在 CSS 和JavaScript 中定义的资源，并允许决定何时应用每个资源。
+- prefetch: 允许浏览器在后台（空闲时）获取将来可能用得到的资源，并且将他们存储在浏览器的缓存中。一旦一个页面加载完毕就会开始下载其他的资源，然后当用户点击了一个带有 prefetched 的连接，它将可以立刻从缓存中加载内容。有三种不同的 prefetch 的类型，```link```，```DNS``` 和 ```prerendering```
+- prerendering: Prerendering 和 prefetching 非常相似，它们都优化了可能导航到的下一页上的资源的加载，区别是 prerendering 在**后台渲染了整个页面**，整个页面所有的资源
+- preconnect: 允许浏览器在一个 HTTP 请求正式发给服务器前预先执行一些操作，这包括 DNS 解析，TLS 协商，TCP 握手，这消除了往返延迟并为用户节省了时间。
+
+![image](https://github.com/AddJunZ/Front-End/blob/master/img/preconnect.jpg)

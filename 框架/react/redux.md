@@ -147,3 +147,11 @@ const VisibleTodoList = connect(
 )(TodoList);
 ```
 2. 在最外层App使用```Provider```组件提供store，这样App的子组件就都可以拿到state了，原理是使用```react```的```context```
+
+
+### 5. flux - 基于单向数据流的应用架构
+举个例子，Controller触发了model改动，从而触发View改动，但同时联动另一个Model改动，又再次触发View改动。
+
+（Controller  -> Model - > View -> Model -> View）
+
+![image](https://github.com/AddJunZ/Front-End/blob/master/img/flux.png)
