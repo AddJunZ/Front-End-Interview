@@ -5,6 +5,7 @@
  * @param {string} S
  * @return {string[]}
  */
+// 1. 利用set最后去重
 var permutation = function (s) {
   if (!s.length) return [];
 
@@ -28,7 +29,7 @@ function fn(s, index, result) {
   }
 }
 
-
+// 2. 排序 排序后剪枝简单
 var permutation = function (S) {
   let res = []
   backtrack('', S.split('').sort().join(''))
@@ -46,3 +47,25 @@ var permutation = function (S) {
   }
   return res
 };
+
+// 3. 直接使用set在遍历的时候去除相同节点
+var permutation = S => {
+  const arr = S.split('');
+  const res = [];
+  function backTrack(index) {
+    const set = new Set();
+    if(index === arr.length){
+      res.push(arr.slice());
+      return ;
+    }
+    for(let i = index; i < arr.length; i++){
+      if(set.has(arr[i]))continue ;
+      set.add(arr[i]);
+      [arr[index], arr[i]] = [arr[i], arr[index]];
+      backTrack(index + 1);
+      [arr[index], arr[i]] = [arr[i], arr[index]];
+    }
+  }
+  backTrack(0);
+  return res.map(r => r.join(''));
+}
