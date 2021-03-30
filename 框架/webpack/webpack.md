@@ -186,18 +186,21 @@ module.exports = {
 
 
 ### 4. webpack的常用插件
+> [常用插件](https://mp.weixin.qq.com/s/XH9UOoOvAkQITryQmwbUaA)
 1. html-webpack-plugin：为html文件中引入的外部资源，可以生成创建html入口。根目录下的index.html会被html-webpack-plugin作为最终生成的 html 文件的模板
 ```js
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 plugins:[
   new HtmlWebpackPlugin({
-    filename:"index.html",
-    template:"./index.html",
-    chunks:["app"], //entry中的app入口才会被打包
-    minify:{
+    filename: "index.html",
+    template: "./index.html",
+    chunks: ["app"], //entry中的app入口才会被打包
+    minify: {
       //压缩选项
-      collapseWhitespace:true
+      collapseWhitespace:true,  // 删除空白符与换行符
+      removeComments: true,     // 移除HTML中的注释
+      minifyCSS: true,          // 压缩内联css
     }
   })
 ]
@@ -250,7 +253,26 @@ optimization: {
 ```
 8. filemanager-webpack-plugin：管理打包后的文件路径，一般做文件搬运，换目录的，允许您在构建之前和之后复制，存档（.zip / .tar / .tar.gz），移动，删除文件和目录
 9. copy-webpack-plugin：将单个文件或整个目录（已存在）复制到构建目录。相对于上面而言，**不是**等待构建完成再进行的操作，是构建中的转换
+10. extract-text-webpack-plugin：将css文件单独抽离
+```js
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+plugins: [
+  // 将css分离到/dist文件夹下的css文件夹中的index.css
+  new ExtractTextPlugin('css/index.css'),
+]
+```
+11. optimize-css-assets-webpack-plugin：减小 css 打包后的体积
+```js
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin") // 压缩css代码
+
+optimization: {
+  minimizer: [
+    // 压缩css
+    new OptimizeCSSAssetsPlugin({})
+  ]
+}
+```
 
 ### 5. Tree Shaking
 > 项目中没有用到的代码会在打包的时候丢弃，js tree shaking 利用的是 es 的模块系统
@@ -273,6 +295,7 @@ module.exports = {
 ```
 
 ### 6. CSS Tree Shaking
+有时候我们 css 写得多了或者重复了，这就造成了多余的代码，我们希望在生产环境进行去除。
 > 使用PurifyCSS，glob-all对PurifyCSS进行路径处理，定位Tree Shaking的路径文件。
 
 ```js
