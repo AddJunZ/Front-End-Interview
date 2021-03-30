@@ -184,3 +184,21 @@ console.log(map);               // Map(2) { '2' => '2', '1' => '1'}
 ```
 
 ![image](https://github.com/AddJunZ/Front-End/blob/master/img/map-generator.jpg)
+
+
+### 8. 0.1 + 0.2 !== 0.3，为什么，怎么让他们相等
+那么应该怎样来解决0.1+0.2等于0.3呢? 最好的方法是设置一个误差范围值，通常称为”机器精度“，而对于 JavaScript 来说，这个值通常是2^-52,而在 ES6 中，已经为我们提供了这样一个属性：```Number.EPSILON```，而这个值正等于2^-52。这个值非常非常小，在底层计算机已经帮我们运算好，并且无限接近0，但不等于0,。这个时候我们只要判断(0.1+0.2)-0.3小于Number.EPSILON，在这个误差的范围内就可以判定0.1+0.2===0.3为true.
+```js
+// polyfill
+if (Number.EPSILON === undefined) {
+  Number.EPSILON = Math.pow(2, -52);
+}
+const numbersEqual = (a, b) => {
+  // 5.551115123125783e-17 2.220446049250313e-16
+  // true
+  console.log(Math.abs(a - b), Number.EPSILON);
+  return Math.abs(a - b) < Number.EPSILON
+}
+const a = (0.1 + 0.2), b = 0.3;
+console.log(numbersEqual(a,b))
+```

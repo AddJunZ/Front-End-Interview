@@ -6,5 +6,5 @@ const fs = require('fs');
 const path = './剑指offer';
 let files = fs.readdirSync(path);
 files.forEach(file => {
-  fs.renameSync(`${path}/${file}`, `${path}/${file.replace('剑指offer', '')}`,() => {})
+  fs.renameSync(`${path}/${file}`, `${path}/${file.replace('剑指offer', '')}`)
 })
