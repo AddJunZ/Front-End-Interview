@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>返回dom子元素最深嵌套层级（树的遍历）</title>
+</head>
+
+<body>
+  <div id="wrapper">
+    <span>123</span>
+    <div>
+      <input type="text">
+    </div>
+    <div>
+      <span>456</span>
+      <div>
+        <ul>
+          <li>111</li>
+          <li>222</li>
+          <li>333</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script>
+    // const dom = document.querySelector('#wrapper');
+    const dom = document.getElementById('wrapper');
+    function getDomDepth(dom) {
+      if (!dom) return 0;
+      const children = dom.children;
+      if (children.length === 0) {
+        // console.log('only tag, and no children');
+        return 1;
+      }
+      // console.log(dom.children); // HTMLCollection
+      return 1 + Math.max.apply(null, [...children].map(d => getDomDepth(d)));
+    }
+    console.log(getDomDepth(dom));
+  </script>
+</body>
+
+</html>

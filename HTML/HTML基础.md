@@ -16,6 +16,7 @@ var common = document.getElementsByClassName('a b');
 ```
 
 ### 3. HTMLCollection与NodeList
+主要不同在于HTMLCollection是元素集合而NodeList是节点集合（即可以包含元素，也可以包含文本节点）。所以 node.childNodes 返回 NodeList，而 node.children 和 node.getElementsByXXX 返回 HTMLCollection
 ```
 
 ```	
