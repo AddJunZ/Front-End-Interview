@@ -23,10 +23,12 @@ class Subject {
     this.list.push(ob);
     return this;
   }
-  // remove(ob:Observer) {
-  //   const index = this.list.findIndex(o => o === ob);
-  //   this.list.splice(index, 1);
-  // }
+  remove(ob:Observer) {
+    const index = this.list.indexOf(ob);
+    if(index !== -1){
+      this.list.splice(index, 1);
+    }
+  }
 }
 const sub = new Subject(true);
 const ob1 = new Observer('ob1');
@@ -34,8 +36,9 @@ const ob2 = new Observer('ob2');
 sub.attach(ob1);
 sub.attach(ob2);
 sub.setState(false);
-// sub.remove(ob1);
-// sub.setState(true);
+sub.remove(ob1);
+sub.setState(true);
 // 输出结果
 // ob1收到消息false
 // ob2收到消息false
+// ob2收到消息true
