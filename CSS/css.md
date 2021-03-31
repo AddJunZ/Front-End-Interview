@@ -378,3 +378,36 @@ a:hover{
   color: var(--nothing, red);
 }
 ```
+
+### 22. 回流和重绘
+> [回流和重绘](https://blog.csdn.net/KongKong_Rac/article/details/108883433)
+浏览器渲染页面的过程
+![image](https://github.com/AddJunZ/Front-End/blob/master/img/repaint-reflow.png)
+
+减少回流和重绘的方法
+
+1. 通过class来改变样式
+2. 一直执行批量的dom操作
+
+### 23. 样式的覆盖问题
+以下最后会显示蓝色，因为读取样式是从上往下读，如果是同一权重的话，优先选择最下面的，而**跟元素的className的顺序无关**。
+```html
+<style>
+  .green {
+    background-color: green;
+  }
+
+  .red {
+    background-color: red;
+  }
+
+  .blue {
+    background-color: blue;
+  }
+</style>
+<body>
+  <div class="green blue red">
+    hello world
+  </div>
+</body>
+```
