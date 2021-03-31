@@ -68,7 +68,7 @@ div1.addEventListener('click', function(){
 
 
 ### 3. addEventListener和onClick的区别
-1. addEventListener支持监听多个函数，重复挂载的监听函数（引用地址要一致）会去重，但需要第三个参数的```capture```（代表是否在捕获阶段触发的布尔值）要一致，否则会调用两次。onclick只允许在冒泡阶段触发，click 事件的运行顺序在 mousedown 和 mouseup 事件之后。。
+1. addEventListener支持监听多个函数，重复挂载的监听函数（引用地址要一致）会去重，但需要第三个参数的```capture```（代表是否在捕获阶段触发）的布尔值要一致，否则会调用两次。onclick只允许在冒泡阶段触发，click 事件的运行顺序在 mousedown 和 mouseup 事件之后。。
 ```js
 let fn = function(){
   console.log('big div')
@@ -201,4 +201,10 @@ const numbersEqual = (a, b) => {
 }
 const a = (0.1 + 0.2), b = 0.3;
 console.log(numbersEqual(a,b))
+```
+
+### 9. js的最大整数
+```js
+console.log(Math.pow(2,53)); // 9007199254740992
+console.log(Math.pow(2,53)+1); // 同上
 ```
