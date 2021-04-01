@@ -24,6 +24,6 @@ interface LabelledValue {
 
 //接口定义函数
 interface SearchFunc {
-  (souce: string, subString: string): boolean;
+  (source: string, subString: string): boolean;
 }
 ```

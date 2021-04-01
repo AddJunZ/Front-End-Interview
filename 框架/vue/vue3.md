@@ -50,7 +50,7 @@ import { useRoute } from 'vue-router';
 export default {
   setup(props, context){// context中有attr slots emit
     // 定义响应式变量
-    const routr = useRoute();
+    const route = useRoute();
     const state = reactive({
       selectedKeys: [],
     })
@@ -93,6 +93,6 @@ setup(){
 
 ### 6. reactive实现响应式
 > 默认返回第一层
-1. 依赖收集要确定的是 某个属性变了 要更新， 而不是整个对象 一个属性要手机对应的effet（watcher就是现在的effect）
+1. 依赖收集要确定的是 某个属性变了 要更新， 而不是整个对象 一个属性要手机对应的effect（watcher就是现在的effect）
 2. 使用```WeakMap```，自动垃圾回收
 3. 只有在页面中使用时，才会使用getter，触发依赖收集
