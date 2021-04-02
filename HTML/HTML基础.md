@@ -168,3 +168,17 @@ console.log(encodeURIComponent(uri)); // http%3A%2F%2Fwww.baidu.com
 - preconnect: 允许浏览器在一个 HTTP 请求正式发给服务器前预先执行一些操作，这包括 DNS 解析，TLS 协商，TCP 握手，这消除了往返延迟并为用户节省了时间。
 
 ![image](https://github.com/AddJunZ/Front-End/blob/master/img/preconnect.jpg)
+
+
+### 17. onvisibilitychange
+```js
+document.onvisibilitychange = function(event) {
+  console.log("Visibility of page has changed!");
+  var hidden = event.target.webkitHidden;
+  if (hidden){
+    // 页面隐藏，对应触发：音频视频播放暂停，轮训暂停
+  } else {
+    // 页面显示，对应触发：音频视频播放继续，轮训继续
+  }
+};
+```

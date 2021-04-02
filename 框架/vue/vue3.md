@@ -86,13 +86,25 @@ setup(){
 ### 5. vue2和vue3的对比
 
 1. vue2把所有熟悉感都放在this上，难以推断组件类型
-2. vue2大量的API挂载在Vue对象的原型上，难以实现TreeShaking
+2. vue2大量的API挂载在Vue对象的原型上，难以实现TreeShaking，vue3现在全局的API都只能通过模块导入的方式访问
+```js
+// vue2
+Vue.$nextTick(() => {
+  // 一些新更新的dom的消息
+})
+
+// vue3
+import { nextTick } from 'vue';
+nextTick(() => {
+  // 一些新更新的dom的消息
+})
+```
 3. vue3对虚拟dom进行重写，对模板编译进行优化
 4. vue3使用proxy只是做了一层代理，也不需要递归整个对象的所有属性，设置他们的getter和setter
 
 
 ### 6. reactive实现响应式
 > 默认返回第一层
-1. 依赖收集要确定的是 某个属性变了 要更新， 而不是整个对象 一个属性要手机对应的effect（watcher就是现在的effect）
+1. 依赖收集要确定的是 某个属性变了 要更新， 而不是整个对象 一个属性要收集对应的effect（watcher就是现在的effect）
 2. 使用```WeakMap```，自动垃圾回收
 3. 只有在页面中使用时，才会使用getter，触发依赖收集
