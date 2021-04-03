@@ -8,6 +8,7 @@ if [ -d $file_name ] ; then
 	echo " $file_name is a dir"
 elif [ -f $file_name ] ; then
 	echo " $file_name is file"
+	# 是-c 字符文件 或者 -b 跨设备文件
 elif [ -c $file_name -o -b $file_name ]; then
 	echo " $file_name is a device file"
 else

@@ -13,7 +13,7 @@
 # yes
 str1="abc"
 str2="abc"
-if [ "$str1" == "$str2" ]
+if [ "$str1" = "$str2" ]
 then 
   echo "yes"
 else
