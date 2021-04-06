@@ -208,3 +208,24 @@ console.log(numbersEqual(a,b))
 console.log(Math.pow(2,53)); // 9007199254740992
 console.log(Math.pow(2,53)+1); // 同上
 ```
+
+### 10. js判断数据类型
+1. 使用typeof关键字
+```js
+t = 123n;
+console.log(typeof t); // bigint
+```
+2. 使用Object.prototype.toString.call(sth)
+```js
+t = 123n;
+console.log(Object.prototype.toString.call(t)); // [object BigInt]
+fn = new Function();
+console.log(Object.prototype.toString.call(fn)); // [object Function]
+```
+3. 使用instanceof基于原型链判断
+```js
+t = [1,3,4]
+console.log(t instanceof Array) // true
+fn = new Function()
+console.log(fn instanceof Function) // true
+```
