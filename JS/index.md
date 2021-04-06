@@ -124,7 +124,7 @@ console.log('4' + tail); // 423
 ```
 
 ### 6. valueOf和toString
-> 非基本类型对象转化成基本类型会
+> 非基本类型对象转化成基本类型会调用上面的两个```toPrimitive```方法，优先级：```Symbol.toPrimitive``` > ```valueOf``` > ```toString```
 
 1. valueOf
 ```js
@@ -168,6 +168,21 @@ Object.defineProperty(window, 'a', {
   }
 })
 console.log(a===1&&a===2&&a===3) // true
+```
+4. 自主定义```toPrimitive```转换方法
+```js
+let obj = {
+  toString() {
+    return 123;
+  },
+  valueOf() {
+    return 456;
+  },
+  [Symbol.toPrimitive]() {
+    return 789;
+  }
+}
+console.log("2" + obj); // 2789
 ```
 
 ### 7. Map()巧用generator
