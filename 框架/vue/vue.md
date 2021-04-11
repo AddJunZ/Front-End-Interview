@@ -163,7 +163,7 @@ vue.js是通过数据劫持结合发布订阅者的方式，通过Object.defineP
 
 1. 首先最其实vue会根据dom结构生成对应的virtual dom，当virtual dom某个节点的数据改变后会生成一个新的vnode，然后新的Vnode和oldVnode作对比，发现有不一样的地方就直接修改在真实的DOM上，然后使oldVnode的值为Vnode
 
-2. 在采取diff算法比较新旧节点的时候，比较只会在同层级进行, 不S会跨层级比较。
+2. 在采取diff算法比较新旧节点的时候，比较只会在同层级进行, 不会跨层级比较。
 
 > [vue的diff算法](https://www.cnblogs.com/dojo-lzz/p/8047742.html)
 
