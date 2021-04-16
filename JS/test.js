@@ -1,15 +1,22 @@
-var removeNthFromEnd = function (head, n) {
-  var node = new ListNode(0);
-  node.next = head;
-  var fast = node;
-  var slow = node;
-  for (var i = 1; i <= n + 1; i++) {
-    fast = fast.next
-  }
-  while (fast != null) {
-    fast = fast.next;
-    slow = slow.next;
-  }
-  slow.next = slow.next.next;
-  return node.next
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function (n) {
+  var arr = [];
+  fn(arr, '', 0, 0, n);
+  return arr;
 };
+
+var fn = function (arr, str, left, right, n) {
+  if (str.length == n * 2) {
+    arr.push(str)
+    return;
+  }
+  if (left < n) {
+    fn(arr, str + '(', left + 1, right, n)
+  }
+  if (right < left) {
+    fn(arr, str + ')', left, right + 1, n)
+  }
+}
