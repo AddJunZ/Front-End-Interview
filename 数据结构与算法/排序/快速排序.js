@@ -71,3 +71,7 @@ const quickSort2 = (arr, left = 0, right = arr.length - 1) => {
   return arr;
 }
 console.log(quickSort2([3, 6, 1, 2, 7, 5]));
+
+
+// 三、快排优化（优化哨兵筛选条件）
+
