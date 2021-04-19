@@ -1,31 +1,39 @@
-/**
- * @param {number[]} nums
- * @return {void} Do not return anything, modify nums in-place instead.
- */
-// 2132
-var nextPermutation = function (nums) {
-  const len = nums.length;
-  for (let i = len - 1; i > 0; i--) {
-    // 1. 从后往前找到 本位比前一位大的 索引
-    if (nums[i] > nums[i - 1]) {
-      // 2. 在索引本位后边 从后往前找第一个比 本位前一位大的数
-      var t = len - 1;
-      while (t > i) {
-        if (nums[t] > nums[i - 1]) break;
-        t--;
+// public class Solution {
+//   public int longestValidParentheses(String s) {
+//       int maxans = 0;
+//       int[] dp = new int[s.length()];
+//       for (int i = 1; i < s.length(); i++) {
+//           if (s.charAt(i) == ')') {
+//               if (s.charAt(i - 1) == '(') {
+//                   dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+//               } else if (i - dp[i - 1] > 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
+//                   dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
+//               }
+//               maxans = Math.max(maxans, dp[i]);
+//           }
+//       }
+//       return maxans;
+//   }
+// }
+var longestValidParentheses = function (s) {
+  let max = 0;
+  const len = s.length;
+  // 1. dp[i] 表示以下标 i 字符结尾的最长有效括号的长度
+  const dp = new Array(len).fill(0);
+  for (let i = 1; i < len; i++) {
+    if (s[i] == ')') {
+      if (s[i - 1] == '(') {
+        dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+      } 
+      // 2. 如果前一位也是 ')'
+      // 那就类似于 (()) 要判断 跳过前面的“有效括号” 看跳过之后的前一位是否是'('
+      else if (i - dp[i - 1] > 0 && s[i - dp[i - 1] - 1] == '(') {
+        // 3. dp[i - 1] + 2 是代表加上新的有效括号的长度
+        // 类似于 ()(()) 需要再加上前面的()的长度 即 dp[i - dp[i - 1] - 2] 这个例子就是 dp[5 - 2 - 2] === 1
+        dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
       }
-      // 3. 交换 第一个比本位前一位大的数 和 本位前一位大的数
-      [nums[i - 1], nums[t]] = [nums[t], nums[i - 1]];
-      // 4. 由第一点 可以知道 本位后面的都是从大到小排的 只需要反转就可以了
-      let l = i, r = len - 1;
-      while(l < r){
-        [nums[l], nums[r]] = [nums[r], nums[l]];
-        l++;
-        r--;
-      }
-      return;
+      max = Math.max(max, dp[i])
     }
   }
-  // 5. 如果是最大的 直接反转
-  nums.reverse()
-};
+  return max;
+}
