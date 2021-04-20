@@ -1,31 +1,3 @@
-// 1. 如果 lower为true，则查找第一个大于等于target 的下标
-// 否则查找第一个大于 target 的下标
-// [5,7,7,8,8,10], 8
-// [1] 1
-const binarySearch = (nums, target, lower, left = 0, right = nums.length - 1) => {
-  // 1. 如果数组只有一项的时候，不会进入第2点，避免成为-1，这里要设置为nums.length;
-  let res = nums.length;
-  while (left <= right) {
-    const mid = (left + right) >> 1;
-    // 2. 当取第一个target时，mid等于target的时候也更倾向于收缩右指针(right)
-    if (nums[mid] > target || (lower && nums[mid] >= target)) {
-      right = mid - 1;
-      // 3. 这里res需要暂存
-      res = mid;
-    } else {
-      left = mid + 1;
-    }
-  }
-  return res;
+var trap = function (height) {
+
 }
-var searchRange = function (nums, target) {
-  let res = [-1, -1];
-  const firstIndex = binarySearch(nums, target, true);
-  const lastIndex = binarySearch(nums, target, false) - 1;
-  // 4. 各大条件满足，因为binarySearch只是返回了mid，是否找到符合没有在binarySearch中验证
-  if (firstIndex <= lastIndex && lastIndex <= nums.length - 1 && nums[firstIndex] === target && nums[lastIndex] === target) {
-    res = [firstIndex, lastIndex];
-  }
-  return res;
-}
-console.log(searchRange([1], 1));
