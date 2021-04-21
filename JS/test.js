@@ -1,3 +1,0 @@
-var trap = function (height) {
-
-}
