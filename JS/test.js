@@ -19,6 +19,5 @@ var minWindow = function (s, t) {
   // 3. 扩张窗口
   for (; right < sLen; right++) {
     const rightChar = s[right];
-    
   }
 };
