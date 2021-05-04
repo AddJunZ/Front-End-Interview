@@ -1,53 +1,7 @@
 /**
- * @param {character[][]} board
- * @param {string} word
- * @return {boolean}
+ * @param {number[]} heights
+ * @return {number}
  */
-var exist = function (board, word) {
-  if (word === '') return true;
-  if (board.length === 0 || board[0].length === 0) return false;
-  const row = board.length, col = board[0].length;
-  // 1. 方向
-  const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-  // 2. 代表是否访问过
-  const visited = new Array(row).fill(0).map(x => new Array(col).fill(false));
-  // 3. check函数表示从board[i][j]开始 能不能找到 word.slice(k)
-  const check = (i, j, k) => {
-    // 4. 首字母不相同 直接返回false
-    if (board[i][j] != word[k]) {
-      return false;
-    }
-    // 5. 满足word 返回true
-    if (k === word.length - 1) {
-      return true;
-    }
-    // 6. 更新当前位置为访问过
-    visited[i][j] = true;
-    // 7. 
-    let result = false;
-    for (let [dx, dy] of directions) {
-      let newI = i + dx, newJ = j + dy;
-      // 8. 满足不越界
-      if (newI >= 0 && newI < row && newJ >= 0 && newJ < col) {
-        // 9. 没有访问过的才能走
-        if (!visited[newI][newJ]) {
-          const flag = check(newI, newJ, k + 1);
-          if (flag) {
-            result = true;
-            break;
-          }
-        }
-      }
-    }
-    visited[i][j] = false;
-    return result;
-  }
-  // 10. 遍历每一个二维数组的节点作为起始点 寻找
-  for (let i = 0; i < row; i++) {
-    for (let j = 0; j < col; j++) {
-      const flag = check(i, j, 0);
-      if (flag) return true;
-    }
-  }
-  return false;
+var largestRectangleArea = function(heights) {
+
 };
