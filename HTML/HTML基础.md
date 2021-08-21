@@ -182,3 +182,6 @@ document.onvisibilitychange = function(event) {
   }
 };
 ```
+
+### 18. [Web Cache、H5 AppCache、SW Cache的区别](https://blog.csdn.net/u010875425/article/details/50037963)
+
