@@ -184,4 +184,16 @@ document.onvisibilitychange = function(event) {
 ```
 
 ### 18. [Web Cache、H5 AppCache、SW Cache的区别](https://blog.csdn.net/u010875425/article/details/50037963)
+1. Web Cache：是指资源的缓存策略，包括强缓存和协商缓存那一套。
+2. AppCache：基本废弃。。
+3. SW Cache：Google的dev tools中的Application中有一项是Cache的，其中就包含了SW的Cache。
 
+### 19. 用户操作对浏览器的缓存的影响
+用户操作 | 强缓存(Expires/Cache-Control) | 协商缓存(Last-Modified/Etag)
+--- | --- | ---
+地址栏回车 | 有效 | 有效
+页面链接跳转 | 有效 | 有效
+新开窗口 | 有效 | 有效
+前进、后退 | 有效 | 有效
+正常重新加载(command + R) | 无效 | 有效
+硬性重新加载(command + shift + R) | 无效 | 无效

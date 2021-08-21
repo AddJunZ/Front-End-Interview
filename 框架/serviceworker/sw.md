@@ -7,7 +7,7 @@ SW是一个介于web应用程序、浏览器、（可用）网络之间的代理
 3. 清空浏览器硬性加载的时候，第一次进入会显示不出页面，等一下就加载出来了。
 
 ### 2. 关于官网（sw-test.js）的一些测试
-第一次打开布置有sw的[网络站点](https://mdn.github.io/sw-test/)，会触发sw的`reg.installing`钩子。sw文件注册的路径是相对于`Origin`，而不是文件所在位置。如果sw注册的路径是`/example/sw.js`，那么它就只收到`example`路径下的fetch事件。
+1. 第一次打开布置有sw的[网络站点](https://mdn.github.io/sw-test/)，会触发sw的`reg.installing`钩子。sw文件注册的路径是相对于`Origin`，而不是文件所在位置。如果sw注册的路径是`/example/sw.js`，那么它就只收到`example`路径下的fetch事件。
 ```js
 // app.js 入口文件
 navigator.serviceWorker.register('/sw.js', { scope: '/sw-test' }).then(function(reg) {
@@ -22,7 +22,7 @@ navigator.serviceWorker.register('/sw.js', { scope: '/sw-test' }).then(function(
   console.log('Registration failed with ' + error);
 });
 ```
-同时`Cache Storage`中存有`sw.js`文件内定义好的`Cache`需要缓存的对应资源
+2. 同时`Cache Storage`中存有`sw.js`文件内定义好的`Cache`需要缓存的对应资源
 ```js
 // sw.js service worker服务文件
 self.addEventListener('install', function(event) {
@@ -41,4 +41,5 @@ self.addEventListener('install', function(event) {
   );
 });
 ```
-同时Google的dev tools的Server Workers里面已经注册好对应的sw服务。切换其他域名地址就看不到对应的sw服务了。
+3. 同时Google的dev tools的Server Workers里面已经注册好对应的sw服务。切换其他域名地址就看不到对应的sw服务了。
+4. 浏览器的刷新有三种：正常重新加载、硬性重新加载、清空缓存并硬性加载。离线情况下，只有第三种刷新刷新后，页面就会失效提示未连接网络。
