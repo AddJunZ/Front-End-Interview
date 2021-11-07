@@ -55,3 +55,11 @@ git checkout -- . 清空修改
 一般约定是在空的文件夹下创建一个```.gitkeep```文件。它不像```.gitignore```一样，并没有git带来的而外功能。仅仅是一种约定。
 
 ### 9. git简化命令工具基础命令
+```
+ga - git add
+gb - git branch
+gcmsg - git commit -m
+gco - git checkout
+gl - git pull
+gp - git push
+```
