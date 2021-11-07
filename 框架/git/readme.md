@@ -67,6 +67,8 @@ gm - git merge
 ```
 
 ### 10. 对github/gitlab平台的tag的理解
+> 我理解的是对某个版本的代码做一次暂时存储与记录，相比于commit纬度会更大一点，而tag我认为一般是对release分支的某个代码版本的记录。
 1. ```git tag```，查看当前tag列表
 2. ```git tag [tag名称] -m "备注信息"```，增加tag
 3. ```git push origin [tag名称]```，推送到远程tag
+4. ```git push origin :refs/tags/[tag名称]```，删除远程tag
