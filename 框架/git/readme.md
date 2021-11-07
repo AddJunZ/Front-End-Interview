@@ -55,6 +55,7 @@ git checkout -- . 清空修改
 一般约定是在空的文件夹下创建一个```.gitkeep```文件。它不像```.gitignore```一样，并没有git带来的而外功能。仅仅是一种约定。
 
 ### 9. git简化命令工具基础命令
+> [参考](https://www.jianshu.com/p/961cd7ceb530)
 ```
 ga - git add
 gb - git branch
@@ -62,4 +63,10 @@ gcmsg - git commit -m
 gco - git checkout
 gl - git pull
 gp - git push
+gm - git merge
 ```
+
+### 10. 对github/gitlab平台的tag的理解
+1. ```git tag```，查看当前tag列表
+2. ```git tag [tag名称] -m "备注信息"```，增加tag
+3. ```git push origin [tag名称]```，推送到远程tag
