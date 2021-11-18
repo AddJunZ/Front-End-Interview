@@ -369,6 +369,48 @@ function Counter() {
 }
 ```
 
+### 9. useImperativeHandle
+作用是将向父组件暴露方法，能在父组件调用自组建的方法，进而控制子组件的变量或者状态。经典的场景是使用在一个页面上有一个modal组件，父组件能通过某些事件触发显示子组件。而对于子组件的显示与否一般只在子组件内部控制，因此需要暴露【显示组件】的方法给父组件使用。
+
+> 子组件Modal
+```tsx
+import React, { useState, useImperativeHandle, forwardRef } from 'react';
+export type Handler = {
+  show: () => void;
+}
+const Modal = forwardRef<Handler>((props, ref) => {
+  const [v, setV] = useState(false);
+  useImperativeHandle(ref, () => ({
+    // 把show方法暴露给父组件
+    show: () => setV(true)
+  }))
+  return <>
+    {
+      v ? <div>
+        modal
+      </div> : null
+    }
+  </>
+})
+export default Modal;
+```
+
+> 父组件
+```tsx
+import React, { useRef } from "react";
+import Modal, { Handler } from './Modal';
+const App = () => {
+  const modalRef = useRef<Handler>(null);
+  return (
+    <div>
+      <div onClick={() => { modalRef.current?.show() }}>Click me!!!</div>
+      <Modal ref={modalRef}/>
+    </div>
+  )
+}
+export default App;
+```
+
 ### 1-1. useState实现原理
 > [原理](https://juejin.cn/post/6891577820821061646)
 
