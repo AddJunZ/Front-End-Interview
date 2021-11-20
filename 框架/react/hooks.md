@@ -1,4 +1,5 @@
 ## hooks
+> React中只允许在 React function component 或者 a custom React Hook function中使用hooks。即首字母大写的和use首字母大写的function。
 
 [hooks](https://juejin.cn/post/6916317848386142216#heading-12)
 
@@ -410,6 +411,41 @@ const App = () => {
 }
 export default App;
 ```
+
+### 0. 自定义hooks例子
+1. debounce的hook
+```tsx
+// useDebounce.tsx
+import { useEffect, useState } from "react";
+export const useDebounce = (value: any, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+  return debouncedValue;
+};
+
+// App.tsx使用
+import React, { useEffect, useState } from "react";
+import { useDebounce } from './hooks/useDebounce';
+const App = () => {
+  const [val, setVal] = useState('');
+  const debouncedVal = useDebounce(val, 3000);
+  const onChange = (e:any) => setVal(e.target.value);
+  useEffect(() => {
+    console.log('refetch');
+  }, [debouncedVal]);
+  return (
+    <div className="App">
+      <input type="text" value={val} onChange={onChange}/>
+    </div>
+  );
+}
+export default App;
+```
+![image](https://github.com/AddJunZ/Front-End/blob/master/img/useDebounce_20211120.gif)
+
 
 ### 1-1. useState实现原理
 > [原理](https://juejin.cn/post/6891577820821061646)
