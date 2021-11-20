@@ -417,10 +417,12 @@ export default App;
 ```tsx
 // useDebounce.tsx
 import { useEffect, useState } from "react";
-export const useDebounce = (value: any, delay: number) => {
+export const useDebounce: <T>(value: T, delay: number) => T = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
+    // 每次在value改变的时候就重新生成定时器
     const timer = setTimeout(() => setDebouncedValue(value), delay);
+    // 每次在上一个useEffect处理完成之后执行
     return () => clearTimeout(timer);
   }, [value, delay]);
   return debouncedValue;
@@ -445,6 +447,21 @@ const App = () => {
 export default App;
 ```
 ![image](https://github.com/AddJunZ/Front-End/blob/master/img/useDebounce_20211120.gif)
+
+2. 每次初始化的时候出发的hooks，少些了繁琐的空数组
+```tsx
+// useMount.tsx
+import { useEffect } from "react";
+const useMount = (callback) => {
+  useEffect(() => {
+    callback();
+  }, []);
+}
+// App.tsx
+useMount(() => {
+  console.log('init data');
+});
+```
 
 
 ### 1-1. useState实现原理
