@@ -39,10 +39,17 @@ const foo = <T>(x: T) => x;
 ```
 7. utility type
 ```ts
+// 具体的真实情景就是。当有一个筛选的组件里面有很多参数，但在某些页面并不需要那么多参数筛选的时候
+// 针对搜索项我们可以通过是否展示的bool来判断
+// 针对数据我们就需要utility type来帮我们修正对参数的类型定义
+// 如果是单纯的将属性变成可选操作符，就会遇到值可能是undefined类型的问题【待在真实业务上验证可行性】
 type RequestParams = {
   name: string;
   age: number;
 }
+type RequestKeys = keyof RequestParams;
+type RequestOnlyName = Pick<RequestParams, 'name'>
+type Age = Exclude<RequestKeys, 'name'>
 const params1: RequestParams = { name: 'AddJunZ', age: 21 }; // 默认需要带上所有参数
 const params2: Partial<RequestParams> = { name: 'AddJunZ' }; // 可以包含任何的参数字段
 const params3: Omit<RequestParams, 'name'> = { age: 21 }; // 在原来的类型除去某个字段
