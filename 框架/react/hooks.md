@@ -451,8 +451,8 @@ export default App;
 2. 每次初始化的时候出发的hooks，少些了繁琐的空数组
 ```tsx
 // useMount.tsx
-import { useEffect } from "react";
-const useMount = (callback) => {
+import React, { useEffect } from "react";
+export const useMount = (callback) => {
   useEffect(() => {
     callback();
   }, []);

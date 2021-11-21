@@ -27,3 +27,11 @@ interface SearchFunc {
   (source: string, subString: string): boolean;
 }
 ```
+6. 范型
+```ts
+// 在.tsx文件中，必须要加上 extends unknown 或者使用【,】才能识别成功
+const foo = <T extends unknown>(x: T) => x;
+const foo = <T,>(x: T) => x;
+// 在.ts文件中，下面这样即可识别成功
+const foo = <T>(x: T) => x;
+```
