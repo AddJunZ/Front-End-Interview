@@ -316,21 +316,21 @@ function Parent(){
   const [num ,setNum] = useState(2);
   return (
     <Child1 num={num}></Child1>
-    <Child12 num={num}></Child12>
+    <Child2 num={num}></Child2>
   )
 }
 function Child1(props){
   return <div>{props.num}</div>
 }
-// 使用后
-const Context = createContext(null);
 
+// 使用后，在自组建使用useContext，但需要从父组件引入Context上下文(不需要刻意将数据通过props传递)
+const Context = createContext(null);
 function Parent(){
   const [num ,setNum] = useState(2);
   return (
     <Context.Provider value={num}>
-      <Child1 num={num}></Child1>
-      <Child12 num={num}></Child12>
+      <Child1></Child1>
+      <Child2></Child2>
     </Context.Provider>
   )
 }
@@ -448,7 +448,7 @@ export default App;
 ```
 ![image](https://github.com/AddJunZ/Front-End/blob/master/img/useDebounce_20211120.gif)
 
-2. 每次初始化的时候出发的hooks，少些了繁琐的空数组
+2. 每次初始化的时候触发的hooks，少些了繁琐的空数组
 ```tsx
 // useMount.tsx
 import React, { useEffect } from "react";
