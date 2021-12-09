@@ -24,6 +24,7 @@ git push -u origin master
 5. ```git stash clear```，清楚所有的stash信息
 6. ```git stash apply [stash名]```，应用某个stash
 7. stash的命名跟正常逻辑不一样，最新推入的叫```stash@{0}```，以此类推。
+8. ```git stash --include-untracked```能将所有未跟踪的文件都stash进去，因为默认的stash命令是不会跟踪一些新创建的文件夹和文件的，默认会随着分支切换一起带出去，因此需要用这个命令保证stash了所有更改。
 ```
 stash@{0}: On master: test3
 stash@{1}: On master: test2
