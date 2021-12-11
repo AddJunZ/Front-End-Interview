@@ -115,7 +115,7 @@ return (
 
 
 #### 1. 复杂计算的优化
-更新age，会重复触发getDoubleNum的计算（浪费)
+更新age，会重复触发getDoubleNum的计算（浪费）
 ```js
 const [num, setNum] = useState(1)
 const [age, setAge] = useState(18)
@@ -128,9 +128,9 @@ function getDoubleNum() {
 return (
   <div onClick={() => { setAge(age => age + 1) }}>
     <br></br>
-    这是一个函数式组件————{  getDoubleNum() }
+    这是一个函数式组件————{ getDoubleNum() }
     <br></br>
-    age的值为————{ age}
+    age的值为————{ age }
     <br></br>
   </div>
 )
@@ -149,9 +149,9 @@ return (
   <Fragment>
   <div onClick={() => { setAge(age => age + 1) }}>
     <br></br>
-    这是一个函数式组件————{  getDoubleNum }
+    这是一个函数式组件————{ getDoubleNum }
     <br></br>
-    age的值为————{ age}
+    age的值为————{ age }
     <br></br>
   </div>
   <div onClick={() => {setNum(num => num + 1)}}>num + 1</div> 
@@ -463,6 +463,45 @@ useMount(() => {
 });
 ```
 
+
+3. 阻止在已卸载的组件上赋值。经典的场景是某些组件的请求还没返回的时候，就已经卸载组件（退出页面）了，后面请求返回之后就会导致组件报错。
+```tsx
+/**
+ * 返回组件的挂载状态
+ * 如果还没挂载或者已经卸载，则返回false
+ * 反之，返回true
+ */
+export const useMountedRef = () => {
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    }
+  })
+  return mountedRef;
+}
+
+// App.tsx
+export const App = () => {
+  const [data, setData] = useState([]);
+  const mountedRef = useMountedRef();
+  useEffect(() => {
+    getData().then(res => {
+      if (mountedRef.current) {
+        // only component loaded or has not destroyed.
+        // to set component's data
+        setData(res)
+      }
+    });
+  })
+}
+```
+
+4. react中抽离触底刷新逻辑（使用Ins）
+```tsx
+
+```
 
 ### 1-1. useState实现原理
 > [原理](https://juejin.cn/post/6891577820821061646)
