@@ -85,7 +85,7 @@ export default advancedComponent(MyComponent);
 ```
 
 ### 4. render props 设计模式
-针对于纯数据逻辑上的复用，最好的就是使用render props。
+针对于纯数据逻辑上的复用，最好的就是使用render props。也不一定是使用children，也可以使用自定义的渲染UI的自定义props。
 ```jsx
 // render props
 import { useState, useCallback } from 'react';
@@ -114,5 +114,26 @@ function CounterRenderPropsExample() {
       }
     }
   <CounterRenderProps/>
+}
+```
+自定义props渲染UI的方式，比如就定义renderItem这个prop来传渲染函数。一般是针对相同的数据有不同的UI展示需求的时候才用。（对UI进行）
+```jsx
+function RenderProps({ renderItem, data = [] }) {
+  const element = data.map((item) => renderItem(item));
+  return <>
+    { element }
+  </>
+}
+
+// 外部自己定义想要的样式，通过prop传递即可
+function App1() {
+  return <RenderProps 
+    renderItem={(item) => <span>{ item }</span>}
+  />
+}
+function App2() {
+  return <RenderProps 
+    renderItem={(item) => <div>{ item }</div>}
+  />
 }
 ```
