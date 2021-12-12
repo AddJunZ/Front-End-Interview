@@ -59,6 +59,7 @@ const WrapperComponent = () => {
 }
 ```
 由此看来，从抽离公共数据的优雅程度和组件的结构来看，hook都比高阶组件优秀。
+
 ### 3. class组件中使用hooks
 有时候需要在class组件内部使用hooks，则最好的方法就是使用高阶组件，在高阶组件内使用hooks获得数据或状态
 ```jsx
@@ -81,4 +82,37 @@ class MyComponent extends React.Component {
 }
 // 通过高阶组件 将从hooks获得的数据传递给 MyComponent组件
 export default advancedComponent(MyComponent);
+```
+
+### 4. render props 设计模式
+针对于纯数据逻辑上的复用，最好的就是使用render props。
+```jsx
+// render props
+import { useState, useCallback } from 'react';
+
+function CounterRenderProps({ children }) {
+  const [count, setCount] = useState(0);
+  const increment = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+  const decrement = useCallback(() => {
+    setCount(count - 1);
+  }, [count]);
+  return children({ count, increment, decrement });
+}
+
+// 使用render props
+function CounterRenderPropsExample() {
+  return <CounterRenderProps>
+    {
+      ({ count, increment, decrement }) => {
+        return <div>
+          <button onClick={increment}> + </button>
+          <span>{ count }</span>
+          <button onClick={decrement}> - </button>
+        </div>
+      }
+    }
+  <CounterRenderProps/>
+}
 ```
