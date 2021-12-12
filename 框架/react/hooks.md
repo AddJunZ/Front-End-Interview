@@ -10,6 +10,7 @@
 ```js
 const [num, setNum] = useState(123);
 ```
+> useState还能带传一个函数作为初始值，state中不要保存能够计算出来的值。
 
 ### 2. useEffect
 > 对应类组件的：componentDidMount, componentDidUpdate，componentWillUnmount

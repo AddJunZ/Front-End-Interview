@@ -59,5 +59,26 @@ const WrapperComponent = () => {
 }
 ```
 由此看来，从抽离公共数据的优雅程度和组件的结构来看，hook都比高阶组件优秀。
+### 3. class组件中使用hooks
+有时候需要在class组件内部使用hooks，则最好的方法就是使用高阶组件，在高阶组件内使用hooks获得数据或状态
+```jsx
+import React from 'react';
 
-### 3. 
+// 高阶组件：advancedComponent.jsx
+export const advancedComponent = (WrappedComponent) => {
+  return props => {
+    const list = useMyHooks();
+    return <WrappedComponent list={list}/>
+  }
+}
+
+// class组件：
+class MyComponent extends React.Component {
+  render() {
+    const { list } = this.props;
+    // 内部就能访问到list，进而做特殊逻辑...
+  }
+}
+// 通过高阶组件 将从hooks获得的数据传递给 MyComponent组件
+export default advancedComponent(MyComponent);
+```
