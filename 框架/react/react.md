@@ -116,7 +116,7 @@ function CounterRenderPropsExample() {
   <CounterRenderProps/>
 }
 ```
-自定义props渲染UI的方式，比如就定义renderItem这个prop来传渲染函数。一般是针对相同的数据有不同的UI展示需求的时候才用。（对UI进行）
+自定义props渲染UI的方式，比如就定义renderItem这个prop来传渲染函数。一般是针对相同的数据有不同的UI展示需求的时候才用。（对部分UI逻辑进行抽象）
 ```jsx
 function RenderProps({ renderItem, data = [] }) {
   const element = data.map((item) => renderItem(item));
@@ -137,3 +137,5 @@ function App2() {
   />
 }
 ```
+
+### 5. 
