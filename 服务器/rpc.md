@@ -8,7 +8,7 @@
 * Server: 服务的提供方
 * Server Stub: 接受客户端发送过来的消息，将消息解包，并调用本地方法
 
-![image](https://github.com/AddJunZ/Front-End/blob/master/img/rpc_20220101.jpg)
+![image](https://github.com/AddJunZ/Front-End/blob/master/img/rpc_20220101.jpeg)
 
 RPC的目标是要把2、3、4、7、8、9这些步骤都封装起来。
 
