@@ -24,7 +24,7 @@ Q：
 1. RPC和和直接后台调用后台的区别是啥
 
 参考文献：
-[RPC原理解析](https://www.cnblogs.com/swordfall/p/8683905.html)
-[Java RMI框架](https://blog.51cto.com/haolloyin/332426)
-[RMI网络编程开发之二 如何搭建基于JDK1.5的分布式JAVA RMI 程序](https://blog.51cto.com/u_6221123/1112619)
+[RPC原理解析](https://www.cnblogs.com/swordfall/p/8683905.html),
+[Java RMI框架](https://blog.51cto.com/haolloyin/332426),
+[RMI网络编程开发之二 如何搭建基于JDK1.5的分布式JAVA RMI 程序](https://blog.51cto.com/u_6221123/1112619),
 [直观讲解一下 RPC 调用和 HTTP 调用的区别](https://www.jianshu.com/p/b0350ef9a0bb)
