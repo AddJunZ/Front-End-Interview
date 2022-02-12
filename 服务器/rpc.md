@@ -1,5 +1,5 @@
 ## RPC(Remote Procedure Call) 远程过程调用
-> 服务器A想要调用服务器B的服务，则需要进行远程调用。常用的RPC框架：[grpc](https://grpc.io/docs/what-is-grpc/introduction/)底层使用的http2.0、[dubbo](https://dubbo.apache.org/zh/)底层采用长链接
+> 服务器A想要调用服务器B的服务，则需要进行远程调用。常用的RPC框架：[grpc](https://grpc.io/docs/what-is-grpc/introduction/)底层使用的http2.0，利用ProtoBuf作为序列化工具和接口定义语言。、[dubbo](https://dubbo.apache.org/zh/)底层采用长链接
 
 ### 1. RPC架构
 一个完整的RPC架构包含四个核心组件：客户端(Client)、客户端存根(Client Stub)、服务端(Server)、服务端存根(Server Stub)。

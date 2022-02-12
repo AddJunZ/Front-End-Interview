@@ -73,3 +73,7 @@ gm - git merge
 2. ```git tag [tag名称] -m "备注信息"```，增加tag
 3. ```git push origin [tag名称]```，推送到远程tag
 4. ```git push origin :refs/tags/[tag名称]```，删除远程tag
+5. ```git checkout [tag名称]```，将head切换到某个tag下
+
+### 11. git describe
+```git describe <ref>```配合tag使用，输出```<tag>-<numCommits>-g<hash>```，距离哪个tag有多少个commit并且当前的hash code
