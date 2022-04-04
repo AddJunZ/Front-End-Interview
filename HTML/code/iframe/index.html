@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index</title>
+  <script src="http://localhost:8080/constants.js"></script>
+</head>
+<body>
+  <iframe id="iframeRef" src="http://localhost:8080/iframe.html" frameborder="0"></iframe>
+</body>
+<script>
+  window.name = 'index';
+  // self window
+  // MessageEvent
+  const receiveVideo = event => {
+    console.log('event: ', event);
+    const origin = event.origin;
+    if (origin !== origin) return;
+    const { type, data } = event.data;
+    switch(type) {
+      case actions.videoInfo:
+        console.log('data', data);
+        break;
+      default:
+        break;
+    }
+  };
+  window.addEventListener("message", receiveVideo, false);
+  // iframe window
+  const iframeRef = document.getElementById('iframeRef');
+  const iframeWindow = iframeRef.contentWindow;
+  console.log('iframeWindow: ', iframeWindow.parent === window);
+</script>
+</html>

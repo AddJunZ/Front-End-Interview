@@ -197,3 +197,8 @@ document.onvisibilitychange = function(event) {
 前进、后退 | 有效 | 有效
 正常重新加载(command + R) | 无效 | 有效
 硬性重新加载(command + shift + R) | 无效 | 无效
+
+### 20. meta标签
+
+
+### 21. postMessage
