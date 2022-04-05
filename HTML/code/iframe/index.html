@@ -15,13 +15,11 @@
   // self window
   // MessageEvent
   const receiveVideo = event => {
-    console.log('event: ', event);
-    const origin = event.origin;
-    if (origin !== origin) return;
+    if (event.origin !== origin) return;
     const { type, data } = event.data;
     switch(type) {
       case actions.videoInfo:
-        console.log('data', data);
+        console.log('videoInfo data', data);
         break;
       default:
         break;
@@ -31,6 +29,14 @@
   // iframe window
   const iframeRef = document.getElementById('iframeRef');
   const iframeWindow = iframeRef.contentWindow;
-  console.log('iframeWindow: ', iframeWindow.parent === window);
+  iframeRef.onload = () => {
+    iframeWindow.postMessage({
+      type: actions.jumpVideo,
+      data: {
+        currentTime: 300,
+        duration: 3000,
+      },
+    }, origin);
+  }
 </script>
 </html>
