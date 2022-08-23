@@ -19,3 +19,9 @@ u # 撤销
 
 ## 2. 用户管理
 1. 用户和组
+```shell
+$ cat /etc/passwd
+# root:*:0:0:System Administrator:/var/root:/bin/sh
+# <用户名>:X:uid:gid:描述:HOME:shell
+```
+（1）用户名：登录系统的名字；（2）X：密码占位符，具体内容不在这里；（3）uid：用户的身份证号。0:特权用户；1～499系统用户；1000+普通用户。（4）gid：组id。（5）描述。（6）登录系统时所在的目录（7）登录shell，命令解释器
