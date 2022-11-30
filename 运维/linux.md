@@ -4,7 +4,9 @@ mkdir -pv /a/b/c # 递归创建(p)并查看(v)文件夹
 mkdir -pv ./test/{dir1,dir2} # 递归创建两个文件夹，（中间不能加空格）
 cp -r dir/file1 ./aim/dir # 复制文件到指定位置
 mv <pre path> <next path> # 移动文件/改名
-cat <your file> # 查看你的文件内容
+cat <file path> # 查看你的文件内容
+head <-3> <file path> # 查看前几（3）行
+tail <-3> <file path> # 查看后几（3）行
 ls -l > log # 重定向，将前面操作符的内容写进特定的文件内
 # vim
 （1）使用i进入编辑模式，适应esc推出编辑模式
@@ -42,4 +44,12 @@ $ cat /etc/group
 ```
 （1）组名；（2）组密码；（3）组ID；（4）组成员
 
+4. 用户管理
+* ```useradd <user name>``` 增加用户
+* ```id <user name>``` 查看用户
+* ```passwd <user name>``` 更新用户密码
+```shell
+$ id AddJunZ
+# uid=501(addjunz) gid=20(staff) .....
+```
 
