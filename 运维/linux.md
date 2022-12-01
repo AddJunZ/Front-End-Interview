@@ -60,4 +60,7 @@ $ id AddJunZ
 ## 3. 组管理
 可以将文件权限归纳到组内的维度，这样可以将用户加入或者删除组，以此来简易操作用户获得权限，这样就不需要用户对每个文件权限进行操作。
 
+* ```groupadd <group name> -g <group id>``` 增加组
+* ```cat /etc/group | grep <group name> ``` 查看组
+* ```groupdel <group name>``` 删除组
 
