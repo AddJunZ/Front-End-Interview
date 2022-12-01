@@ -48,8 +48,16 @@ $ cat /etc/group
 * ```useradd <user name>``` 增加用户
 * ```id <user name>``` 查看用户
 * ```passwd <user name>``` 更新用户密码
+* ```userdel -r <user name>``` 删除用户
+* 将用户加入组
+* ```usermod <配置参数> <参数>```修改用户属性
+
 ```shell
 $ id AddJunZ
 # uid=501(addjunz) gid=20(staff) .....
 ```
+
+## 3. 组管理
+可以将文件权限归纳到组内的维度，这样可以将用户加入或者删除组，以此来简易操作用户获得权限，这样就不需要用户对每个文件权限进行操作。
+
 
