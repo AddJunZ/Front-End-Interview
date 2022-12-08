@@ -74,3 +74,13 @@ $ id AddJunZ
 Switching users with su
 * ```su - root``` 切换到root权限。普通用户没有特权，尽量少用root。
 * ```sudo ``` 使用普通用户登录服务器时完全部分特权指令。
+
+使用sudo提权的前提是在root权限下，已经允许该普通用户在不输入用户密码的情况下使用所有命令。
+
+```shell
+# vim /etc/sudoers
+wheel ALL=(ALL) NOPASSWD:ALL
+
+useradd <user-name> -G wheel
+```
+
