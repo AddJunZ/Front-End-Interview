@@ -84,3 +84,9 @@ wheel ALL=(ALL) NOPASSWD:ALL
 useradd <user-name> -G wheel
 ```
 
+## 5. 权限
+1. 基本权限UGO(User Group Other)
+
+* 权限对象：（1）属主 u；（2）属组 g；（3）其它人 o；（4）特殊对象 a[u+g+o]，是一种统称。
+* 权限类型：（1）读 r=4；（2）写 w=2；（3）执行 x=1。
+
