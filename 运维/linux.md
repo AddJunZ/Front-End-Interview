@@ -71,4 +71,6 @@ $ id AddJunZ
 * （2）附加组```-G```：某用户加入到和自己不同名的组，那么这个组就叫这个用户的附加组
 
 ## 4. 提权
-* ```switching users with su```
+Switching users with su
+* ```su - root``` 切换到root权限。普通用户没有特权，尽量少用root。
+* ```sudo ``` 使用普通用户登录服务器时完全部分特权指令。
