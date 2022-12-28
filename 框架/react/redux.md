@@ -155,3 +155,9 @@ const VisibleTodoList = connect(
 （Controller  -> Model - > View -> Model -> View）
 
 ![image](https://github.com/AddJunZ/Front-End/blob/master/img/flux.png)
+
+### 6. redux toolkit
+是一个建立在Redux之上的库，其目睹是去除Redux产生的一些复杂性和模版
+
+[redux toolkit](https://www.freecodecamp.org/chinese/news/how-to-manage-state-in-a-react-app/#reduxtoolkit)
+
