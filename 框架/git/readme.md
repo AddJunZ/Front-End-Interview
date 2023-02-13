@@ -77,3 +77,6 @@ gm - git merge
 
 ### 11. git describe
 ```git describe <ref>```配合tag使用，输出```<tag>-<numCommits>-g<hash>```，距离哪个tag有多少个commit并且当前的hash code
+
+### 12. git squash
+1. ```git merge --squash <branch name>```，合并对应的分支的最新提交但不产生commit，需要重新设置commit
