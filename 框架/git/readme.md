@@ -33,6 +33,17 @@ stash@{2}: On master: test
 
 ### 4. git revert 回退单次commit
 1. 使用git revert <commit-hash>，便可以撤回单次commit操作
+2. git revert B^..D，撤销[B,D]之间的所有commit记录。
+```
+假设commit记录为 A -> B -> C -> D
+使用 git revert B^..D 后就会产生 A -> B -> C -> D -> D' -> C' -> B'这样带多个逆向操作的commit
+```
+3. 如果想要不产生三个逆向操作commit，而是只用一个commit表示三个逆向的总操作
+```
+假设commit记录为 A -> B -> C -> D
+使用 git revert -n B^..D
+再用 git commit -m "<your revert message>"即可
+```
 
 ### 5. 回退到特定的commit位置
 1. ```git reset --hard <commit-hash>```，将本地head切换到这个commit节点上
