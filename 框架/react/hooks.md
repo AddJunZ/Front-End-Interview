@@ -13,6 +13,11 @@ const [num, setNum] = useState(123);
 > useState还能带传一个函数作为初始值，state中不要保存能够计算出来的值。
 > setState还可以传一个函数，函数以上一个state的值为参数，返回新值，比如：```setNum(preState => preState + 1)```，可以做到根据前一个值做某些变化的操作
 
+当useState的第一个参数可为惰性函数，当组件重新渲染的时候，函数的值不会再次计算，可用于一些耗时较长的io操作的结果。
+```tsx
+
+```
+
 ### 2. useEffect
 > 对应类组件的：componentDidMount, componentDidUpdate，componentWillUnmount
 1. 不接受第二个参数。在第一次渲染和每次更新渲染都会调用该回调函数。
