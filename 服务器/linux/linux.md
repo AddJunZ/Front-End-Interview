@@ -17,3 +17,15 @@ ps -f # 全格式展示进程信息
 ps -c # 显示进程的真实名字
 ps -x # 显示所有进程无论是否运行在终端
 ```
+
+### 2. systemctl
+```systemctl```是linux用来管理系统的一个程序，```systemctl daemon-reload```重载所有修改过的配置文件，```systemctl enable <service>```开机自启动某个服务
+
+```shell
+# 以redis为例子
+systemctl enable redis # 开机自启动redis
+systemctl start redis
+systemctl stop redis
+systemctl restart redis
+systemctl status redis
+```
