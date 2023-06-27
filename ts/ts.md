@@ -54,3 +54,6 @@ const params1: RequestParams = { name: 'AddJunZ', age: 21 }; // 默认需要带�
 const params2: Partial<RequestParams> = { name: 'AddJunZ' }; // 可以包含任何的参数字段
 const params3: Omit<RequestParams, 'name'> = { age: 21 }; // 在原来的类型除去某个字段
 ```
+8. ts-node
+可以使用ts-node来运行ts文件，使用```tsc --init```初始化tsconfig.json```文件。如果配置了alias，需要额外安装```tsconfig-paths```这个包，保证项目运行。
+9. 
