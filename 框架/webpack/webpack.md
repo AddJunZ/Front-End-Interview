@@ -314,6 +314,8 @@ let purifyCSS = new PurifyCSS({
 > Use webpack for apps, and Rollup for libraries
 
 ### 8. webpack热更新逻辑
+> [轻松理解webpack热更新原理](https://juejin.cn/post/6844904008432222215)
+
 > 1. 热更新解决的问题
 
 在应用程序开发的时候，开发人员不需要刷新页面，就可以看到最新代码修改后的页面。
