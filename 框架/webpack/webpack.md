@@ -9,7 +9,7 @@ webpack是一个模块打包工具，将根据文件间的历来关系对其进�
 loader：用于将非js模块解析成js，或者将图片转化成base64格式（css-loader）
 
 ### 3. 常见的loader
-> [常用webpack](https://juejin.cn/post/6942322281913778206)，[webpack学习之路（四）webpack-hot-middleware实现热更新](https://juejin.cn/post/6844903861002436621)
+> [常用webpack](https://juejin.cn/post/6942322281913778206)
 
 1. babel-loader：将es6转换为es5
 - babel-loader 是使babel和webpack协同工作的模块
@@ -314,13 +314,13 @@ let purifyCSS = new PurifyCSS({
 > Use webpack for apps, and Rollup for libraries
 
 ### 8. webpack热更新逻辑
-> [轻松理解webpack热更新原理](https://juejin.cn/post/6844904008432222215)
+> [轻松理解webpack热更新原理](https://juejin.cn/post/6844904008432222215)，[webpack学习之路（四）webpack-hot-middleware实现热更新](https://juejin.cn/post/6844903861002436621)
 
-> 1. 热更新解决的问题
+1. 热更新解决的问题
 
 在应用程序开发的时候，开发人员不需要刷新页面，就可以看到最新代码修改后的页面。
 
-> 2. 热更新配置
+2. 热更新配置
 
 启动热重启需要使用插件```HotModuleReplacementPlugin```，同时打开```webpack-dev-server```的热开关。
 
@@ -338,3 +338,12 @@ module.exports = {
   ]
 }
 ```
+
+3. 热更新的方式一种是使用webpack-dev-server，另一种是使用webpack-hot-middleware搭配webpack-dev-middleware。后者的自由度更高，更适合自定义的项目。
+
+(1) webpack-dev-server，单纯使用的话会刷新页面，需要搭配HotModuleReplacementPlugin来实现**模块热更新**，它允许在运行时更新各种模块，而无需进行完全刷新。
+(2) webpack-dev-middleware的作用是将webpack打包后的产物文件传输给本地起的服务器。**Q:这个传输的意思到底是啥呢？到底是谁监听的文件变化进行再次打包的呢**
+(3) webpack-hot-middleware的作用是实现热更新，底层是使用的server send event。
+
+4. 
+(1)
