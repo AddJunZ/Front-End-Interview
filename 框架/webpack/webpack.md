@@ -9,7 +9,7 @@ webpack是一个模块打包工具，将根据文件间的历来关系对其进�
 loader：用于将非js模块解析成js，或者将图片转化成base64格式（css-loader）
 
 ### 3. 常见的loader
-> [常用webpack](https://juejin.cn/post/6942322281913778206)
+> [常用webpack](https://juejin.cn/post/6942322281913778206)，[webpack学习之路（四）webpack-hot-middleware实现热更新](https://juejin.cn/post/6844903861002436621)
 
 1. babel-loader：将es6转换为es5
 - babel-loader 是使babel和webpack协同工作的模块
