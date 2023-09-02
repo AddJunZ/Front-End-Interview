@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll</title>
+  <style>
+    .wrapper {
+      width: 350px;
+      border: 1px solid black;
+      display: flex;
+      overflow-x: scroll;
+      flex-wrap: nowrap;
+      scroll-snap-type: x mandatory; /* 在wrapper配置 */
+    }
+    .items {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2px;
+      background-color: rgb(123, 198, 115);
+      width: 100px;
+      height: 100px;
+      flex-shrink: 0;
+      scroll-snap-align: end; /* item对齐左右边 */
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="items">1</div>
+    <div class="items">2</div>
+    <div class="items">3</div>
+    <div class="items">4</div>
+    <div class="items">5</div>
+    <div class="items">6</div>
+  </div>
+</body>
+</html>

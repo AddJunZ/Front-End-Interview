@@ -413,3 +413,6 @@ a:hover{
 ```
 ### 24. 层叠上下文
 层叠上下文决定了z-index的值具体的效果范围，z-index只在最近的父层叠上下文根据大小决定谁展示在最上层。子元素并不一定是直接站在父节点的z-index上进行判断，带有z-index的父节点并不一定能够成为一个单独的层叠上下文。详见[层叠上下文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context)
+
+### 25.scroll相关
+scroll-snap-type: x mandator;可以保持每次停留都是在单个在试图的效果
