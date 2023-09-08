@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scroll</title>
   <style>
-    .wrapper {
-      width: 350px;
-      border: 1px solid black;
-      display: flex;
-      overflow-x: scroll;
-      flex-wrap: nowrap;
-      scroll-snap-type: x mandatory; /* 在wrapper配置 */
+    * {
+      margin: 0;
+      padding: 0;
     }
+
+    .wrapper {
+      width: 100vw;
+      height: 100vh;
+      /* border: 1px solid black; */
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      flex-wrap: nowrap;
+      scroll-snap-type: y mandatory;
+      /* 在wrapper配置 */
+    }
+
     .items {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2px;
       background-color: rgb(123, 198, 115);
-      width: 100px;
-      height: 100px;
+      width: 100vw;
+      height: 100vh;
       flex-shrink: 0;
-      scroll-snap-align: end; /* item对齐左右边 */
+      scroll-snap-align: end;
+
+      /* item对齐左右边 */
+      &:nth-of-type(2n) {
+        background-color: pink;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="wrapper">
     <div class="items">1</div>
@@ -36,4 +51,5 @@
     <div class="items">6</div>
   </div>
 </body>
+
 </html>
