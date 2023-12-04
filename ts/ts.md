@@ -74,4 +74,4 @@ const params3: Omit<RequestParams, 'name'> = { age: 21 }; // 在原来的类型�
     }
    ```
 
-9.
+9. [Typescript项目别名（alias）配置清单](https://zhuanlan.zhihu.com/p/298189197)
