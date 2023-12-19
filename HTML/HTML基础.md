@@ -202,3 +202,6 @@ document.onvisibilitychange = function(event) {
 
 
 ### 21. postMessage
+
+
+### 22. shadow dom
