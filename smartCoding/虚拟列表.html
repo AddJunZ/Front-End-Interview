@@ -6,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <style>
+    body {
+      margin-top: 50px;
+    }
     .list-view {
-      height: 400px;
       width: 300px;
       overflow: auto;
       position: relative;
@@ -32,7 +34,7 @@
     .list-view-item {
       padding: 5px;
       color: #666;
-      line-height: 30px;
+      height: 30px;
       box-sizing: border-box;
       border:1px solid pink;
     }
@@ -42,7 +44,9 @@
 
 <body>
   <div id="app">
-    <div class="list-view" @scroll="handleScroll" ref="container">
+    <div class="list-view" @scroll="handleScroll" ref="container" :style="{
+      height: `${viewHeight}px`
+    }">
       <div class="list-view-phantom" :style="{
           height: contentHeight
         }">
@@ -62,14 +66,16 @@
       el: '#app',
       data() {
         return {
+          viewHeight: 310, // view height FIXME: 也不必须是itemHeight的整数倍
           list: [], // 所有数据
           itemHeight: 30, // 单行的高度
           visibleData: [], // 可视区数据
+          buffer: 2, // 前后预留的渲染条数
         }
       },
       mounted() {
         // 初始化所有数据
-        this.list = new Array(10000).fill(false).map((item, index) => index)
+        this.list = new Array(100).fill(false).map((item, index) => index)
         this.updateVisibleData();
       },
       computed: {
@@ -81,14 +87,16 @@
         updateVisibleData(scrollTop) {
           scrollTop = scrollTop || 0;
           const visibleCount = Math.ceil(this.$refs.container.clientHeight / this.itemHeight);
+          console.log('visibleCount: ', visibleCount);
           const start = Math.floor(scrollTop / this.itemHeight);
+          const finalStart = Math.max(start - this.buffer, 0);
           const end = start + visibleCount;
-          this.visibleData = this.list.slice(start, end);
-          this.$refs.content.style.webkitTransform = `translate3d(0, ${start * this.itemHeight}px, 0)`;
+          const finalEnd = Math.min(this.viewHeight, end + this.buffer);
+          this.visibleData = this.list.slice(finalStart, finalEnd);
+          this.$refs.content.style.webkitTransform = `translate3d(0, ${finalStart * this.itemHeight}px, 0)`;
         },
-        handleScroll() {
+        handleScroll(event) {
           const scrollTop = this.$refs.container.scrollTop;
-          // console.log(scrollTop)
           this.updateVisibleData(scrollTop);
         }
       }
