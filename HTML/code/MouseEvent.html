@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="dom">dom</div>
+  <a href="http://www.baidu.com" target="_blank" id="baidu">baidu</a>
+  <script>
+    const dom = document.querySelector('#dom');
+    const a = document.querySelector('#baidu');
+    dom.addEventListener('click', (ee) => {
+      console.log('ee: ', ee.isTrusted);
+      // const mouseEvent = new MouseEvent('click');
+      // a.dispatchEvent(mouseEvent)
+      a.click();
+    })
+    a.addEventListener('click', ee => {
+      console.log('a ee: ', ee.isTrusted);
+
+    })
+  </script>
+</body>
+
+</html>
