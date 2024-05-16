@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #a {
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+    }
+
+    #b {
+      width: 50px;
+      height: 50px;
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="a">
+    <div id="b"></div>
+  </div>
+
+  <script>
+    let div1 = document.getElementById('a'); // 大div
+    let div2 = document.getElementById('b'); // 小div
+    div1.addEventListener('click', function () {
+      console.log('big div')
+    }, true)
+    div2.addEventListener('click', function (e) {
+      e.stopPropagation();
+      console.log('small div')
+    })
+  </script>
+</body>
+
+</html>
