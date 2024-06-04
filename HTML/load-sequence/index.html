@@ -3,17 +3,18 @@
 
 <head>
   <script>
-    function getDom() {
-      console.log(document.querySelectorAll('h1'))
-    }
-    setTimeout(getDom, 100);
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log('DOMContentLoaded');
+    })
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-    integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script>
+    console.log('123')
   </script>
 </head>
+
 <body>
   <h1>html show</h1>
 </body>
-</html>
