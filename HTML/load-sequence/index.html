@@ -3,18 +3,18 @@
 
 <head>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      console.log('DOMContentLoaded');
-    })
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script>
-    console.log('123')
+    function getDom() {
+      console.log(document.querySelectorAll('h1'))
+      console.log(document.querySelectorAll('h2'))
+    }
+    setTimeout(getDom, 100);
   </script>
 </head>
 
 <body>
-  <h1>html show</h1>
+  <h1>h1 show</h1>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <h2>hello</h2>
 </body>
