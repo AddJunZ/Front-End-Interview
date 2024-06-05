@@ -416,3 +416,6 @@ a:hover{
 
 ### 25.scroll相关
 scroll-snap-type: x mandator;可以保持每次停留都是在单个在试图的效果
+
+### 26. position: fixed
+fixed不一定是完全相当于与视口的，当元素祖先的 `transform`, `perspective` 或 `filter` 属性非 `none` 时，容器由视口改为该祖先。
