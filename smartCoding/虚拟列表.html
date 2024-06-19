@@ -9,6 +9,7 @@
     body {
       margin-top: 50px;
     }
+
     .list-view {
       width: 300px;
       overflow: auto;
@@ -36,7 +37,7 @@
       color: #666;
       height: 30px;
       box-sizing: border-box;
-      border:1px solid pink;
+      border: 1px solid pink;
     }
   </style>
   <script src="https://cdn.bootcss.com/vue/2.6.11/vue.common.dev.js"></script>
@@ -91,7 +92,7 @@
           const start = Math.floor(scrollTop / this.itemHeight);
           const finalStart = Math.max(start - this.buffer, 0);
           const end = start + visibleCount;
-          const finalEnd = Math.min(this.viewHeight, end + this.buffer);
+          const finalEnd = Math.min(this.list.length, end + this.buffer);
           this.visibleData = this.list.slice(finalStart, finalEnd);
           this.$refs.content.style.webkitTransform = `translate3d(0, ${finalStart * this.itemHeight}px, 0)`;
         },
