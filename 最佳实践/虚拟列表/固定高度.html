@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>元素是固定高度的虚拟列表</title>
   <style>
     body {
       margin-top: 50px;
@@ -60,6 +60,7 @@
         </div>
       </div>
     </div>
+    <button @click="jumpToTen">jump to 10</button>
   </div>
 
   <script>
@@ -99,6 +100,11 @@
         handleScroll(event) {
           const scrollTop = this.$refs.container.scrollTop;
           this.updateVisibleData(scrollTop);
+        },
+        jumpToTen() {
+          const targetScrollTop = 10 * this.itemHeight;
+          this.$refs.container.scrollTop = targetScrollTop;
+          this.updateVisibleData(targetScrollTop);
         }
       }
     })

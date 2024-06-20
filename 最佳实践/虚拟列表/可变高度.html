@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>元素是固定高度的虚拟列表</title>
+  <style>
+    body {
+      margin-top: 50px;
+    }
+
+    .list-view {
+      width: 300px;
+      overflow: auto;
+      position: relative;
+      border: 1px solid #aaa;
+    }
+
+    .list-view-phantom {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      z-index: -1;
+    }
+
+    .list-view-content {
+      left: 0;
+      right: 0;
+      top: 0;
+      position: absolute;
+    }
+
+    .list-view-item {
+      padding: 5px;
+      color: #666;
+      height: 30px;
+      box-sizing: border-box;
+      border: 1px solid pink;
+    }
+  </style>
+  <script src="https://cdn.bootcss.com/vue/2.6.11/vue.common.dev.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="list-view" @scroll="handleScroll" ref="container" :style="{
+      height: `${viewHeight}px`
+    }">
+      <div class="list-view-phantom" :style="{
+          height: contentHeight
+        }">
+      </div>
+      <div ref="content" class="list-view-content">
+        <div class="list-view-item" v-for="item in visibleData">
+          {{ item }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          viewHeight: 310, // view height FIXME: 也不必须是itemHeight的整数倍
+          list: [
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+            'hello world hello world hello world hello world hello world',
+            'how are u',
+          ], // 所有数据
+          visibleData: [], // 可视区数据
+          buffer: 2, // 前后预留的渲染条数
+          estimatedItemHeight: 30, // 估计的每一项的高度
+          measuredData: {
+            measuredMap: [], // 对象数组，记录着每一个index的offset, 和具体的高度size
+            lastMeasuredIndex: -1, // 上一个计算的值
+          }
+        }
+      },
+      mounted() {
+        this.updateVisibleData();
+      },
+      computed: {
+        /**
+         * 容器的总高度
+        */
+        contentHeight() {
+          const measuredHeight = this.measuredData.measuredMap?.map(m => m.size)?.reduce((a, b) => a + b, 0);
+          const unMeasuredHeight = (this.list.length - this.measuredData.measuredMap?.length) * this.estimatedItemHeight;
+          return measuredHeight + unMeasuredHeight + 'px';
+        }
+      },
+      methods: {
+        updateVisibleData(scrollTop) {
+          scrollTop = scrollTop || 0;
+          const visibleCount = Math.ceil(this.$refs.container.clientHeight / this.itemHeight);
+          console.log('visibleCount: ', visibleCount);
+          const start = Math.floor(scrollTop / this.itemHeight);
+          const finalStart = Math.max(start - this.buffer, 0);
+          const end = start + visibleCount;
+          const finalEnd = Math.min(this.list.length, end + this.buffer);
+          this.visibleData = this.list.slice(finalStart, finalEnd);
+          this.$refs.content.style.webkitTransform = `translate3d(0, ${finalStart * this.itemHeight}px, 0)`;
+        },
+        /**
+         * 获取每一项的详细数据
+         * 从 measuredData 中
+        */
+        getMetaItemData(index) {
+          // 如果index比 lastMeasuredIndex 大，则代表还未计算
+          // 需要从lastMeasuredIndex一直计算到 index
+          const { lastMeasuredIndex } = this.measuredData;
+          if (index > lastMeasuredIndex) {
+            let offset = 0;
+            if (lastMeasuredIndex > -1) {
+              // 先把有缓存过的数据存储起来
+              const lastMeasuredItem = this.measuredData.measuredMap[lastMeasuredIndex];
+              offset += lastMeasuredItem.offset + lastMeasuredItem.size;
+            }
+            // 加到索引值的位置
+            for (let i = lastMeasuredIndex + 1; i < index; i++) {
+              offset += this.measuredData
+            }
+          }
+          // 否则则代表有缓存数据，直接返回
+          return this.measuredData.measuredMap[index];
+        },
+        /**
+         * 获取起始的index
+        */
+        getStartIndex(scrollTop) {
+          let index = 0;
+          while (true) {
+            const currentOffset = this.getMetaItem(index);
+          }
+        },
+        /**
+         * 获取终止的index
+        */
+        getEndIndex(scrollTop) {
+
+        },
+        handleScroll(event) {
+          const scrollTop = this.$refs.container.scrollTop;
+          this.updateVisibleData(scrollTop);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
