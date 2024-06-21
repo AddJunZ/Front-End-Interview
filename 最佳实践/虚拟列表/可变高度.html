@@ -100,7 +100,7 @@
           buffer: 2, // 前后预留的渲染条数
           estimatedItemHeight: 30, // 估计的每一项的高度
           measuredData: {
-            measuredMap: [], // 对象数组，记录着每一个index的offset, 和具体的高度size
+            measuredMap: [], // 对象数组，记录着每一个index的offset(元素距离父级顶部的距离), 和具体的高度size(元素本身的高度)
             lastMeasuredIndex: -1, // 上一个计算的值
           }
         }
@@ -147,8 +147,11 @@
             }
             // 加到索引值的位置
             for (let i = lastMeasuredIndex + 1; i < index; i++) {
-              offset += this.measuredData
+              // 此时的i对应的元素的高度其实是不知道的，暂时用预估的高度代替
+              this.measuredData.measuredMap[i] = { offset, size: this.estimatedItemHeight }
+              offset += this.estimatedItemHeight;
             }
+            this.measuredData.lastMeasuredIndex = index;
           }
           // 否则则代表有缓存数据，直接返回
           return this.measuredData.measuredMap[index];
@@ -159,14 +162,33 @@
         getStartIndex(scrollTop) {
           let index = 0;
           while (true) {
-            const currentOffset = this.getMetaItem(index);
+            // 从0开始遍历所有的元素高度
+            const currentOffset = this.getMetaItemData(index).offset;
+            // 如果现有元素的offset比 scrollTop 小，就代表当前元素还未到达可视觉区域
+            if (currentOffset >= scrollTop) {
+              return index;
+            }
+            // 如果大于数组的最大长度，则返回。因为起始下表肯定不可能超过数组长度
+            // TODO: 是否需要减1
+            if (index >= this.list.length - 1) {
+              return index;
+            }
+            index++;
           }
         },
         /**
          * 获取终止的index
         */
         getEndIndex(scrollTop) {
-
+          // 先获取起始的start的index
+          const startIndex = this.getStartIndex(scrollTop);
+          let endIndex = startIndex;
+          const startItem = this.getMetaItemData(startIndex);
+          let endOffset = startItem.offset + startItem.size;
+          // endItem的offset小于
+          while(endOffset <= startItem.offset + this.viewHeight && endIndex <= this.list.length) {
+            // TODO:
+          }
         },
         handleScroll(event) {
           const scrollTop = this.$refs.container.scrollTop;
