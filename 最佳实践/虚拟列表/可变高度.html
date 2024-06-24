@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>元素是固定高度的虚拟列表</title>
+  <title>元素是动态计算高度的虚拟列表</title>
   <style>
     body {
       margin-top: 50px;
@@ -35,7 +35,6 @@
     .list-view-item {
       padding: 5px;
       color: #666;
-      height: 30px;
       box-sizing: border-box;
       border: 1px solid pink;
     }
@@ -58,6 +57,9 @@
         </div>
       </div>
     </div>
+    <div>{{visibleData}}</div>
+    <div>{{measuredData.measuredMap}}</div>
+    <div>{{contentHeight}}</div>
   </div>
 
   <script>
@@ -67,42 +69,42 @@
         return {
           viewHeight: 310, // view height FIXME: 也不必须是itemHeight的整数倍
           list: [
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
-            'hello world hello world hello world hello world hello world',
-            'how are u',
+            "0. hello world hello world hello world hello world hello world",
+            "1. how are u",
+            "2. hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world",
+            "3. how are u",
+            "4. hello world hello world hello world hello world hello world",
+            "5. how are u",
+            "6. hello world hello world hello world hello world hello world",
+            "7. how are u",
+            "8. hello world hello world hello world hello world hello world",
+            "9. how are u",
+            "10. hello world hello world hello world hello world hello world",
+            "11. how are u",
+            "12. hello world hello world hello world hello world hello world",
+            "13. how are u",
+            "14. hello world hello world hello world hello world hello world",
+            "15. how are u",
+            "16. hello world hello world hello world hello world hello world",
+            "17. how are u",
+            "18. hello world hello world hello world hello world hello world",
+            "19. how are u",
+            "20. hello world hello world hello world hello world hello world",
+            "21. how are u",
+            "22. hello world hello world hello world hello world hello world",
+            "23. how are u",
+            "24. hello world hello world hello world hello world hello world",
+            "25. how are u",
+            "26. hello world hello world hello world hello world hello world lo world hello world hello world hello world lo world hello world orld hello world hello world lo world hello world orld hello world hello world lo world hello world orld hello world hello world lo world hello world hello world hello world lo world hello world hello world hello world",
+            "27. how are u how are u how are u how are u how are u how are u how are u how are u how are u how are u how are u how are u how are u how are u how are u"
           ], // 所有数据
-          visibleData: [], // 可视区数据
           buffer: 2, // 前后预留的渲染条数
           estimatedItemHeight: 30, // 估计的每一项的高度
           measuredData: {
             measuredMap: [], // 对象数组，记录着每一个index的offset(元素距离父级顶部的距离), 和具体的高度size(元素本身的高度)
             lastMeasuredIndex: -1, // 上一个计算的值
-          }
+          },
+          scrollTop: -1, // 保存最新的容器的scrollTop，用于后续计算
         }
       },
       mounted() {
@@ -116,19 +118,25 @@
           const measuredHeight = this.measuredData.measuredMap?.map(m => m.size)?.reduce((a, b) => a + b, 0);
           const unMeasuredHeight = (this.list.length - this.measuredData.measuredMap?.length) * this.estimatedItemHeight;
           return measuredHeight + unMeasuredHeight + 'px';
+        },
+        /**
+         * 可视区域的数组
+        */
+        visibleData() {
+          const start = this.getStartIndex(this.scrollTop) || 0;
+          const end = this.getEndIndex(this.scrollTop) || this.list.length;
+          const finalStart = Math.max(start - this.buffer, 0);
+          const finalEnd = Math.min(end + this.buffer, this.list.length);
+          if(this.$refs.content) {
+            this.$refs.content.style.webkitTransform = `translate3d(0, ${this.getMetaItemData(finalStart).offset}px, 0)`;
+          }
+          return this.list.slice(finalStart, finalEnd);
         }
       },
       methods: {
         updateVisibleData(scrollTop) {
           scrollTop = scrollTop || 0;
-          const visibleCount = Math.ceil(this.$refs.container.clientHeight / this.itemHeight);
-          console.log('visibleCount: ', visibleCount);
-          const start = Math.floor(scrollTop / this.itemHeight);
-          const finalStart = Math.max(start - this.buffer, 0);
-          const end = start + visibleCount;
-          const finalEnd = Math.min(this.list.length, end + this.buffer);
-          this.visibleData = this.list.slice(finalStart, finalEnd);
-          this.$refs.content.style.webkitTransform = `translate3d(0, ${finalStart * this.itemHeight}px, 0)`;
+          this.scrollTop = scrollTop;
         },
         /**
          * 获取每一项的详细数据
@@ -146,7 +154,8 @@
               offset += lastMeasuredItem.offset + lastMeasuredItem.size;
             }
             // 加到索引值的位置
-            for (let i = lastMeasuredIndex + 1; i < index; i++) {
+            // FIXME: i <= index
+            for (let i = lastMeasuredIndex + 1; i <= index; i++) {
               // 此时的i对应的元素的高度其实是不知道的，暂时用预估的高度代替
               this.measuredData.measuredMap[i] = { offset, size: this.estimatedItemHeight }
               offset += this.estimatedItemHeight;
@@ -161,14 +170,15 @@
         */
         getStartIndex(scrollTop) {
           let index = 0;
+          // TODO: 这部分后面可以优化查找到index的速度
           while (true) {
             // 从0开始遍历所有的元素高度
             const currentOffset = this.getMetaItemData(index).offset;
-            // 如果现有元素的offset比 scrollTop 小，就代表当前元素还未到达可视觉区域
+            // 如果当前元素的offset 大于或等于 scrollTop，则代表当前元素必定在视图内，将该index做为startIndex
             if (currentOffset >= scrollTop) {
               return index;
             }
-            // 如果大于数组的最大长度，则返回。因为起始下表肯定不可能超过数组长度
+            // 如果大于数组的最大长度，则返回。因为起始下标肯定不可能超过数组长度
             // TODO: 是否需要减1
             if (index >= this.list.length - 1) {
               return index;
@@ -184,11 +194,17 @@
           const startIndex = this.getStartIndex(scrollTop);
           let endIndex = startIndex;
           const startItem = this.getMetaItemData(startIndex);
+          // 可视区域最大的offset
+          // TODO: 这个可能还是不够准确
+          const maxOffset = startItem.offset + this.viewHeight;
           let endOffset = startItem.offset + startItem.size;
           // endItem的offset小于
-          while(endOffset <= startItem.offset + this.viewHeight && endIndex <= this.list.length) {
-            // TODO:
+          // 累加直到 endIndx的元素不在可见的范围内
+          while (endOffset <= startItem.offset + this.viewHeight && endIndex <= this.list.length - 1) {
+            endIndex++;
+            endOffset += this.getMetaItemData(endIndex).size;
           }
+          return endIndex;
         },
         handleScroll(event) {
           const scrollTop = this.$refs.container.scrollTop;
