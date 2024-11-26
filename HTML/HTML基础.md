@@ -205,3 +205,24 @@ document.onvisibilitychange = function(event) {
 
 
 ### 22. shadow dom
+
+### 23. H5新特性
+1. 语义化标签
+```html
+<header></header>
+<nav></nav>
+<section></section>
+<aside></aside>
+<article></article>
+<footer></footer>
+```
+2. 表单控件的增强：新的输入类型：`email`、`url`、`date`、`range`、`color`等；新的属性：`placeholder`、`autofocus`、`required`、`pattern`等。
+3. 多媒体支持：`<audio>`, `<video>`
+4. 支持canvas
+5. 本地存储: localStorage、sectionStorage、IndexedDB等
+6. 地理定位：Geolocation
+7. 拖放功能：
+```js
+addEventListener("drag", (event) => {});
+```
+8. web-worder
