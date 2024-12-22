@@ -1,27 +1,21 @@
-/**
- * @param {number} k
- * @param {number} n
- * @return {number[][]}
- */
 var combinationSum3 = function (k, n) {
   const res = [];
   const curr = [];
-  // 当前还剩需要几位数 // 当前的总和
-  const backTracking = (startItem, num, sum) => {
-    if (num < 0 || sum < 0) {
+  const backTracking = (startIndex, currSum) => {
+    if (curr.length === k) {
+      if (currSum === n) {
+        res.push(curr.slice());
+      }
       return;
     }
-    if (num === 0 && sum === 0) {
-      res.push(curr.slice());
-      return;
-    }
-    for (let i = startItem + 1; i <= Math.min(9, sum); i++) {
+    for (let i = startIndex; i <= 9 - (k - curr.length) + 1; i++) {
       curr.push(i);
-      backTracking(i, num - 1, sum - i);
+      currSum += i;
+      backTracking(i + 1, currSum);
+      currSum -= i;
       curr.pop();
     }
   };
-  backTracking(0, k, n);
+  backTracking(1, 0);
   return res;
 };
-console.log(JSON.stringify(combinationSum3(3, 7)));
