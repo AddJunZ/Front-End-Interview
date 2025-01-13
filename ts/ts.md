@@ -75,3 +75,18 @@ const params3: Omit<RequestParams, 'name'> = { age: 21 }; // 在原来的类型�
    ```
 
 9. [Typescript项目别名（alias）配置清单](https://zhuanlan.zhihu.com/p/298189197)
+
+### 使用枚举的方式
+```ts
+// 1. enum
+enum EAgent {
+  AAA = 'AAA',
+  BBB = 'BBB',
+  CCC = 'CCC',
+}
+const agent = [EAgent.AAA, EAgent.BBB, EAgent.CCC];
+
+// 2. type
+const agent = ['AAA', 'BBB', 'CCC'] as const;
+type TAgent = typeof agent[number];
+```
